@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homerun Switch — UX Prototype v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#fc8f29;
+    --orange-soft:#fef1e2;
+    --ink:#24211e;
+    --ink-70:#57514a;
+    --ink-40:#8a827a;
+    --paper:#faf7f2;
+    --card:#ffffff;
+    --line:#ece5db;
+    --good:#2f8f5b;
+    --good-soft:#e7f4ec;
+    --warn:#b8791b;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(36,33,30,.05), 0 4px 14px rgba(36,33,30,.05);
+    --disp:"Wallop","Bricolage Grotesque",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --body:"Hanken Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{margin:0;font-family:var(--disp);font-weight:700;letter-spacing:-.01em}
+  p{margin:0}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:18px;padding:14px 0}
+  .logo{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .logo b{color:var(--orange)}
+  .tabs{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--ink-70);padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--body)}
+  .tab:hover{border-color:var(--orange)}
+  .tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .notetoggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--ink-70);cursor:pointer;user-select:none}
+  .switchui{width:38px;height:22px;background:var(--line);border-radius:999px;position:relative;transition:.2s}
+  .switchui::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+  .notetoggle.on .switchui{background:var(--orange)}
+  .notetoggle.on .switchui::after{left:18px}
+
+  .panel{display:none;padding:28px 0 80px}
+  .panel.active{display:block}
+  .phasehead{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .phasehead .k{font-size:12px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.08em}
+  .phasehead h2{font-size:27px}
+  .lede{color:var(--ink-70);max-width:660px;margin:8px 0 22px;font-size:15px}
+
+  .note{border:1px dashed var(--orange);background:var(--orange-soft);border-radius:10px;padding:12px 14px;margin:14px 0;font-size:13px;color:#7a4d13;display:none}
+  body.notes .note{display:block}
+  .note b{color:#5c390d}
+  .note .lbl{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:3px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+  .card .obj{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-40);margin-bottom:12px}
+
+  /* provider strip */
+  .providers{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+  .providers .t{font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
+  .plogo{font-family:var(--disp);font-weight:700;font-size:13px;color:var(--ink-70);padding:5px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+
+  /* SNAPSHOT */
+  .snap .row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .snap .row:last-child{border-bottom:0}
+  .snap .row .lab{color:var(--ink-70)}
+  .snap .row .val{font-weight:700;text-align:right}
+  .snap .headline{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:2px 0 14px}
+  .snap .headline .big{font-family:var(--disp);font-size:34px;font-weight:800;letter-spacing:-.02em}
+  .snap .pill{font-size:11px;font-weight:800;padding:4px 9px;border-radius:6px;background:var(--orange-soft);color:var(--warn);text-align:center}
+  .splitbar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+  .splitbar .u{background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px}
+  .splitbar .s{background:var(--ink);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px}
+  .splitkey{display:flex;gap:16px;margin-top:8px;font-size:12px;color:var(--ink-70);flex-wrap:wrap}
+  .splitkey b{color:var(--ink)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+  .foot-note{font-size:11px;color:var(--ink-40);margin-top:8px;line-height:1.5}
+
+  /* reference bar */
+  .refbar .track{position:relative;height:44px;background:linear-gradient(90deg,var(--good-soft),#fbeede);border-radius:8px;border:1px solid var(--line)}
+  .refmark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink)}
+  .refmark span{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;white-space:nowrap;color:var(--ink)}
+  .youmark{position:absolute;top:50%;transform:translate(-50%,-50%);background:var(--orange);color:#fff;font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;box-shadow:var(--shadow)}
+  .bestmark{position:absolute;top:50%;transform:translate(-50%,-50%);background:var(--good);color:#fff;font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px}
+
+  /* SWITCH CARD */
+  .offer{border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px;position:relative}
+  .offer.lead{border-color:var(--orange)}
+  .offer .tag{position:absolute;top:-10px;left:14px;background:var(--ink);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+  .offer .oh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .offer .oname{font-family:var(--disp);font-weight:700;font-size:16px}
+  .offer .osub{font-size:12px;color:var(--ink-70);margin-top:2px}
+  .offer .primary{margin-top:12px;display:flex;align-items:baseline;gap:8px}
+  .offer .primary .num{font-family:var(--disp);font-size:26px;font-weight:800;color:var(--good)}
+  .offer .primary .lab{font-size:12px;font-weight:700;color:var(--ink-70)}
+  .offer .oneoff{margin-top:8px;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+  .offer .oneoff b{color:var(--warn)}
+  .reversion{margin-top:10px;font-size:12px;color:var(--warn);background:#fdf6ea;border-radius:8px;padding:8px 10px}
+  details.assump{margin-top:8px;font-size:12px}
+  details.assump summary{cursor:pointer;font-weight:700;color:var(--ink-70)}
+  details.assump p{margin-top:6px;color:var(--ink-70);line-height:1.5}
+
+  .rewardblock{border:1px solid #cfe7d9;background:var(--good-soft);border-radius:10px;padding:14px 16px;margin-top:4px}
+  .rewardblock h4{font-size:14px;color:#1f6e44}
+  .rewardblock p{font-size:12.5px;color:#1f6e44;margin-top:4px}
+
+  .wom{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 14px;font-size:13px;color:var(--ink-70);margin:16px 0}
+  .wom b{color:var(--ink)}
+
+  /* NEXT STEP */
+  .nextstep{background:var(--ink);color:#fff;border-radius:var(--radius);padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .nextstep .txt h4{font-size:17px;color:#fff}
+  .nextstep .txt p{font-size:13px;color:#cfc7bd;margin-top:3px;max-width:560px}
+  .btn{background:var(--orange);color:#fff;border:0;border-radius:8px;padding:13px 22px;font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;font-family:var(--body)}
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff}
+  .btn.small{padding:9px 16px;font-size:13px}
+  .btn.linebtn{background:#fff;color:var(--ink);border:1px solid var(--line)}
+
+  .flowtoggle{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px;margin-bottom:8px}
+  .flowtoggle button{border:0;background:transparent;padding:9px 16px;border-radius:6px;font-weight:800;font-size:13px;color:var(--ink-70);cursor:pointer;font-family:var(--body)}
+  .flowtoggle button.active{background:var(--ink);color:#fff}
+  .flowbanner{border-radius:8px;padding:12px 14px;font-size:13px;margin:12px 0 18px;font-weight:600}
+  .flowbanner.anon{background:#f2efe9;color:var(--ink-70);border:1px solid var(--line)}
+  .flowbanner.acct{background:var(--good-soft);color:#1f6e44;border:1px solid #cfe7d9}
+
+  .dropzone{border:2px dashed var(--line);border-radius:12px;padding:26px;text-align:center;background:#fff;margin-bottom:8px}
+  .dropzone .big{font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:4px}
+  .dropzone .sub{font-size:13px;color:var(--ink-70)}
+  .chips{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:6px 12px;background:var(--paper)}
+  .done{font-size:12px;color:var(--good);font-weight:800;margin-bottom:10px}
+
+  .honest{margin:16px 0}
+  .honest summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ink-70);list-style:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:11px 14px}
+  .honest[open] summary{border-radius:8px 8px 0 0}
+  .honestbody{border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;background:var(--good-soft);padding:14px 16px}
+  .honestbody h4{font-size:14px;color:#1f6e44}
+  .honestbody p{font-size:13px;color:#1f6e44;margin-top:4px}
+
+  .steps{list-style:none;margin:6px 0 0;padding:0}
+  .steps li{display:flex;gap:14px;padding-bottom:18px;position:relative}
+  .steps li:not(:last-child)::before{content:"";position:absolute;left:13px;top:26px;bottom:0;width:2px;background:var(--line)}
+  .steps .num{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0}
+  .steps .num.done{background:var(--good)}
+  .steps .num.wait{background:var(--card);color:var(--ink-40);border:2px solid var(--line)}
+  .steps .body h4{font-size:14.5px}
+  .steps .body p{font-size:12.5px;color:var(--ink-70);margin-top:2px}
+
+  .cycle{display:flex;align-items:center;gap:4px;margin:14px 0}
+  .cyc{flex:1;height:8px;border-radius:999px;background:var(--line)}
+  .cyc.fill{background:var(--good)}
+  .cyc.now{background:var(--orange)}
+  .cyclabel{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-40);font-weight:700}
+
+  .ledger{display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(120deg,#24211e,#3b352f);color:#fff;border-radius:var(--radius);padding:22px;flex-wrap:wrap}
+  .ledger .n{font-family:var(--disp);font-size:40px;font-weight:800;letter-spacing:-.02em;color:var(--orange)}
+  .ledger .lab{font-size:13px;color:#cfc7bd;margin-top:2px}
+  .ledger .side{text-align:right;font-size:12px;color:#cfc7bd}
+  .ledger .side b{display:block;color:#fff;font-size:15px}
+  details.ledgerhow{margin-top:10px}
+  details.ledgerhow summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--ink-70)}
+  details.ledgerhow p{font-size:12px;color:var(--ink-70);margin-top:6px;line-height:1.55}
+
+  .trend{display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:8px}
+  .trend .b{flex:1;background:var(--orange-soft);border-radius:6px 6px 0 0;position:relative;display:flex;justify-content:center}
+  .trend .b .cap{position:absolute;bottom:100%;font-size:10px;font-weight:800;color:var(--ink-70);padding-bottom:2px}
+  .trend .b .mo{position:absolute;top:100%;font-size:10px;color:var(--ink-40);padding-top:3px}
+  .trend .b i{position:absolute;bottom:0;left:0;right:0;background:var(--orange);border-radius:6px 6px 0 0}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:5px 11px;border-radius:6px}
+  .badge.harvest{background:var(--orange-soft);color:var(--warn)}
+
+  /* mobile mock */
+  .phone{width:230px;border:8px solid var(--ink);border-radius:28px;background:#fff;padding:14px;box-shadow:var(--shadow);margin:0 auto}
+  .phone .pn{font-size:9px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+  .phone .prow{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .phone .prow:last-child{border-bottom:0}
+  .phone .prow b{font-weight:700}
+
+  .disc{font-size:11.5px;color:var(--ink-40);border-top:1px solid var(--line);margin-top:22px;padding-top:12px;line-height:1.6}
+  .disc b{color:var(--ink-70)}
+  .foot{max-width:1040px;margin:0 auto;padding:20px;font-size:12px;color:var(--ink-40)}
+  .sampleflag{font-size:11px;color:var(--ink-40);font-style:italic;margin-top:8px}
+  .sectlabel{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-40);margin:26px 0 10px}
+</style>
+</head>
+<body class="notes">
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">home<b>run</b> · switch</div>
+    <div class="tabs">
+      <button class="tab active" data-tab="t1">1 · Before first switch</button>
+      <button class="tab" data-tab="t2">2 · Just after switching</button>
+      <button class="tab" data-tab="t3">3 · Ongoing dashboard</button>
+    </div>
+    <div class="notetoggle on" id="noteToggle"><span class="switchui"></span> Design notes</div>
+  </div>
+</header>
+
+<!-- =============== TAB 1 =============== -->
+<section class="panel active" id="t1">
+  <div class="wrap">
+    <div class="phasehead"><span class="k">Touchpoint 1</span><h2>Before their first switch</h2></div>
+    <p class="lede">The bill upload landing page. Give real value from a single bill, honestly, and earn the signup. This is where your ads, social, Conrad and Flatmate Finders point.</p>
+
+    <div class="note"><span class="lbl">v2 changes</span>Compliance pass applied. We now lead with the ongoing saving, keep one off credits separate, pull the Homerun reward out of the comparison, qualify every "best", front the whole of market disclosure, and route consent through a plan details step. Brand pass applied too: Wallop display type, tighter corners, calmer shadows, provider strip.</div>
+
+    <div class="flowtoggle">
+      <button class="active" data-flow="anon">Quick check, not saved</button>
+      <button data-flow="acct">Create account and save</button>
+    </div>
+    <div class="flowbanner anon" id="flowBanner">We do not save anything on this flow. Your bill is read in your browser and nothing is stored. Refresh the page and it is gone. No email needed.</div>
+
+    <div class="providers">
+      <span class="t">We compare</span>
+      <span class="plogo">ENGIE</span><span class="plogo">Origin</span><span class="plogo">AGL</span><span class="plogo">Red Energy</span><span class="plogo">Alinta</span><span class="plogo">Tango</span><span class="plogo">+ more</span>
+    </div>
+
+    <div class="dropzone">
+      <div class="big">Forward, screenshot or upload your latest bill</div>
+      <div class="sub">Any format. We read the rates, not your identity.</div>
+      <div class="chips"><span class="chip">Forward to bill@homerun.app</span><span class="chip">Upload PDF</span><span class="chip">Snap a photo</span></div>
+    </div>
+    <div class="done">Bill read. Here is what it is actually costing you.</div>
+
+    <div class="grid">
+      <!-- SNAPSHOT -->
+      <div class="card snap">
+        <div class="obj">Object 1 · Bill Snapshot</div>
+        <div class="row"><span class="lab">Retailer and plan</span><span class="val">EnergyAustralia · Balance Plan (Home)</span></div>
+        <div class="row"><span class="lab">Billing period</span><span class="val">28 Apr to 28 Jul 2026 · 92 days</span></div>
+        <div class="headline">
+          <div><div style="font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.06em">This bill</div><div class="big">$1,546.99</div></div>
+          <span class="pill">Above the<br>reference price</span>
+        </div>
+
+        <div style="font-size:12px;font-weight:800;color:var(--ink-70);margin-bottom:6px">Where the money goes</div>
+        <div class="splitbar"><div class="u" style="width:88%">Usage · $1,431</div><div class="s" style="width:12%">Supply</div></div>
+        <div class="splitkey">
+          <span><span class="dot" style="background:var(--orange)"></span><b>Usage</b> 33.13c per kWh · what you use</span>
+          <span><span class="dot" style="background:var(--ink)"></span><b>Supply</b> $1.66 per day · fixed, no matter what</span>
+        </div>
+        <div class="note"><span class="lbl">The aha</span>Almost nobody knows the supply charge is a fixed daily cost you pay even at zero usage. Naming it is the trust moment.</div>
+
+        <div class="row"><span class="lab">Your usage</span><span class="val">41.3 kWh per day · up 2% on last year</span></div>
+        <div class="row"><span class="lab">Costing you</span><span class="val">$16.82 per day</span></div>
+        <div class="row"><span class="lab">Your own retailer flags</span><span class="val">a cheaper plan of their own exists</span></div>
+        <p class="foot-note">Reference price is the Default Market Offer for the Ausgrid network, the benchmark set by the Australian Energy Regulator. Comparison shown uses the AER method at the reference annual usage. Sample figure in this prototype.</p>
+      </div>
+
+      <!-- SWITCH CARD -->
+      <div class="card">
+        <div class="obj">Object 2 · Switch Card</div>
+        <div style="font-size:13px;color:var(--ink-70);margin-bottom:6px">Offers priced against <b>your</b> usage. We lead with the ongoing saving, the number that lasts, and show one off credits separately.</div>
+
+        <div class="offer lead">
+          <span class="tag">Lower ongoing cost for your usage</span>
+          <div class="oh">
+            <div><div class="oname">ENGIE · Balanced</div><div class="osub">30.1c per kWh · $1.45 per day supply</div></div>
+          </div>
+          <div class="primary"><span class="num">$565</span><span class="lab">a year, ongoing, vs your plan</span></div>
+          <div class="oneoff">Plus a <b>one off</b> $400 ENGIE welcome credit. A first year sweetener, not an ongoing saving.</div>
+          <div class="reversion">The rate holds 12 months then reverts. Best value is the first 6 months, then we look again.</div>
+          <details class="assump"><summary>How we work this out</summary><p>Ongoing saving compares ENGIE's rates against your current rates, applied to your last 12 months of usage from your bill. It excludes the one off credit. If your usage changes, so does the saving.</p></details>
+        </div>
+
+        <div class="offer">
+          <div class="oh">
+            <div><div class="oname">Origin · Go Variable</div><div class="osub">30.6c per kWh · $1.38 per day supply · Everyday Rewards</div></div>
+          </div>
+          <div class="primary"><span class="num">$499</span><span class="lab">a year, ongoing, vs your plan</span></div>
+          <div class="oneoff">Plus a <b>one off</b> $200 credit and 10,000 points, worth about $50.</div>
+          <details class="assump"><summary>How we work this out</summary><p>Same method as above. Points valued at the conversion rate shown. One off items are kept out of the ongoing figure.</p></details>
+        </div>
+
+        <div class="rewardblock">
+          <h4>A thank you from Homerun, kept separate</h4>
+          <p>Switch to any plan through Homerun and we add $25 to your account. Switch electricity and gas and it becomes a $150 Homerun Visa gift card. It is the same on every offer, so it never changes which plan is right for you.</p>
+        </div>
+        <p class="sampleflag">Your current rates are read from your real bill. Comparison offers are sample data for this prototype.</p>
+      </div>
+    </div>
+
+    <div class="wom">
+      <div><b>We are not whole of market.</b> We compare our panel, not every retailer in Australia. You can always compare all offers free at energymadeeasy.gov.au, and we will remind you to.</div>
+    </div>
+
+    <details class="honest">
+      <summary>See the honest outcome when there is no better deal</summary>
+      <div class="honestbody">
+        <h4>Good news. You are already on a competitive plan.</h4>
+        <p>Switching right now would not save you enough to be worth the effort. We would rather tell you that than move you for a commission. Leave us your bill and we will watch it, and only nudge you when a genuinely better move appears.</p>
+      </div>
+    </details>
+    <div class="note"><span class="lbl">Why show this</span>Letting a stranger see the do nothing outcome, before they even sign up, is the strongest trust move you have. It is the thing a commission funded comparator structurally cannot say.</div>
+
+    <div class="sectlabel">Object 3 · The one next step</div>
+    <div class="nextstep">
+      <div class="txt"><h4>See ENGIE's full plan details, then confirm</h4><p id="nsSub">You see every rate, fee and the cooling off terms before anything happens. Confirming on the next screen is where you give consent. You then have 10 business days to change your mind.</p></div>
+      <button class="btn">See plan details</button>
+    </div>
+    <div class="note"><span class="lbl">Rule in play</span>Consent needs full disclosure before it counts. The tap opens the plan details and confirm step where CIMET captures consent. It is not a one tap switch straight off the card, and there is no standing authority to switch them again later.</div>
+
+    <div class="disc">
+      <b>Disclosure, on the page not buried.</b> Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. That is how the service stays free. The $25 and $150 rewards are a thank you for switching, not payment for advice. Every point and gift card is shown at the dollar conversion rate on each offer. This copy is placeholder and not yet CIMET approved.
+    </div>
+  </div>
+</section>
+
+<!-- =============== TAB 2 =============== -->
+<section class="panel" id="t2">
+  <div class="wrap">
+    <div class="phasehead"><span class="k">Touchpoint 2</span><h2>Immediately after the first switch</h2></div>
+    <p class="lede">Turn a one off switch into an ongoing relationship. Kill the post switch anxiety, set the six monthly rhythm, and protect them from switching again too early and forfeiting the credit. This is where the account is born.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="obj">Confirmation</div>
+        <h3 style="font-size:20px;margin-bottom:4px">You are switching to ENGIE</h3>
+        <p style="font-size:13px;color:var(--ink-70);margin-bottom:8px">Nice work. Here is exactly what happens now, so there are no surprises.</p>
+        <ul class="steps">
+          <li><span class="num done">1</span><div class="body"><h4>ENGIE handles the switch</h4><p>Your new retailer completes it through the market systems. You do not need to call anyone or contact EnergyAustralia.</p></div></li>
+          <li><span class="num done">2</span><div class="body"><h4>One final bill from EnergyAustralia</h4><p>Then your bills come from ENGIE. No overlap, no double charge.</p></div></li>
+          <li><span class="num wait">3</span><div class="body"><h4>10 business days to change your mind</h4><p>Cooling off. No penalty, no exit fee if you pull out.</p></div></li>
+          <li><span class="num wait">4</span><div class="body"><h4>Do nothing until month 6</h4><p>We will tell you when it is worth looking again.</p></div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="obj">Set the clock</div>
+        <h3 style="font-size:18px;margin-bottom:8px">Your switch cycle</h3>
+        <div class="cyclabel"><span>Switched</span><span>Credit lands</span><span>Next move</span></div>
+        <div class="cycle"><div class="cyc now"></div><div class="cyc"></div><div class="cyc"></div><div class="cyc"></div><div class="cyc"></div><div class="cyc"></div></div>
+        <div class="cyclabel"><span>Month 0</span><span>Month 3</span><span>Month 6</span></div>
+        <div class="reversion" style="margin-top:14px"><b>Do not switch again before month 3.</b> Your ENGIE welcome credit needs the switch to complete. Leave early and you forfeit it.</div>
+        <div class="note"><span class="lbl">Aligned interests</span>The deferred credit is the real speed limit on switching, not the eligibility rules. Telling them to hold is honest, and it happens to protect your commission too, since CIMET only pays once the sale is deemed complete at about the 3 month mark.</div>
+
+        <div style="margin-top:14px">
+          <div style="font-size:12px;font-weight:800;color:var(--ink-70);margin-bottom:6px">Homerun reward tracker</div>
+          <div class="cyclabel"><span>$25 electricity thank you</span><span>Redeems about 90 to 120 days</span></div>
+          <div class="cycle"><div class="cyc fill"></div><div class="cyc fill"></div><div class="cyc now"></div><div class="cyc"></div></div>
+          <p style="font-size:12px;color:var(--ink-70);margin-top:6px">Add gas too and the thank you becomes a $150 Homerun Visa gift card.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sectlabel">Account created · bill habit set</div>
+    <div class="grid">
+      <div class="card" style="border-color:#cfe7d9;background:var(--good-soft)">
+        <div class="obj" style="color:#1f6e44">Your account is live</div>
+        <h3 style="font-size:17px">Saved to your Homerun Switch Dashboard</h3>
+        <p style="font-size:13px;color:#1f6e44;margin-top:6px">This switch created your account. From here it syncs to the Homerun app when you download it, so the web and phone show the same thing.</p>
+      </div>
+      <div class="card snap">
+        <div class="obj">Object 1 · Bill Snapshot, new state</div>
+        <div class="row"><span class="lab">Now on</span><span class="val">ENGIE · Balanced · 30.1c per kWh</span></div>
+        <div class="row"><span class="lab">Cycle position</span><span class="val">Month 0 of 6</span></div>
+        <div class="row"><span class="lab">Next step</span><span class="val" style="color:var(--warn)">Hold. Forward your next bill.</span></div>
+      </div>
+    </div>
+
+    <div class="sectlabel">Object 3 · The one next step</div>
+    <div class="nextstep">
+      <div class="txt"><h4>Forward every new bill to bill@homerun.app</h4><p>That is the whole habit. Each bill lands, we refresh your snapshot, and we only nudge you when there is a genuinely better move. Or turn on reminders and we chase you.</p></div>
+      <button class="btn">Turn on bill reminders</button>
+    </div>
+  </div>
+</section>
+
+<!-- =============== TAB 3 =============== -->
+<section class="panel" id="t3">
+  <div class="wrap">
+    <div class="phasehead"><span class="k">Touchpoint 3</span><h2>The ongoing dashboard (web app)</h2></div>
+    <p class="lede">The long game. Web first, then the mobile app, with the account syncing across both. This has to visibly earn its keep each quarter or it reads as surveillance rather than value.</p>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+      <h3 style="font-size:20px">Hi Scott</h3>
+      <span class="badge harvest">Strategy · Harvesting offers</span>
+    </div>
+
+    <div class="ledger">
+      <div>
+        <div class="n">$1,180</div><div class="lab">Banked with Homerun since you joined</div>
+        <details class="ledgerhow"><summary>How we calculate this</summary><p>Adds the retailer credits paid to you, the Homerun rewards redeemed, and the modelled rate saving, which is what you would have paid on your previous plan for the same usage, minus what you actually paid. The rate saving is an estimate based on your real bills.</p></details>
+      </div>
+      <div class="side"><b>2 switches</b>in 11 months<br><b>$150</b>gift card redeemed</div>
+    </div>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="card snap">
+        <div class="obj">Object 1 · Bill Snapshot</div>
+        <div class="row"><span class="lab">Current plan</span><span class="val">ENGIE · Balanced</span></div>
+        <div class="headline">
+          <div><div style="font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.06em">Latest bill</div><div class="big">$1,268</div></div>
+          <span class="pill" style="background:var(--good-soft);color:#1f6e44">Below the<br>reference price</span>
+        </div>
+        <div class="cyclabel"><span>Switched</span><span>Credit banked</span><span>Next move</span></div>
+        <div class="cycle"><div class="cyc fill"></div><div class="cyc fill"></div><div class="cyc fill"></div><div class="cyc now"></div><div class="cyc"></div><div class="cyc"></div></div>
+        <div class="cyclabel"><span>Month 0</span><span>Month 3</span><span>Month 6</span></div>
+        <p style="font-size:13px;color:var(--ink-70);margin-top:10px">You are in month 4 of 6. Credit is banked. Sit tight, the next look is around month 6.</p>
+
+        <div class="refbar" style="margin-top:16px">
+          <div style="font-size:12px;font-weight:800;color:var(--ink-70);margin-bottom:20px">Your plan against the market, for your usage</div>
+          <div class="track">
+            <div class="refmark" style="left:62%"><span>Reference price</span></div>
+            <div class="bestmark" style="left:30%">Lowest of these</div>
+            <div class="youmark" style="left:52%">You</div>
+          </div>
+          <p class="foot-note">Positions against the Default Market Offer for the Ausgrid network, using the AER method. Sample data in this prototype.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="obj">Object 2 · Switch Card, honest resting state</div>
+        <div style="background:var(--good-soft);border:1px solid #cfe7d9;border-radius:10px;padding:16px;margin-bottom:14px">
+          <div style="font-family:var(--disp);font-weight:700;color:#1f6e44;font-size:15px;margin-bottom:4px">You are on a strong rate. Nothing to do.</div>
+          <p style="font-size:13px;color:#1f6e44">Switching now would cost you the credit you are still earning. We will surface the next offer around month 6. We would rather show you nothing than churn you for a commission.</p>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:var(--ink-70);margin-bottom:2px">Your bills over time</div>
+        <div class="trend">
+          <div class="b" style="height:100%"><span class="cap">$1,547</span><i style="height:100%"></i><span class="mo">Jul</span></div>
+          <div class="b" style="height:82%"><span class="cap">$1,268</span><i style="height:82%"></i><span class="mo">Oct</span></div>
+          <div class="b" style="height:80%"><span class="cap">$1,240</span><i style="height:80%;background:var(--line)"></i><span class="mo">Jan est</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--ink-40);margin-top:26px">First bar is your old EnergyAustralia bill. The drop is the switch working.</p>
+      </div>
+    </div>
+
+    <div class="sectlabel">Same account, on the phone</div>
+    <div class="grid" style="align-items:center">
+      <div class="phone">
+        <div class="pn">Homerun app · Switch</div>
+        <div class="prow"><span>ENGIE · Balanced</span><b>Month 4 of 6</b></div>
+        <div class="prow"><span>Latest bill</span><b>$1,268</b></div>
+        <div class="prow"><span>Banked</span><b style="color:var(--good)">$1,180</b></div>
+        <div class="prow"><span>Next move</span><b style="color:var(--warn)">Hold</b></div>
+        <div style="margin-top:10px;font-size:11px;color:var(--ink-40)">Snap your next bill here</div>
+      </div>
+      <div class="note" style="display:block"><span class="lbl">Continuity</span>The phone shows the same Bill Snapshot and the same banked total as the web app, because it is one synced account. Web first, then the app becomes the place the quarterly habit and the nudges live. The switch itself works natively in both.</div>
+    </div>
+
+    <div class="disc">
+      <b>Always on this screen.</b> Reference price is the Default Market Offer for your network, shown as the benchmark using the AER method. Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. We show the dollar value of every point and gift card using the conversion rate on each offer, so you can compare like for like.
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  Prototype v2 for internal review. Current plan rates are read from a real EnergyAustralia bill (name removed). Comparison offers, reference price positions and dollar values are illustrative sample data. Not for publishing. Copy is placeholder and not CIMET approved. Display font is Wallop where available, with a Bricolage Grotesque fallback.
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+  const nt=document.getElementById('noteToggle');
+  nt.addEventListener('click',()=>{nt.classList.toggle('on');document.body.classList.toggle('notes');});
+  const banner=document.getElementById('flowBanner');
+  const nsSub=document.getElementById('nsSub');
+  document.querySelectorAll('.flowtoggle button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.flowtoggle button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    if(b.dataset.flow==='anon'){
+      banner.className='flowbanner anon';
+      banner.textContent='We do not save anything on this flow. Your bill is read in your browser and nothing is stored. Refresh the page and it is gone. No email needed.';
+      nsSub.textContent='This flow saves nothing, so create a free account at the same time and we watch your bill every quarter. You see the full plan details before you confirm, and you get 10 business days to change your mind.';
+    }else{
+      banner.className='flowbanner acct';
+      banner.textContent='Account first. You create your Homerun login, then upload. Your bill is saved, we watch it every quarter, and it syncs to the Homerun app. You can delete it any time.';
+      nsSub.textContent='Your account is already set up, so switching also starts your quarterly watch. You see the full plan details before you confirm, and you get 10 business days to change your mind.';
+    }
+  }));
+</script>
+</body>
+</html>
