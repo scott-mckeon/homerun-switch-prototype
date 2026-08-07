@@ -85,6 +85,17 @@
   select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2357514a' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
   .startpick .btn{margin-top:12px}
   .secure{margin-top:14px;font-size:13px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:9px;padding:11px 14px}
+  .statement{font-size:38px;letter-spacing:-.02em;line-height:1.08;max-width:15em}
+  @media(max-width:560px){.statement{font-size:29px}}
+  .mpanel{display:none;max-width:460px}
+  .backbtn{background:none;border:0;color:var(--ink-70);font-family:var(--body);font-weight:700;font-size:13px;cursor:pointer;padding:6px 0;margin-bottom:12px}
+  .backbtn:hover{color:var(--orange)}
+  .dropzone{border:2px dashed var(--line);border-radius:14px;padding:40px 24px;text-align:center;cursor:pointer;background:var(--card);transition:.15s}
+  .dropzone:hover{border-color:var(--orange);background:var(--orange-soft)}
+  .dropzone .dzi{width:48px;height:48px;border-radius:12px;background:var(--orange-soft);color:var(--warn);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:22px;margin:0 auto 14px}
+  .dropzone .dzt{font-family:var(--disp);font-weight:800;font-size:16px}
+  .dropzone .dzs{font-size:13px;color:var(--ink-70);margin-top:6px}
+  .mform .mrow{margin-bottom:14px}
 
   #loader{display:none;padding:60px 0;text-align:center}
   #loader.on{display:block}
@@ -197,10 +208,31 @@
   <div class="step" id="s1">
     <h1 class="hook reveal in">Most people have no idea what's on their energy bill.</h1>
     <p class="lead big reveal in d1" style="margin-top:16px">And understanding it is the single biggest step to a better deal.</p>
-    <div class="reveal in d2" style="margin-top:28px"><button class="btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">Get started</button></div>
+    <div class="reveal in d2" style="margin-top:28px"><button class="btn" onclick="document.getElementById('m2').scrollIntoView({behavior:'smooth'})">Get started</button></div>
   </div>
 
-  <!-- Step 2: two numbers + typical -->
+  <!-- Module: confusing by design -->
+  <div class="step" id="m2">
+    <h2 class="statement reveal">Energy plans are confusing. And that's by design.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Over 30 retailers in NSW, and AGL alone runs more than 1,300 plans. You're not meant to be able to compare them.</p>
+    <div class="cue reveal d2">Keep going <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Module: so you don't switch -->
+  <div class="step" id="m3">
+    <h2 class="statement reveal">They make it complicated so you don't bother.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Most people never switch. The ACCC found households who stay put pay around $221 a year more than those on a newer plan.</p>
+    <div class="cue reveal d2">But here's the thing <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Module: you can do something -->
+  <div class="step" id="m4">
+    <h2 class="statement reveal">But you can do something about it.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">It's simpler than they want you to think. We're going to show you exactly how, and it comes down to two numbers.</p>
+    <div class="cue reveal d2">Show me <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Step: two numbers + typical -->
   <div class="step" id="s2">
     <h2 class="h reveal">It comes down to two numbers.</h2>
     <div class="reveal d1"><div class="splitbar"><div class="s">Supply</div><div class="u">Usage</div></div></div>
@@ -232,16 +264,41 @@
   <!-- Step 4: get started dropdown -->
   <div class="step" id="s4">
     <div id="startbox">
-      <h2 class="h reveal">Now it's your turn.</h2>
-      <div class="startpick reveal d1">
-        <label class="field">Select how you want to check your rates</label>
-        <select class="inp" id="method">
-          <option>Upload my bill (secure)</option>
-          <option>Screenshot my rates and usage</option>
-          <option>Enter the numbers manually</option>
-        </select>
-        <button class="btn block" onclick="startLoad()">Check my rates</button>
-        <div class="secure">We never need your name, address or account number. Only the rates and usage.</div>
+      <div id="startselect">
+        <h2 class="h reveal">Now it's your turn.</h2>
+        <div class="startpick reveal d1">
+          <label class="field">Select how you want to check your rates</label>
+          <select class="inp" id="method">
+            <option value="upload">Upload my bill (secure)</option>
+            <option value="screenshot">Screenshot my rates and usage</option>
+            <option value="manual">Enter the numbers manually</option>
+          </select>
+          <button class="btn block" onclick="chooseMethod()">Continue</button>
+          <div class="secure">We never need your name, address or account number. Only the rates and usage.</div>
+        </div>
+      </div>
+
+      <div id="panel-upload" class="mpanel">
+        <button class="backbtn" onclick="backToSelect()">&#8592; Change method</button>
+        <h2 class="h">Upload your bill.</h2>
+        <div class="dropzone" onclick="startLoad()"><div class="dzi">&#8593;</div><div class="dzt">Drag your bill PDF here, or tap to browse</div><div class="dzs">We read only the rates and usage. Secure.</div></div>
+      </div>
+
+      <div id="panel-screenshot" class="mpanel">
+        <button class="backbtn" onclick="backToSelect()">&#8592; Change method</button>
+        <h2 class="h">Drop your screenshot.</h2>
+        <div class="dropzone" onclick="startLoad()"><div class="dzi">&#9635;</div><div class="dzt">Drop a screenshot of your rates and usage</div><div class="dzs">Just the rates and usage. No personal details.</div></div>
+      </div>
+
+      <div id="panel-manual" class="mpanel">
+        <button class="backbtn" onclick="backToSelect()">&#8592; Change method</button>
+        <h2 class="h">Enter your numbers.</h2>
+        <div class="mform" style="max-width:460px">
+          <div class="mrow"><label class="field">Supply rate, dollars per day</label><input class="inp" placeholder="e.g. 1.66"></div>
+          <div class="mrow"><label class="field">Usage rate, cents per kWh</label><input class="inp" placeholder="e.g. 33.13"></div>
+          <div class="mrow"><label class="field">Average daily usage, kWh</label><input class="inp" placeholder="e.g. 15"></div>
+          <button class="btn block" onclick="startLoad()">Check my rates</button>
+        </div>
       </div>
     </div>
     <div id="loader">
@@ -465,6 +522,16 @@
     window.scrollTo({top:0});
   }));
 
+  function chooseMethod(){
+    const m=document.getElementById('method').value;
+    document.getElementById('startselect').style.display='none';
+    document.querySelectorAll('.mpanel').forEach(p=>p.style.display='none');
+    document.getElementById('panel-'+m).style.display='block';
+  }
+  function backToSelect(){
+    document.querySelectorAll('.mpanel').forEach(p=>p.style.display='none');
+    document.getElementById('startselect').style.display='block';
+  }
   function startLoad(){
     document.getElementById('startbox').style.display='none';
     const l=document.getElementById('loader');l.classList.add('on');
