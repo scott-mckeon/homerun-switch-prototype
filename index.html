@@ -16,126 +16,152 @@
     --body:"Hanken Grotesk",-apple-system,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.1}
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px}
 
+  #prog{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .1s linear}
   header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:16px;padding:14px 0;max-width:760px;margin:0 auto;padding-left:20px;padding-right:20px}
-  .logo{font-family:var(--disp);font-weight:800;font-size:19px}.logo b{color:var(--orange)}
+  .bar{display:flex;align-items:center;gap:16px;padding:13px 22px;max-width:720px;margin:0 auto}
+  .logo{font-family:var(--disp);font-weight:800;font-size:18px}.logo b{color:var(--orange)}
   .tabs{display:flex;gap:6px;flex:1;flex-wrap:wrap;justify-content:flex-end}
-  .tab{border:1px solid var(--line);background:var(--card);color:var(--ink-70);padding:7px 12px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--ink-70);padding:7px 11px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
   .tab:hover{border-color:var(--orange)}.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 
-  .page{display:none;padding:34px 0 90px}.page.active{display:block}
-  section.blk{margin-bottom:34px}
-  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
-  h1.big{font-size:38px;margin-bottom:10px}
-  h2.h{font-size:26px;margin-bottom:8px}
-  .lead{font-size:17px;color:var(--ink-70);font-weight:500}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-  .muted{color:var(--ink-70)}
-  .small{font-size:13px}.tiny{font-size:12px;color:var(--ink-40)}
+  .page{display:none}.page.active{display:block}
+
+  /* journey steps */
+  .step{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:48px 0}
+  .step.short{min-height:auto;padding:70px 0 20px}
+  h1.hook{font-size:44px;letter-spacing:-.03em}
+  @media(max-width:560px){h1.hook{font-size:34px}}
+  h2.h{font-size:28px;margin-bottom:12px}
+  .lead{font-size:19px;color:var(--ink-70);font-weight:500;max-width:30em}
+  .lead.big{font-size:22px}
+  .muted{color:var(--ink-70)}.small{font-size:13.5px}.tiny{font-size:12px;color:var(--ink-40)}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+  .cue{margin-top:44px;display:flex;align-items:center;gap:10px;color:var(--ink-40);font-weight:700;font-size:13px}
+  .cue .ch{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;animation:bob 1.6s ease-in-out infinite;background:var(--card)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
   /* two numbers */
-  .splitbar{display:flex;height:40px;border-radius:9px;overflow:hidden;border:1px solid var(--line);font-family:var(--disp);margin:6px 0 14px}
-  .splitbar .u{background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;width:82%}
-  .splitbar .s{background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;width:18%}
-  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .splitbar{display:flex;height:46px;border-radius:11px;overflow:hidden;border:1px solid var(--line);font-family:var(--disp);margin:14px 0 20px}
+  .splitbar .u{background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;width:82%}
+  .splitbar .s{background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;width:18%}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:560px){.twocol{grid-template-columns:1fr}}
-  .numdef{border:1px solid var(--line);border-radius:12px;padding:16px}
-  .numdef .t{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px}
-  .numdef .dot{width:11px;height:11px;border-radius:3px}
-  .numdef p{font-size:13.5px;color:var(--ink-70);margin-top:6px}
+  .numdef{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card)}
+  .numdef .t{font-weight:800;font-size:16px;display:flex;align-items:center;gap:9px}
+  .numdef .dot{width:12px;height:12px;border-radius:3px}
+  .numdef p{font-size:14px;color:var(--ink-70);margin-top:8px}
 
-  /* upload options */
-  .opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  /* get started */
+  .opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:8px}
   @media(max-width:560px){.opts{grid-template-columns:1fr}}
-  .opt{border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;background:var(--card);cursor:pointer}
-  .opt:hover{border-color:var(--orange)}
-  .opt .oi{font-family:var(--disp);font-weight:800;font-size:15px;margin-bottom:4px}
-  .opt .os{font-size:12px;color:var(--ink-70)}
-  .secure{margin-top:12px;font-size:12.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:9px 12px;display:inline-block}
+  .opt{border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;background:var(--card);cursor:pointer;transition:.15s}
+  .opt:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:0 10px 24px rgba(36,33,30,.08)}
+  .opt .ic{width:44px;height:44px;border-radius:12px;background:var(--orange-soft);color:var(--warn);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:20px;margin:0 auto 12px}
+  .opt .oi{font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:5px}
+  .opt .os{font-size:12.5px;color:var(--ink-70)}
+  .secure{margin-top:16px;font-size:13px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:9px;padding:11px 14px;text-align:center}
+
+  /* loader */
+  #loader{display:none;padding:70px 0;text-align:center}
+  #loader.on{display:block}
+  #loader .lt{font-family:var(--disp);font-weight:800;font-size:22px;margin-bottom:18px}
+  #loader .lb{max-width:340px;margin:0 auto;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+  #loader .lb i{display:block;height:100%;width:0;background:var(--orange);border-radius:99px}
+  #loader.on .lb i{animation:fill 1.7s ease forwards}
+  @keyframes fill{to{width:100%}}
+  #loader .ls{font-size:13px;color:var(--ink-40);margin-top:14px}
+
+  #results{display:none}
+  .rstep{padding:54px 0}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 
   /* benchmark bar */
-  .bench{position:relative;height:52px;border-radius:10px;background:linear-gradient(90deg,var(--good-soft),#fbeede,#f7ddc0);border:1px solid var(--line);margin:26px 0 12px}
-  .benchend{position:absolute;top:-20px;font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.05em}
-  .tick{position:absolute;top:-7px;bottom:-7px;width:2px;background:var(--ink)}
-  .tick span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;white-space:nowrap}
-  .mk{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:800;padding:5px 9px;border-radius:7px;box-shadow:0 2px 6px rgba(36,33,30,.15);white-space:nowrap}
+  .bench{position:relative;height:56px;border-radius:12px;background:linear-gradient(90deg,var(--good-soft),#fbeede,#f7ddc0);border:1px solid var(--line);margin:30px 0 14px}
+  .benchend{position:absolute;top:-22px;font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.05em}
+  .tick{position:absolute;top:-8px;bottom:-8px;width:2px;background:var(--ink)}
+  .tick span{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;white-space:nowrap}
+  .mk{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:800;padding:6px 10px;border-radius:8px;box-shadow:0 3px 8px rgba(36,33,30,.18);white-space:nowrap}
   .mk.you{background:var(--orange);color:#fff}.mk.new{background:var(--good);color:#fff}
 
   /* comparison table */
-  table.cmp{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
-  table.cmp th,table.cmp td{text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+  table.cmp{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+  table.cmp th,table.cmp td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--line)}
   table.cmp th:first-child,table.cmp td:first-child{text-align:left;color:var(--ink-70);font-weight:600}
   table.cmp thead th{font-family:var(--disp);font-weight:800;font-size:13px;color:var(--ink);border-bottom:2px solid var(--line)}
   table.cmp thead th.newcol{color:var(--good)}
   table.cmp td b{font-weight:800}
-  .fuelh{font-family:var(--disp);font-weight:800;font-size:15px;margin:18px 0 2px;display:flex;align-items:center;gap:8px}
+  .fuelh{font-family:var(--disp);font-weight:800;font-size:16px;margin:20px 0 2px;display:flex;align-items:center;gap:9px}
   .fuelh .pill{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--ink-40)}
 
-  /* offer + difference */
-  .offer-rows{margin-top:14px}
-  .orow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .orow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
   .orow:last-child{border-bottom:0}
   .orow .lab{color:var(--ink-70);font-weight:600}
-  .orow .val{font-weight:800;font-family:var(--disp)}
-  .orow .val.pos{color:var(--good)}.orow .val.oneoff{color:var(--warn)}
-  .diff{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-  .diffbox{border-radius:12px;padding:18px}
+  .orow .val{font-weight:800;font-family:var(--disp);color:var(--warn)}
+  .diff{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  @media(max-width:560px){.diff{grid-template-columns:1fr}}
+  .diffbox{border-radius:14px;padding:20px}
   .diffbox.ongoing{background:var(--good-soft);border:1px solid #cfe7d9}
   .diffbox.first{background:var(--orange-soft);border:1px solid #f6dcbb}
   .diffbox .dl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
   .diffbox.ongoing .dl{color:#1f6e44}.diffbox.first .dl{color:var(--warn)}
-  .diffbox .dn{font-family:var(--disp);font-weight:800;font-size:34px;line-height:1;margin-top:4px}
+  .diffbox .dn{font-family:var(--disp);font-weight:800;font-size:38px;line-height:1;margin-top:5px}
   .diffbox.ongoing .dn{color:var(--good)}.diffbox.first .dn{color:var(--warn)}
-  .diffbox .ds{font-size:12.5px;color:var(--ink-70);margin-top:5px}
+  .diffbox .ds{font-size:13px;color:var(--ink-70);margin-top:6px}
 
-  .btn{background:var(--orange);color:#fff;border:0;border-radius:10px;padding:14px 24px;font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer}
+  .btn{background:var(--orange);color:#fff;border:0;border-radius:11px;padding:15px 26px;font-family:var(--body);font-weight:800;font-size:15px;cursor:pointer}
   .btn.block{display:block;width:100%;text-align:center}
   .btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
-  .action{background:var(--ink);color:#fff;border-radius:16px;padding:24px;text-align:center}
-  .action h3{color:#fff;font-size:22px;margin-bottom:6px}.action p{color:#cfc7bd;font-size:14px;margin-bottom:16px}
+  .action{background:var(--ink);color:#fff;border-radius:18px;padding:30px;text-align:center}
+  .action h3{color:#fff;font-size:24px;margin-bottom:8px}.action p{color:#cfc7bd;font-size:14.5px;margin-bottom:20px;max-width:28em;margin-left:auto;margin-right:auto}
 
-  /* email mock */
+  /* tab 2 email */
   .email{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
   .email .eh{background:var(--paper);border-bottom:1px solid var(--line);padding:14px 20px}
   .email .efrom{font-weight:800;font-size:14px}.email .esubj{font-size:13px;color:var(--ink-70);margin-top:2px}
-  .email .ebody{padding:22px 20px}
-  .email .ebody h3{font-size:20px;margin-bottom:8px}
-  .email .ebody p{font-size:14px;color:var(--ink-70);margin-bottom:14px}
+  .email .ebody{padding:24px 20px}.email .ebody h3{font-size:21px;margin-bottom:8px}
+  .email .ebody p{font-size:14.5px;color:var(--ink-70);margin-bottom:16px}
 
-  /* dashboard */
-  .greet{background:linear-gradient(120deg,#24211e,#3b352f);color:#fff;border-radius:16px;padding:24px}
-  .greet h2{color:#fff;font-size:24px}.greet p{color:#cfc7bd;font-size:14px;margin-top:6px}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  /* tab 3 dashboard */
+  .greet{background:linear-gradient(120deg,#24211e,#3b352f);color:#fff;border-radius:18px;padding:28px}
+  .greet h2{color:#fff;font-size:26px}.greet p{color:#cfc7bd;font-size:14.5px;margin-top:8px;max-width:32em}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:560px){.row2{grid-template-columns:1fr}}
-  .field{font-size:13px;font-weight:700;color:var(--ink-70);margin-bottom:6px;display:block}
-  .inp{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 12px;font-family:var(--body);font-size:14px;background:var(--paper)}
-  .remind{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .segbtns{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .segbtns button{border:0;background:var(--card);padding:8px 14px;font-family:var(--body);font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-70)}
+  .field{font-size:13px;font-weight:700;color:var(--ink-70);margin-bottom:7px;display:block}
+  .inp{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;font-family:var(--body);font-size:14px;background:var(--paper)}
+  .remind{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .segbtns{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .segbtns button{border:0;background:var(--card);padding:9px 15px;font-family:var(--body);font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-70)}
   .segbtns button.on{background:var(--ink);color:#fff}
-  .stat3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .stat3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
   @media(max-width:560px){.stat3{grid-template-columns:1fr}}
-  .sbox{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card)}
-  .sbox .sn{font-family:var(--disp);font-weight:800;font-size:26px}
+  .sbox{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--card)}
+  .sbox .sn{font-family:var(--disp);font-weight:800;font-size:28px}
   .sbox.g .sn{color:var(--good)}.sbox.o .sn{color:var(--warn)}
-  .sbox .sl{font-size:12px;color:var(--ink-70);font-weight:600;margin-top:2px}
-
-  .barchart{display:flex;align-items:flex-end;gap:14px;height:120px;margin-top:10px}
+  .sbox .sl{font-size:12.5px;color:var(--ink-70);font-weight:600;margin-top:3px}
+  .barchart{display:flex;align-items:flex-end;gap:16px;height:130px;margin-top:12px}
   .barchart .b{flex:1;position:relative;display:flex;justify-content:center}
-  .barchart .b i{position:absolute;bottom:0;left:8%;right:8%;border-radius:7px 7px 0 0}
-  .barchart .b .cap{position:absolute;bottom:100%;font-size:11px;font-weight:800;padding-bottom:3px}
-  .barchart .b .mo{position:absolute;top:100%;font-size:11px;color:var(--ink-40);padding-top:4px;white-space:nowrap}
+  .barchart .b i{position:absolute;bottom:0;left:8%;right:8%;border-radius:8px 8px 0 0}
+  .barchart .b .cap{position:absolute;bottom:100%;font-size:11px;font-weight:800;padding-bottom:4px}
+  .barchart .b .mo{position:absolute;top:100%;font-size:11px;color:var(--ink-40);padding-top:5px;white-space:nowrap}
 
   .disc{font-size:11.5px;color:var(--ink-40);border-top:1px solid var(--line);margin-top:30px;padding-top:14px;line-height:1.6}
-  .foot{max-width:760px;margin:0 auto;padding:16px 20px;font-size:11.5px;color:var(--ink-40)}
+  .foot{max-width:720px;margin:0 auto;padding:16px 22px 40px;font-size:11.5px;color:var(--ink-40)}
+  .secblk{margin-bottom:34px}
 </style>
 </head>
 <body>
 
+<div id="prog"></div>
 <header>
   <div class="bar">
     <div class="logo">home<b>run</b> · switch</div>
@@ -147,165 +173,177 @@
   </div>
 </header>
 
-<!-- ============ TAB 1 ============ -->
+<!-- ============ TAB 1 : THE JOURNEY ============ -->
 <div class="page active" id="t1"><div class="wrap">
 
-  <section class="blk">
-    <div class="eyebrow">Start here</div>
-    <h1 class="big">Most people have no idea what's on their energy bill.</h1>
-    <p class="lead">And understanding it is the single most important step to getting a better deal. It comes down to just two numbers.</p>
-  </section>
+  <!-- Step 1: hook -->
+  <div class="step">
+    <h1 class="hook reveal in">Most people have no idea what's on their energy bill.</h1>
+    <p class="lead big reveal in d1" style="margin-top:16px">And understanding it is the single biggest step to a better deal.</p>
+    <div class="cue reveal in d2">Scroll <span class="ch">&#8595;</span></div>
+  </div>
 
-  <section class="blk">
-    <h2 class="h">The two numbers that run your bill</h2>
-    <div class="splitbar"><div class="u">Usage</div><div class="s">Supply</div></div>
+  <!-- Step 2: two numbers -->
+  <div class="step">
+    <h2 class="h reveal">It comes down to two numbers.</h2>
+    <div class="reveal d1"><div class="splitbar"><div class="u">Usage</div><div class="s">Supply</div></div></div>
     <div class="twocol">
-      <div class="numdef"><div class="t"><span class="dot" style="background:var(--ink)"></span>Supply rate</div><p>A fixed cost you pay every day just to be connected, even if you use nothing. Like line rental.</p></div>
-      <div class="numdef"><div class="t"><span class="dot" style="background:var(--orange)"></span>Usage rate</div><p>What you pay for each unit of energy you actually use. The meter ticking.</p></div>
+      <div class="numdef reveal d1"><div class="t"><span class="dot" style="background:var(--ink)"></span>Supply rate</div><p>A fixed cost you pay every day just to be connected, even if you use nothing. Like line rental.</p></div>
+      <div class="numdef reveal d2"><div class="t"><span class="dot" style="background:var(--orange)"></span>Usage rate</div><p>What you pay for each unit of energy you actually use. The meter ticking.</p></div>
     </div>
-  </section>
+    <div class="cue reveal d3">Now let's read yours <span class="ch">&#8595;</span></div>
+  </div>
 
-  <section class="blk">
-    <h2 class="h">Start with your last bill</h2>
-    <p class="lead" style="margin-bottom:14px">Give us your rates and usage. Pick whatever's easiest.</p>
-    <div class="opts">
-      <div class="opt"><div class="oi">Upload your bill</div><div class="os">Securely. We read only the rates and usage.</div></div>
-      <div class="opt"><div class="oi">Screenshot the rates</div><div class="os">Just the rates and usage from your latest bill.</div></div>
-      <div class="opt"><div class="oi">Enter it manually</div><div class="os">Type in your supply and usage rates.</div></div>
+  <!-- Step 3: get started (interactive) -->
+  <div class="step" id="getstarted">
+    <div id="startbox">
+      <h2 class="h reveal">So, what's on your bill?</h2>
+      <p class="lead reveal d1" style="margin-bottom:20px">Give us your rates and usage. Pick whatever's easiest, we'll read the rest.</p>
+      <div class="opts reveal d1">
+        <div class="opt" onclick="startLoad()"><div class="ic">&#8593;</div><div class="oi">Upload your bill</div><div class="os">Securely. We read only the rates and usage.</div></div>
+        <div class="opt" onclick="startLoad()"><div class="ic">&#9635;</div><div class="oi">Screenshot the rates</div><div class="os">Just the rates and usage from your latest bill.</div></div>
+        <div class="opt" onclick="startLoad()"><div class="ic">123</div><div class="oi">Enter it manually</div><div class="os">Type in your supply and usage rates.</div></div>
+      </div>
+      <div class="secure reveal d2">We never need your name, address or account number. Only the rates and usage.</div>
     </div>
-    <div class="secure">We never need your name, address or account number. Only the rates and usage.</div>
-  </section>
 
-  <section class="blk">
-    <h2 class="h">Here's where your plan sits</h2>
-    <p class="lead">Compared to the rest of the market for your usage.</p>
-    <div class="bench">
-      <div class="benchend" style="left:0">Best offers</div>
-      <div class="benchend" style="right:0">Most expensive</div>
-      <div class="tick" style="left:58%"><span>Reference price</span></div>
-      <div class="mk new" style="left:32%">ENGIE</div>
-      <div class="mk you" style="left:70%">Your plan</div>
+    <div id="loader">
+      <div class="lt">Reading your rates...</div>
+      <div class="lb"><i></i></div>
+      <div class="ls">Pulling out your supply and usage, and pricing the market against them.</div>
     </div>
-    <p class="small muted" style="margin-top:22px">Your plan sits above the reference price. There are cheaper plans for the exact same power.</p>
-  </section>
+  </div>
 
-  <section class="blk card" style="background:var(--warn-soft);border-color:#f6dcbb">
-    <h3 style="font-size:19px;margin-bottom:6px">Staying put costs you</h3>
-    <p class="small" style="color:#7a4d13">Leave your plan for years and you're quietly padding these companies' profits. The ACCC found households on the same plan for 3 years or more pay around <b>$221 a year more</b> than those on a newer plan. Compare and switch regularly, and you could save substantially.</p>
-  </section>
+  <!-- RESULTS (revealed after load) -->
+  <div id="results">
 
-  <section class="blk">
-    <div class="eyebrow">The comparison</div>
-    <h2 class="h">Your plan vs ENGIE</h2>
-
-    <div class="fuelh">Electricity <span class="pill">rates from your bill</span></div>
-    <table class="cmp">
-      <thead><tr><th>Rate</th><th>Your plan</th><th class="newcol">ENGIE</th></tr></thead>
-      <tbody>
-        <tr><td>Supply</td><td>$1.66 / day</td><td><b>$1.45 / day</b></td></tr>
-        <tr><td>Usage</td><td>33.13c / kWh</td><td><b>30.1c / kWh</b></td></tr>
-      </tbody>
-    </table>
-
-    <div class="fuelh">Gas <span class="pill">sample rates</span></div>
-    <table class="cmp">
-      <thead><tr><th>Rate</th><th>Your plan</th><th class="newcol">ENGIE</th></tr></thead>
-      <tbody>
-        <tr><td>Supply</td><td>$0.80 / day</td><td><b>$0.72 / day</b></td></tr>
-        <tr><td>Usage</td><td>4.6c / MJ</td><td><b>4.2c / MJ</b></td></tr>
-      </tbody>
-    </table>
-
-    <div class="card" style="margin-top:18px">
-      <div style="font-family:var(--disp);font-weight:800;font-size:15px;margin-bottom:4px">The offers on top</div>
-      <div class="offer-rows">
-        <div class="orow"><span class="lab">ENGIE welcome credit, electricity</span><span class="val oneoff">+ $200</span></div>
-        <div class="orow"><span class="lab">ENGIE welcome credit, gas</span><span class="val oneoff">+ $200</span></div>
-        <div class="orow"><span class="lab">Homerun gift card, electricity</span><span class="val oneoff">+ $100</span></div>
-        <div class="orow"><span class="lab">Homerun gift card, gas</span><span class="val oneoff">+ $50</span></div>
+    <div class="rstep">
+      <h2 class="h reveal">Here's your plan.</h2>
+      <p class="lead reveal d1" style="margin-bottom:16px">EnergyAustralia, Balance Plan. These two numbers run your bill.</p>
+      <div class="twocol">
+        <div class="numdef reveal d1"><div class="t"><span class="dot" style="background:var(--ink)"></span>Supply rate</div><p style="font-family:var(--disp);font-weight:800;font-size:22px;color:var(--ink)">$1.66 <span style="font-size:14px;color:var(--ink-70)">/ day</span></p></div>
+        <div class="numdef reveal d2"><div class="t"><span class="dot" style="background:var(--orange)"></span>Usage rate</div><p style="font-family:var(--disp);font-weight:800;font-size:22px;color:var(--ink)">33.13c <span style="font-size:14px;color:var(--ink-70)">/ kWh</span></p></div>
       </div>
     </div>
 
-    <div class="diff">
-      <div class="diffbox ongoing"><div class="dl">Ongoing saving</div><div class="dn">~$660<span style="font-size:15px"> / yr</span></div><div class="ds">Lower rates, every year you're on the better plan.</div></div>
-      <div class="diffbox first"><div class="dl">First year, on top</div><div class="dn">$550</div><div class="ds">Welcome credits and Homerun gift cards. One-off.</div></div>
+    <div class="rstep">
+      <h2 class="h reveal">Here's where it sits.</h2>
+      <p class="lead reveal d1">Against the market, for your usage.</p>
+      <div class="reveal d1"><div class="bench">
+        <div class="benchend" style="left:0">Best offers</div>
+        <div class="benchend" style="right:0">Most expensive</div>
+        <div class="tick" style="left:58%"><span>Reference price</span></div>
+        <div class="mk you" style="left:72%">Your plan</div>
+      </div></div>
+      <p class="small muted reveal d2" style="margin-top:24px">You're above the reference price. There are cheaper plans for the exact same power.</p>
     </div>
-    <p class="tiny" style="margin-top:10px">Electricity rates are from a real bill. Gas and ENGIE rates are sample data for this prototype, to be replaced with verified rates.</p>
-  </section>
 
-  <section class="blk action">
-    <h3>Switch now, then compare again in 6 months</h3>
-    <p>Welcome offers are strong up front, then rates drift. Switching roughly every 6 months is how you keep winning.</p>
-    <button class="btn">Switch to ENGIE</button>
-  </section>
+    <div class="rstep">
+      <div class="card reveal" style="background:var(--warn-soft);border-color:#f6dcbb">
+        <h3 style="font-size:21px;margin-bottom:8px">Staying put costs you.</h3>
+        <p class="small" style="color:#7a4d13">Leave your plan for years and you're quietly padding these companies' profits. The ACCC found households on the same plan for 3 years or more pay around <b>$221 a year more</b>. Compare and switch regularly, and that flips into your favour.</p>
+      </div>
+    </div>
 
-  <p class="disc">Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. You can compare every offer free at energymadeeasy.gov.au. Placeholder prototype, not CIMET approved.</p>
+    <div class="rstep">
+      <h2 class="h reveal">A better plan for you: ENGIE.</h2>
+      <div class="reveal d1">
+        <div class="fuelh">Electricity <span class="pill">from your bill</span></div>
+        <table class="cmp">
+          <thead><tr><th>Rate</th><th>Your plan</th><th class="newcol">ENGIE</th></tr></thead>
+          <tbody>
+            <tr><td>Supply</td><td>$1.66 / day</td><td><b>$1.45 / day</b></td></tr>
+            <tr><td>Usage</td><td>33.13c / kWh</td><td><b>30.1c / kWh</b></td></tr>
+          </tbody>
+        </table>
+        <div class="fuelh">Gas <span class="pill">sample rates</span></div>
+        <table class="cmp">
+          <thead><tr><th>Rate</th><th>Your plan</th><th class="newcol">ENGIE</th></tr></thead>
+          <tbody>
+            <tr><td>Supply</td><td>$0.80 / day</td><td><b>$0.72 / day</b></td></tr>
+            <tr><td>Usage</td><td>4.6c / MJ</td><td><b>4.2c / MJ</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card reveal d1" style="margin-top:20px">
+        <div style="font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:6px">The offers on top</div>
+        <div class="orow"><span class="lab">ENGIE welcome credit, electricity</span><span class="val">+ $200</span></div>
+        <div class="orow"><span class="lab">ENGIE welcome credit, gas</span><span class="val">+ $200</span></div>
+        <div class="orow"><span class="lab">Homerun gift card, electricity</span><span class="val">+ $100</span></div>
+        <div class="orow"><span class="lab">Homerun gift card, gas</span><span class="val">+ $50</span></div>
+      </div>
+
+      <div class="diff reveal d2">
+        <div class="diffbox ongoing"><div class="dl">Ongoing saving</div><div class="dn">~$660<span style="font-size:15px"> / yr</span></div><div class="ds">Lower rates, every year you're on the better plan.</div></div>
+        <div class="diffbox first"><div class="dl">First year, on top</div><div class="dn">$550</div><div class="ds">Welcome credits and Homerun gift cards. One-off.</div></div>
+      </div>
+      <p class="tiny reveal d2" style="margin-top:12px">Electricity rates are from a real bill. Gas and ENGIE rates are sample data for this prototype.</p>
+    </div>
+
+    <div class="rstep">
+      <div class="action reveal">
+        <h3>Switch now, then compare again in 6 months.</h3>
+        <p>Welcome offers are strong up front, then rates drift. Switching roughly every 6 months is how you keep winning.</p>
+        <button class="btn" onclick="document.querySelector('.tab[data-tab=t2]').click()">Switch to ENGIE</button>
+      </div>
+      <p class="disc">Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. Compare every offer free at energymadeeasy.gov.au. Placeholder prototype, not CIMET approved.</p>
+    </div>
+
+  </div>
 </div></div>
 
 <!-- ============ TAB 2 ============ -->
-<div class="page" id="t2"><div class="wrap">
-  <section class="blk">
-    <div class="eyebrow">Just after switching</div>
-    <h1 class="big">There's no confirmation screen here, and that's normal.</h1>
-    <p class="lead">Your switch is completed by your new retailer, not by us. So instead of a success page, we send you one thing that matters: an email to activate your Homerun account.</p>
-  </section>
-
-  <section class="blk">
+<div class="page" id="t2"><div class="wrap" style="padding-top:40px">
+  <div class="secblk">
+    <h1 class="hook" style="font-size:36px">There's no confirmation screen here, and that's normal.</h1>
+    <p class="lead" style="margin-top:14px">Your switch is completed by your new retailer, not by us. So instead of a success page, we send you the one thing that matters: an email to activate your Homerun account.</p>
+  </div>
+  <div class="secblk">
     <div class="email">
       <div class="eh"><div class="efrom">Homerun</div><div class="esubj">Activate your Homerun account and lock in your next switch</div></div>
       <div class="ebody">
         <h3>You've started your switch. Nice one.</h3>
         <p>Activate your account to track the savings and welcome offers you've just picked up, keep your rates in one place, and get a reminder when it's worth switching again in about 6 months.</p>
-        <button class="btn">Activate my Homerun account</button>
+        <button class="btn" onclick="document.querySelector('.tab[data-tab=t3]').click()">Activate my Homerun account</button>
       </div>
     </div>
-    <p class="tiny" style="margin-top:12px">The activation email is the bridge from a one-off switch into the ongoing dashboard on the next tab.</p>
-  </section>
+    <p class="tiny" style="margin-top:12px">The activation email is the bridge from a one-off switch into the ongoing dashboard.</p>
+  </div>
 </div></div>
 
 <!-- ============ TAB 3 ============ -->
-<div class="page" id="t3"><div class="wrap">
-
-  <section class="blk greet">
+<div class="page" id="t3"><div class="wrap" style="padding-top:34px">
+  <div class="secblk greet">
     <h2>You've just switched. Well done.</h2>
     <p>This is your secure place to manage your energy plans and switch regularly, so you keep getting the best deal.</p>
-  </section>
+  </div>
 
-  <section class="blk card">
+  <div class="secblk card">
     <div class="row2">
-      <div>
-        <label class="field">Upload your most recent bill</label>
-        <button class="btn ghost block">Upload securely</button>
-      </div>
-      <div>
-        <label class="field">Which plan did you just switch to?</label>
-        <input class="inp" value="ENGIE" />
-      </div>
+      <div><label class="field">Upload your most recent bill</label><button class="btn ghost block">Upload securely</button></div>
+      <div><label class="field">Which plan did you just switch to?</label><input class="inp" value="ENGIE" /></div>
     </div>
-  </section>
+  </div>
 
-  <section class="blk card">
+  <div class="secblk card">
     <div class="remind">
-      <div>
-        <div style="font-family:var(--disp);font-weight:800;font-size:16px">Next switch reminder</div>
-        <div class="small muted">We'll email you when it's worth comparing again.</div>
-      </div>
+      <div><div style="font-family:var(--disp);font-weight:800;font-size:16px">Next switch reminder</div><div class="small muted">We'll email you when it's worth comparing again.</div></div>
       <div class="segbtns"><button>3 months</button><button class="on">6 months</button><button>12 months</button></div>
     </div>
-  </section>
+  </div>
 
-  <section class="blk">
+  <div class="secblk">
     <h2 class="h">What you've saved and banked</h2>
     <div class="stat3">
       <div class="sbox g"><div class="sn">~$660</div><div class="sl">Ongoing saving a year</div></div>
       <div class="sbox o"><div class="sn">$400</div><div class="sl">Welcome credits</div></div>
       <div class="sbox o"><div class="sn">$150</div><div class="sl">Homerun gift cards</div></div>
     </div>
-  </section>
+  </div>
 
-  <section class="blk">
+  <div class="secblk">
     <h2 class="h">Your rates, plan by plan</h2>
-
     <div class="fuelh">Electricity</div>
     <table class="cmp">
       <thead><tr><th>Rate</th><th>Previous · EnergyAustralia</th><th class="newcol">Current · ENGIE</th></tr></thead>
@@ -314,7 +352,6 @@
         <tr><td>Usage</td><td>33.13c / kWh</td><td><b>30.1c / kWh</b></td></tr>
       </tbody>
     </table>
-
     <div class="fuelh">Gas <span class="pill">sample</span></div>
     <table class="cmp">
       <thead><tr><th>Rate</th><th>Previous</th><th class="newcol">Current · ENGIE</th></tr></thead>
@@ -323,10 +360,10 @@
         <tr><td>Usage</td><td>4.6c / MJ</td><td><b>4.2c / MJ</b></td></tr>
       </tbody>
     </table>
-    <p class="tiny" style="margin-top:10px">If your plan is time of use, usage splits into peak, shoulder and off-peak rows here. Older plans stay listed so you can see your history.</p>
-  </section>
+    <p class="tiny" style="margin-top:10px">If your plan is time of use, usage splits into peak, shoulder and off-peak rows. Older plans stay listed so you can see your history.</p>
+  </div>
 
-  <section class="blk">
+  <div class="secblk">
     <h2 class="h">How your plan compares to the market</h2>
     <div class="bench">
       <div class="benchend" style="left:0">Best offers</div>
@@ -334,36 +371,60 @@
       <div class="tick" style="left:58%"><span>Reference price</span></div>
       <div class="mk you" style="left:34%">You are here</div>
     </div>
-    <p class="small muted" style="margin-top:22px">Your new plan sits in the cheaper third of the market for your usage, and below the reference price. We'll tell you if that changes.</p>
-
-    <div class="card" style="margin-top:18px">
-      <div style="font-family:var(--disp);font-weight:800;font-size:15px;margin-bottom:2px">Your electricity bill over time</div>
+    <p class="small muted" style="margin-top:24px">Your new plan sits in the cheaper third of the market for your usage, and below the reference price. We'll tell you if that changes.</p>
+    <div class="card" style="margin-top:20px">
+      <div style="font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:2px">Your electricity bill over time</div>
       <div class="barchart">
         <div class="b"><span class="cap" style="color:var(--ink-70)">$1,381</span><i style="height:100%;background:var(--orange-soft)"></i><span class="mo">Before</span></div>
         <div class="b"><span class="cap" style="color:var(--good)">$1,249</span><i style="height:90%;background:var(--orange)"></i><span class="mo">Now</span></div>
         <div class="b"><span class="cap" style="color:var(--ink-40)">$1,240</span><i style="height:89%;background:var(--line)"></i><span class="mo">Next est</span></div>
       </div>
-      <p class="tiny" style="margin-top:26px">First bar is your old plan. The drop is the switch working. Sample figures.</p>
+      <p class="tiny" style="margin-top:28px">First bar is your old plan. The drop is the switch working. Sample figures.</p>
     </div>
-  </section>
+  </div>
 
-  <p class="disc">Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. Rates shown mix real and sample data for this prototype. Not CIMET approved.</p>
+  <p class="disc">Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch. Rates shown mix real and sample data. Not CIMET approved.</p>
 </div></div>
 
-<div class="foot">Prototype for internal review. Electricity current rates are from a real EnergyAustralia bill (name removed). Gas and ENGIE rates and all dollar figures are illustrative sample data.</div>
+<div class="foot">Prototype for internal review. Electricity current rates are from a real EnergyAustralia bill (name removed). Gas, ENGIE rates and all dollar figures are illustrative sample data.</div>
 
 <script>
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.18,rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // tabs
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.tab).classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({top:0});
   }));
+
+  // interactive get started -> load sample data -> reveal summary
+  function startLoad(){
+    document.getElementById('startbox').style.display='none';
+    const l=document.getElementById('loader');l.classList.add('on');
+    setTimeout(()=>{
+      l.classList.remove('on');l.style.display='none';
+      const r=document.getElementById('results');r.style.display='block';
+      r.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      r.scrollIntoView({behavior:'smooth',block:'start'});
+    },1800);
+  }
+
+  // reminder segmented control
   document.querySelectorAll('.segbtns button').forEach(b=>b.addEventListener('click',()=>{
-    b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
+    b.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
   }));
+
+  // scroll progress
+  const prog=document.getElementById('prog');
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  },{passive:true});
 </script>
 </body>
 </html>
