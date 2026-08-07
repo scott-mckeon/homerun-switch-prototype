@@ -77,6 +77,14 @@
   .bblegend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:middle}
   .bblegend i.ink{background:var(--ink)}.bblegend i.orange{background:var(--orange)}
   .billtotal{margin-top:16px;font-size:15px;font-weight:700;color:var(--ink)}
+  .rangehead{font-family:var(--disp);font-weight:800;font-size:16px;margin:18px 0 12px;display:flex;gap:8px;align-items:center}
+  .rangehead .pill{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--ink-40)}
+  .rrow{margin-bottom:22px}
+  .rrlab{font-size:13px;font-weight:700;color:var(--ink-70);margin-bottom:8px}
+  .rtrack{position:relative;height:14px;border-radius:99px;background:linear-gradient(90deg,var(--good-soft),#fbeede,#f7ddc0);border:1px solid var(--line)}
+  .rmk{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);box-shadow:0 1px 3px rgba(36,33,30,.25)}
+  .rmklab{position:absolute;top:-26px;transform:translateX(-50%);font-size:11px;font-weight:800;white-space:nowrap;background:var(--ink);color:#fff;padding:3px 8px;border-radius:6px}
+  .rends{display:flex;justify-content:space-between;margin-top:9px;font-size:12.5px;font-weight:700;color:var(--ink-70)}
 
   /* get started dropdown */
   .startpick{max-width:440px;margin-top:6px}
@@ -258,7 +266,44 @@
     </div></div>
     <div class="bblegend reveal d2" style="margin-top:12px"><span><i class="ink"></i>Supply, the fixed daily charge</span><span><i class="orange"></i>Usage, what you actually use</span></div>
     <div class="billtotal reveal d2">At about $1.10 a day supply and 39c per kWh, that's <b>$968 a quarter</b>. Beat the usage rate and you move most of the bill.</div>
-    <div class="cue reveal d3">Now it's your turn <span class="ch">&#8595;</span></div>
+    <div class="cue reveal d3">But rates vary a lot <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Module: the range -->
+  <div class="step" id="r1">
+    <h2 class="h reveal">And the numbers vary widely.</h2>
+    <p class="lead reveal d1" style="margin-bottom:10px">Two homes on the same street can pay very different rates. Here's the spread across the market.</p>
+    <div class="reveal d1">
+      <div class="rangehead">Electricity</div>
+      <div class="rrow"><div class="rrlab">Supply rate</div><div class="rtrack"><div class="rmk" style="left:33%"></div><div class="rmklab" style="left:33%">typical $1.10</div></div><div class="rends"><span>$0.80 / day</span><span>$1.70 / day</span></div></div>
+      <div class="rrow"><div class="rrlab">Usage rate</div><div class="rtrack"><div class="rmk" style="left:70%"></div><div class="rmklab" style="left:70%">typical 39c</div></div><div class="rends"><span>25c / kWh</span><span>45c / kWh</span></div></div>
+    </div>
+    <div class="reveal d2">
+      <div class="rangehead">Gas <span class="pill">sample</span></div>
+      <div class="rrow"><div class="rrlab">Supply rate</div><div class="rtrack"><div class="rmk" style="left:50%"></div><div class="rmklab" style="left:50%">typical $0.80</div></div><div class="rends"><span>$0.60 / day</span><span>$1.00 / day</span></div></div>
+      <div class="rrow"><div class="rrlab">Usage rate</div><div class="rtrack"><div class="rmk" style="left:55%"></div><div class="rmklab" style="left:55%">typical 4.6c</div></div><div class="rends"><span>3.5c / MJ</span><span>5.5c / MJ</span></div></div>
+    </div>
+    <p class="tiny reveal d2" style="margin-top:6px">Illustrative ranges for NSW. A few cents on the usage rate is hundreds of dollars a year.</p>
+    <div class="cue reveal d3">There's a catch too <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Module: welcome incentives -->
+  <div class="step" id="r2">
+    <h2 class="statement reveal">Then there's the welcome offer.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Up to $200 off to sign you up. But that plan often carries a higher ongoing rate. They give you the discount to hook you in, because they know they'll make it back, and more, over the years you stay.</p>
+    <div class="twocol reveal d2" style="margin-top:20px">
+      <div class="numdef"><div class="t" style="color:var(--warn)">The flashy plan</div><p>$200 welcome credit, but 42c per kWh.</p></div>
+      <div class="numdef"><div class="t" style="color:var(--good)">The plainer plan</div><p>No credit, but 30c per kWh.</p></div>
+    </div>
+    <p class="small muted reveal d2" style="margin-top:14px">On a typical home the plainer plan can win by hundreds over a year, even without the credit. That's the confusion they count on.</p>
+    <div class="cue reveal d3">Here's the good news <span class="ch">&#8595;</span></div>
+  </div>
+
+  <!-- Module: game the system -->
+  <div class="step" id="r3">
+    <h2 class="statement reveal">Know your rates, and you flip it.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Compare regularly, take the welcome offers, and move on before the rate creeps up. You stop being gamed, and start gaming the system. We're going to show you how.</p>
+    <div class="cue reveal d2">Let's do yours <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Step 4: get started dropdown -->
