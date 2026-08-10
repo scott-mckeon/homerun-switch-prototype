@@ -220,6 +220,18 @@
   .ptable tr.tot td{font-weight:800;font-size:15px;border-bottom:0;padding-top:14px}
   .ptable tr.tot{background:rgba(252,139,33,.14)}
   .proof .pnote{font-size:11.5px;color:#938d8a;margin-top:12px;line-height:1.5}
+  .ibadge{width:52px;height:52px;border-radius:14px;background:var(--orange-soft);color:var(--warn);display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+  .ibadge svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .coin{width:118px;height:118px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#ffdcab,var(--orange));display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink);box-shadow:0 12px 30px rgba(252,139,33,.35);margin-top:26px}
+  .coin .cn{font-family:var(--disp);font-weight:800;font-size:32px;line-height:1}
+  .coin .cl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+  .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .trustb{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink-70);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+  .trustb svg{width:15px;height:15px;stroke:var(--good);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .mv{display:inline-flex;align-items:center;gap:10px;margin-bottom:12px}
+  .mv .av{width:38px;height:38px;border-radius:50%;background:var(--orange);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:16px}
+  .mv .vt{font-size:12px;font-weight:800;color:var(--good);display:inline-flex;align-items:center;gap:5px}
+  .mv .vt svg{width:15px;height:15px;stroke:var(--good);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -252,30 +264,36 @@
 <div class="page active" id="t1"><div class="wrap">
 
   <div class="step" id="s1">
+    <div class="ibadge reveal in"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.2-4.2"/></svg></div>
     <h1 class="hook reveal in">You're probably paying more than you need to for energy. We can prove it.</h1>
     <p class="lead big reveal in d1" style="margin-top:16px">We ran the numbers on Michael's power bill. Switching put <b style="color:var(--ink)">$469 back in his pocket in the first quarter alone</b>, before he even touched his gas. Here's how, and how you do the same in a few minutes.</p>
+    <div class="coin reveal in d1"><div class="cn">$469</div><div class="cl">saved &middot; quarter 1</div></div>
     <div class="cue reveal in d2">Show me <span class="ch">&#8595;</span></div>
   </div>
 
   <div class="step" id="m2">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg></div>
     <h2 class="statement reveal">It's not you. The system is built to confuse you.</h2>
     <p class="lead big reveal d1" style="margin-top:16px">Over 30 retailers and thousands of plans, and in Sydney they all resell the exact same Ausgrid wires. The confusion isn't an accident. It's the business model, and it's working on nearly everyone.</p>
     <div class="cue reveal d2">Keep going <span class="ch">&#8595;</span></div>
   </div>
 
   <div class="step" id="m3">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M22 17l-8.5-8.5-5 5L2 7"/><path d="M16 17h6v-6"/></svg></div>
     <h2 class="statement reveal">Staying loyal has a price. And they charge you for it.</h2>
     <p class="lead big reveal d1" style="margin-top:16px">The <a href="https://www.accc.gov.au/media-release/accc-urges-households-to-change-electricity-plans-to-help-offset-price-increases" target="_blank" rel="noopener">ACCC found</a> households who sit on the same plan pay around $221 a year more than people who switch. You've probably been on yours for years. That is money gone, quietly, every quarter.</p>
     <div class="cue reveal d2">But here's the thing <span class="ch">&#8595;</span></div>
   </div>
 
   <div class="step" id="m4">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3"/><path d="M17 6l2 2"/></svg></div>
     <h2 class="statement reveal">There's a crack in it. Once you see it, you can't unsee it.</h2>
     <p class="lead big reveal d1" style="margin-top:16px">You don't need to be an expert or spend hours. Once you can read your bill, you can find a plan that beats what you're on now, and grab the welcome offers before the rate creeps back up. It comes down to two numbers.</p>
     <div class="cue reveal d2">Show me <span class="ch">&#8595;</span></div>
   </div>
 
   <div class="step" id="s2">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h6"/></svg></div>
     <h2 class="h reveal">The two numbers they'd rather you never learned.</h2>
     <div class="reveal d1"><div class="splitbar"><div class="s">Supply</div><div class="u">Usage</div></div></div>
     <div class="twocol">
@@ -287,6 +305,7 @@
   </div>
 
   <div class="step" id="s3">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20V11"/><path d="M12 20V4"/><path d="M18 20v-7"/></svg></div>
     <h2 class="h reveal">Here's how your bill is really built.</h2>
     <p class="lead reveal d1" style="margin-bottom:8px">Usage is nearly the whole thing, and it moves with how much you use. Supply barely changes. The difference between a good plan and a bad one hides in the rate you glance straight past.</p>
     <div class="reveal d1"><div class="billbreak"><div class="bbhead"><span>Electricity</span><b>$647 a quarter</b></div><div class="stack"><div class="sup" style="width:15%">$100</div><div class="use" style="width:85%">$547 usage</div></div></div></div>
@@ -296,6 +315,7 @@
   </div>
 
   <div class="step" id="r1">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/></svg></div>
     <h2 class="h reveal">Same street. Same wires. Wildly different bills.</h2>
     <p class="lead reveal d1" style="margin-bottom:10px">Two homes next door can pay completely different rates for identical power. A few cents on the usage rate is hundreds a year. The only difference is who bothered to check.</p>
     <div class="reveal d1">
@@ -312,6 +332,7 @@
   </div>
 
   <div class="step" id="r2">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M20.6 13.4 11 3.8A2 2 0 0 0 9.6 3.2H4a1 1 0 0 0-1 1v5.6a2 2 0 0 0 .6 1.4l9.6 9.6a2 2 0 0 0 2.8 0l4.6-4.6a2 2 0 0 0 0-2.8z"/><circle cx="7.5" cy="7.5" r="1"/></svg></div>
     <h2 class="statement reveal">That "$200 welcome credit" is bait. Here's how to make it yours.</h2>
     <p class="lead big reveal d1" style="margin-top:16px">They dangle a credit to sign you up, then lift the rate over the years they assume you'll stay. Take the offer, move on before the rate bites, and the bait becomes your profit.</p>
     <div class="tip reveal d2">The move: grab the welcome offer, ride the good rate, then compare again in about 6 months.</div>
@@ -319,7 +340,9 @@
   </div>
 
   <div class="step" id="p1">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
     <h2 class="h reveal">This isn't theory. Here's Michael.</h2>
+    <div class="mv reveal d1"><span class="av">M</span><span class="vt"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Verified customer</span></div>
     <p class="lead reveal d1" style="margin-bottom:4px">Using Michael's latest EnergyAustralia rates and the same usage over a 92-day quarter, switching to ENGIE came to <b>$469.52 in first-quarter value</b> after both incentives, on electricity alone. He switched his gas too, so there's more on top.</p>
     <div class="proof reveal d1">
       <table class="ptable">
@@ -340,6 +363,7 @@
   </div>
 
   <div class="step" id="s4">
+    <div class="ibadge reveal"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
     <h2 class="h reveal">Now it's your turn. Two ways to start.</h2>
     <p class="lead reveal d1" style="margin-bottom:8px">Stop being the one they count on to never check. Here's how you flip it.</p>
     <div class="opt2 reveal d1">
@@ -352,6 +376,11 @@
       <div class="opt2-t">2. Get Scott to do it with you</div>
       <div class="opt2-s">Book a free call with our founder Scott. He'll read your bill with you and walk you through the plans that suit you. No obligation, and any plan you pick is always your call.</div>
       <a class="btn" href="https://cal.com/scott-mckeon-tcrqxf/30min" target="_blank" rel="noopener">Book a call with Scott</a>
+    </div>
+    <div class="trust reveal d2">
+      <span class="trustb"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Secure</span>
+      <span class="trustb"><svg viewBox="0 0 24 24"><path d="M18 8h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h9"/><path d="M8 8V6a4 4 0 0 1 6.9-2.7"/></svg>No lock-in</span>
+      <span class="trustb"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Your choice</span>
     </div>
     <p class="finetip reveal d2" style="margin-top:16px">The $150 offer ends 30 September. The loyalty tax doesn't.</p>
   </div>
