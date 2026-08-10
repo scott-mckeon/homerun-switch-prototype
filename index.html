@@ -38,9 +38,10 @@
   .step{counter-increment:step;min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:56px 40px;border:2px solid #d7d6d5;border-radius:24px;background:var(--card);margin-bottom:24px;position:relative}
   .step::before{content:"(" counter(step) "/10)";position:absolute;top:24px;left:40px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--orange)}
   @media(max-width:560px){.step{padding:48px 22px}.step::before{left:22px}}
-  h1.hook{font-size:44px;letter-spacing:-.03em}
-  @media(max-width:560px){h1.hook{font-size:33px}}
-  h2.h{font-size:28px;margin-bottom:12px}
+  h1.hook{font-size:38px;letter-spacing:-.02em}
+  @media(max-width:560px){h1.hook{font-size:29px}}
+  h2.h{font-size:38px;letter-spacing:-.02em;margin-bottom:12px}
+  @media(max-width:560px){h2.h{font-size:29px}}
   .lead{font-size:19px;color:var(--ink-70);font-weight:500;max-width:30em}
   .lead.big{font-size:22px}
   .muted{color:var(--ink-70)}.small{font-size:13.5px}.tiny{font-size:12px;color:var(--ink-40)}
@@ -206,6 +207,10 @@
   .callout{margin-top:30px;border-top:1px solid var(--line);padding-top:24px;max-width:36em}
   .callout-t{font-family:var(--disp);font-weight:800;font-size:18px}
   .callout-s{font-size:14px;color:var(--ink-70);margin:6px 0 14px}
+  .opt2{border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:16px}
+  .opt2-t{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:8px}
+  .opt2-s{font-size:14.5px;color:var(--ink-70);margin-bottom:16px;line-height:1.5}
+  .opt2 .finetip{margin-top:14px}
 </style>
 </head>
 <body>
@@ -260,8 +265,8 @@
 
   <!-- Module: you can do something -->
   <div class="step" id="m4">
-    <h2 class="statement reveal">But you can do something about it.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Know your plan and switch every 6 months. It's simpler than you think. Keep scrolling and we'll show you how.</p>
+    <h2 class="statement reveal">But once you understand your bill, you understand how you can save.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">You can find the best plan in your area, and know when there are welcome offers worth taking. It's simpler than you think. We'll show you how.</p>
     <div class="cue reveal d2">Show me <span class="ch">&#8595;</span></div>
   </div>
 
@@ -279,8 +284,8 @@
 
   <!-- Step 3: worked example bill -->
   <div class="step" id="s3">
-    <h2 class="h reveal">How a typical bill stacks up.</h2>
-    <p class="lead reveal d1" style="margin-bottom:8px">Two charges build every bill. Usage is nearly all of it.</p>
+    <h2 class="h reveal">How a quarterly bill looks.</h2>
+    <p class="lead reveal d1" style="margin-bottom:8px">You can see usage is most of the expense. It changes with how much you use, while supply is always the same.</p>
     <div class="reveal d1"><div class="billbreak">
       <div class="bbhead"><span>Electricity</span><b>$647 a quarter</b></div>
       <div class="stack"><div class="sup" style="width:15%">$100</div><div class="use" style="width:85%">$547 usage</div></div>
@@ -290,7 +295,6 @@
       <div class="stack"><div class="sup" style="width:23%">$73</div><div class="use" style="width:77%">$248 usage</div></div>
     </div></div>
     <div class="bblegend reveal d2" style="margin-top:12px"><span><i class="ink"></i>Supply, the fixed daily charge</span><span><i class="orange"></i>Usage, what you actually use</span></div>
-    <div class="billtotal reveal d2">At about $1.10 a day supply and 39c per kWh, that's <b>$968 a quarter</b>. Beat the usage rate and you move most of the bill.</div>
     <div class="cue reveal d3">But rates vary a lot <span class="ch">&#8595;</span></div>
   </div>
 
@@ -322,21 +326,26 @@
 
   <!-- Module: game the system -->
   <div class="step" id="r3">
-    <h2 class="statement reveal">If you switch regularly, you come out on top.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Forgetting means you're letting the energy companies profit more from you. Comparing regularly lets you grab welcome offers and low rates, gaming the system. Now it's time to show you how.</p>
+    <h2 class="statement reveal">If you switch regularly onto the best plans, you maximise what you could save.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Forgetting means you're letting the energy companies profit more from you. Comparing regularly lets you grab welcome offers and low rates, and game the system.</p>
+    <p class="lead big reveal d1" style="margin-top:22px">Now it's time to show you how.</p>
     <div class="cue reveal d2">Let's do yours <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Final: handoff to the live funnel -->
   <div class="step" id="s4">
     <h2 class="h reveal">Now it's your turn.</h2>
-    <p class="lead reveal d1" style="margin-bottom:22px">Click below to start the secure form on Homerun Switch and see the plans available to you. Switch before the end of September and you'll also get up to a $150 Visa Gift Card from Homerun.<a class="info" href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener" title="Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. T&amp;Cs apply.">i</a></p>
-    <div class="reveal d1"><a class="btn" href="https://switch.homerun.app/start">Get started</a></div>
-    <p class="finetip reveal d1">Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. <a href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener">See full terms</a>.</p>
-    <div class="callout reveal d2">
-      <div class="callout-t">Or book a call with Scott to go through it with you.</div>
-      <div class="callout-s">If you want extra help understanding your bill and comparing plans, book a call with Scott, our founder.</div>
-      <a class="btn ghost" href="https://cal.com/scott-mckeon-tcrqxf/30min" target="_blank" rel="noopener">Book a call with Scott</a>
+    <p class="lead reveal d1" style="margin-bottom:8px">Two options.</p>
+    <div class="opt2 reveal d1">
+      <div class="opt2-t">1. Do it yourself</div>
+      <div class="opt2-s">Go through the Homerun Switch flow yourself and find the best plan for you. Switch before the end of September and you'll also get up to a $150 Visa Gift Card from Homerun.<a class="info" href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener" title="Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. T&amp;Cs apply.">i</a></div>
+      <a class="btn" href="https://switch.homerun.app/start">Get started</a>
+      <p class="finetip">Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. <a href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener">See full terms</a>.</p>
+    </div>
+    <div class="opt2 reveal d2">
+      <div class="opt2-t">2. Get help from Scott</div>
+      <div class="opt2-s">Our founder Scott can help you understand your bill and walk through the plans on our comparison panel that best suit your needs. No obligation, and any plan you go with is always your choice.</div>
+      <a class="btn" href="https://cal.com/scott-mckeon-tcrqxf/30min" target="_blank" rel="noopener">Book a call with Scott</a>
     </div>
   </div>
 
