@@ -17,7 +17,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body);background:#faf6f0;color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
   h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.08}
   .wrap{max-width:720px;margin:0 auto;padding:0 30px}
 
@@ -25,7 +25,7 @@
   #frame{position:fixed;top:70px;left:16px;right:16px;bottom:16px;border:1.5px solid var(--line);border-radius:22px;pointer-events:none;z-index:30}
   @media(max-width:560px){#frame{left:8px;right:8px;bottom:8px;top:62px;border-radius:16px}.wrap{padding:0 24px}}
 
-  header{position:sticky;top:0;z-index:50;background:rgba(253,252,252,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:50;background:rgba(250,246,240,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:16px;padding:13px 30px;max-width:720px;margin:0 auto}
   .logo{font-family:var(--disp);font-weight:800;font-size:18px}.logo b{color:var(--orange)}
   .logo svg{height:26px;width:auto;display:block}
@@ -118,7 +118,7 @@
   #results{display:none}
   .rstep{padding:54px 0}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card{background:var(--card);border:1px solid #efe6db;border-radius:22px;padding:24px;box-shadow:0 1px 2px rgba(36,33,30,.03),0 14px 40px rgba(36,33,30,.05)}
 
   .bench{position:relative;height:56px;border-radius:12px;background:linear-gradient(90deg,var(--good-soft),#fbeede,#f7ddc0);border:1px solid var(--line);margin:30px 0 14px}
   .benchend{position:absolute;top:-22px;font-size:11px;font-weight:800;color:var(--ink-40);text-transform:uppercase;letter-spacing:.05em}
@@ -180,7 +180,7 @@
   .segbtns button.on{background:var(--ink);color:#fff}
   .stat3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
   @media(max-width:560px){.stat3{grid-template-columns:1fr}}
-  .sbox{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--card)}
+  .sbox{border:1px solid #efe6db;border-radius:18px;padding:18px;background:var(--card);box-shadow:0 1px 2px rgba(36,33,30,.03),0 10px 30px rgba(36,33,30,.04)}
   .sbox .sn{font-family:var(--disp);font-weight:800;font-size:28px}
   .sbox.g .sn{color:var(--good)}.sbox.o .sn{color:var(--warn)}
   .sbox .sl{font-size:12.5px;color:var(--ink-70);font-weight:600;margin-top:3px}
