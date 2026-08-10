@@ -35,8 +35,8 @@
   .page{display:none}.page.active{display:block}
 
   .page{counter-reset:step}
-  .step{counter-increment:step;min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:56px 40px;border:1px solid var(--line);border-radius:24px;background:var(--card);margin-bottom:24px;position:relative}
-  .step::before{content:"Step " counter(step);position:absolute;top:26px;left:40px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+  .step{counter-increment:step;min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:56px 40px;border:2px solid #d7d6d5;border-radius:24px;background:var(--card);margin-bottom:24px;position:relative}
+  .step::before{content:"(" counter(step) "/10)";position:absolute;top:24px;left:40px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--orange)}
   @media(max-width:560px){.step{padding:48px 22px}.step::before{left:22px}}
   h1.hook{font-size:44px;letter-spacing:-.03em}
   @media(max-width:560px){h1.hook{font-size:33px}}
@@ -198,6 +198,14 @@
   .foot{max-width:720px;margin:0 auto;padding:16px 30px 40px;font-size:11.5px;color:var(--ink-40)}
   .secblk{margin-bottom:34px}
   a.btn{display:inline-block;text-decoration:none}
+  .lead a{color:var(--orange);text-decoration:underline}
+  .tip{margin-top:20px;background:var(--good-soft);border:1px solid #cfe7d9;border-radius:12px;padding:14px 16px;font-size:15px;font-weight:600;color:#1f6e44}
+  .info{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:800;font-style:normal;text-decoration:none;margin-left:6px;vertical-align:super;line-height:1}
+  .finetip{font-size:12.5px;color:var(--ink-40);margin-top:14px;max-width:36em}
+  .finetip a{color:var(--ink-70);text-decoration:underline}
+  .callout{margin-top:30px;border-top:1px solid var(--line);padding-top:24px;max-width:36em}
+  .callout-t{font-family:var(--disp);font-weight:800;font-size:18px}
+  .callout-s{font-size:14px;color:var(--ink-70);margin:6px 0 14px}
 </style>
 </head>
 <body>
@@ -239,27 +247,27 @@
   <!-- Module: confusing by design -->
   <div class="step" id="m2">
     <h2 class="statement reveal">Energy plans are confusing. And that's by design.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Over 30 retailers in NSW, and AGL alone runs more than 1,300 plans. You're not meant to be able to compare them.</p>
+    <p class="lead big reveal d1" style="margin-top:16px">Over 30 retailers and thousands of plans. By making it complicated, most people never understand how their plan actually works.</p>
     <div class="cue reveal d2">Keep going <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Module: so you don't switch -->
   <div class="step" id="m3">
     <h2 class="statement reveal">They make it complicated so you don't bother.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Most people never switch. The ACCC found households who stay put pay around $221 a year more than those on a newer plan.</p>
+    <p class="lead big reveal d1" style="margin-top:16px">Most people never switch. You've probably been on the same plan for years. Even the <a href="https://www.accc.gov.au/media-release/accc-urges-households-to-change-electricity-plans-to-help-offset-price-increases" target="_blank" rel="noopener">ACCC reports</a> that households who stay on the same plan for years pay around $221 more a year than those who switch.</p>
     <div class="cue reveal d2">But here's the thing <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Module: you can do something -->
   <div class="step" id="m4">
     <h2 class="statement reveal">But you can do something about it.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">It's simpler than they want you to think. We're going to show you exactly how, and it comes down to two numbers.</p>
+    <p class="lead big reveal d1" style="margin-top:16px">Know your plan and switch every 6 months. It's simpler than you think. Keep scrolling and we'll show you how.</p>
     <div class="cue reveal d2">Show me <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Step: two numbers + typical -->
   <div class="step" id="s2">
-    <h2 class="h reveal">It comes down to two numbers.</h2>
+    <h2 class="h reveal">Two numbers: supply rate and usage rate.</h2>
     <div class="reveal d1"><div class="splitbar"><div class="s">Supply</div><div class="u">Usage</div></div></div>
     <div class="twocol">
       <div class="numdef reveal d1"><div class="t"><span class="dot" style="background:var(--ink)"></span>Supply rate</div><p>A fixed cost you pay every day just to be connected, even if you use nothing. Like line rental.</p><div class="typ">Typically around $1.10 a day <span>in NSW</span></div></div>
@@ -306,29 +314,30 @@
 
   <!-- Module: welcome incentives -->
   <div class="step" id="r2">
-    <h2 class="statement reveal">Then there's the welcome offer.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Up to $200 off to sign you up. But that plan often carries a higher ongoing rate. They give you the discount to hook you in, because they know they'll make it back, and more, over the years you stay.</p>
-    <div class="twocol reveal d2" style="margin-top:20px">
-      <div class="numdef"><div class="t" style="color:var(--warn)">The flashy plan</div><p>$200 welcome credit, but 42c per kWh.</p></div>
-      <div class="numdef"><div class="t" style="color:var(--good)">The plainer plan</div><p>No credit, but 30c per kWh.</p></div>
-    </div>
-    <p class="small muted reveal d2" style="margin-top:14px">On a typical home the plainer plan can win by hundreds over a year, even without the credit. That's the confusion they count on.</p>
+    <h2 class="statement reveal">And then there's additional welcome offers.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">They give you a welcome credit to sign you up. But that plan might carry a higher ongoing rate. They assume you'll stay for years, so they make back that incentive, and more.</p>
+    <div class="tip reveal d2">Tip: welcome offers can cut your bill a lot up front. Just don't forget you could be on that plan for years.</div>
     <div class="cue reveal d3">Here's the good news <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Module: game the system -->
   <div class="step" id="r3">
-    <h2 class="statement reveal">Know your rates, and you flip it.</h2>
-    <p class="lead big reveal d1" style="margin-top:16px">Compare regularly, take the welcome offers, and move on before the rate creeps up. You stop being gamed, and start gaming the system. We're going to show you how.</p>
+    <h2 class="statement reveal">If you switch regularly, you come out on top.</h2>
+    <p class="lead big reveal d1" style="margin-top:16px">Forgetting means you're letting the energy companies profit more from you. Comparing regularly lets you grab welcome offers and low rates, gaming the system. Now it's time to show you how.</p>
     <div class="cue reveal d2">Let's do yours <span class="ch">&#8595;</span></div>
   </div>
 
   <!-- Final: handoff to the live funnel -->
   <div class="step" id="s4">
-    <h2 class="h reveal">Ready? Let's do yours.</h2>
-    <p class="lead reveal d1" style="margin-bottom:24px">Check your rates against the market in a few minutes. We hand you straight to the secure Homerun Switch flow.</p>
+    <h2 class="h reveal">Now it's your turn.</h2>
+    <p class="lead reveal d1" style="margin-bottom:22px">Click below to start the secure form on Homerun Switch and see the plans available to you. Switch before the end of September and you'll also get up to a $150 Visa Gift Card from Homerun.<a class="info" href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener" title="Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. T&amp;Cs apply.">i</a></p>
     <div class="reveal d1"><a class="btn" href="https://switch.homerun.app/start">Get started</a></div>
-    <div class="secure reveal d2" style="max-width:460px;margin-top:18px">We never need your name, address or account number. Only the rates and usage.</div>
+    <p class="finetip reveal d1">Switch both electricity ($100) and gas ($50) for the full $150 Visa eGift Card. Ends 30 September 2026, new customers only. <a href="https://homerun.app/switch/gift-card-terms.pdf" target="_blank" rel="noopener">See full terms</a>.</p>
+    <div class="callout reveal d2">
+      <div class="callout-t">Or book a call with Scott to go through it with you.</div>
+      <div class="callout-s">If you want extra help understanding your bill and comparing plans, book a call with Scott, our founder.</div>
+      <a class="btn ghost" href="https://cal.com/scott-mckeon-tcrqxf/30min" target="_blank" rel="noopener">Book a call with Scott</a>
+    </div>
   </div>
 
 </div></div>
