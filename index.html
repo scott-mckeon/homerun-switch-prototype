@@ -17,14 +17,14 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body);background:#faf6f0;color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
   h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.08}
   .wrap{max-width:720px;margin:0 auto;padding:0 30px}
 
   #prog{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .1s linear}
   @media(max-width:560px){.wrap{padding:0 24px}}
 
-  header{position:sticky;top:0;z-index:50;background:rgba(253,252,252,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:50;background:rgba(250,246,240,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .bar{display:flex;align-items:center;gap:16px;padding:13px 30px;max-width:720px;margin:0 auto}
   .logo{font-family:var(--disp);font-weight:800;font-size:18px}.logo b{color:var(--orange)}
   .logo svg{height:26px;width:auto;display:block}
@@ -35,7 +35,9 @@
   .page{display:none}.page.active{display:block}
 
   .page{counter-reset:step}
-  .step{counter-increment:step;min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:56px 40px;border:2px solid #d7d6d5;border-radius:24px;background:var(--card);margin-bottom:24px;position:relative}
+  .step{counter-increment:step;min-height:64vh;display:flex;flex-direction:column;justify-content:center;padding:56px 44px;border:1px solid #efe6db;border-radius:28px;background:var(--card);margin-bottom:26px;position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(36,33,30,.03),0 16px 44px rgba(36,33,30,.05)}
+  .step::before{content:"";position:absolute;top:-60px;right:-60px;width:340px;height:340px;background:radial-gradient(circle,rgba(252,139,33,.13),transparent 70%);pointer-events:none}
+  .step>*{position:relative;z-index:1}
   @media(max-width:560px){.step{padding:48px 22px}.step::before{left:22px}}
   h1.hook{font-size:38px;letter-spacing:-.02em}
   @media(max-width:560px){h1.hook{font-size:29px}}
@@ -98,8 +100,8 @@
   select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2357514a' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
   .startpick .btn{margin-top:12px}
   .secure{margin-top:14px;font-size:13px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:9px;padding:11px 14px}
-  .statement{font-size:38px;letter-spacing:-.02em;line-height:1.08;max-width:15em}
-  @media(max-width:560px){.statement{font-size:29px}}
+  .statement{font-size:44px;letter-spacing:-.025em;line-height:1.06;max-width:15em}
+  @media(max-width:560px){.statement{font-size:30px}}
   .mpanel{display:none;max-width:460px}
   .backbtn{background:none;border:0;color:var(--ink-70);font-family:var(--body);font-weight:700;font-size:13px;cursor:pointer;padding:6px 0;margin-bottom:12px}
   .backbtn:hover{color:var(--orange)}
