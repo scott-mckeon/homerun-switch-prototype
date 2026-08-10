@@ -36,7 +36,6 @@
 
   .page{counter-reset:step}
   .step{counter-increment:step;min-height:74vh;display:flex;flex-direction:column;justify-content:center;padding:56px 40px;border:2px solid #d7d6d5;border-radius:24px;background:var(--card);margin-bottom:24px;position:relative}
-  .step::before{content:"(" counter(step) "/10)";position:absolute;top:24px;left:40px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--orange)}
   @media(max-width:560px){.step{padding:48px 22px}.step::before{left:22px}}
   h1.hook{font-size:38px;letter-spacing:-.02em}
   @media(max-width:560px){h1.hook{font-size:29px}}
