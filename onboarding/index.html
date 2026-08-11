@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Homerun Switch — Account Activation & Onboarding Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#fc8b21; --orange-soft:#fff6ed; --ink:#24211e; --ink-70:#5c5451;
+    --ink-40:#938d8a; --paper:#fdfcfc; --card:#ffffff; --line:#e9e8e7;
+    --good:#2f8f5b; --good-soft:#e7f4ec; --warn:#d66406; --warn-soft:#ffe5cc;
+    --disp:"DM Sans",Arial,sans-serif; --body:"DM Sans",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .wrap{max-width:640px;margin:0 auto;padding:0 30px}
+  @media(max-width:560px){.wrap{padding:0 22px}}
+
+  #prog{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:60;transition:width .35s cubic-bezier(.2,.7,.3,1)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(253,252,252,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;padding:12px 30px;max-width:640px;margin:0 auto}
+  .bar .logo svg{height:24px;width:auto;display:block}
+  .bar .tag{font-size:12px;font-weight:700;color:var(--ink-40)}
+  .stepcount{margin-left:auto;font-size:12px;font-weight:700;color:var(--ink-40)}
+
+  .screen{display:none;padding:44px 0 90px}
+  .screen.active{display:block;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .eyebrow{display:inline-block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--warn);background:var(--warn-soft);border-radius:7px;padding:5px 10px;margin-bottom:16px}
+  h1.hook{font-size:38px;letter-spacing:-.03em;margin-bottom:14px}
+  @media(max-width:560px){h1.hook{font-size:30px}}
+  h2.h{font-size:26px;margin-bottom:10px}
+  .lead{font-size:18px;color:var(--ink-70);font-weight:500;max-width:32em;margin-bottom:8px}
+  .muted{color:var(--ink-70)} .small{font-size:13.5px} .tiny{font-size:12px;color:var(--ink-40);line-height:1.6}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:20px}
+  .card.pad{padding:24px}
+  .field{font-size:13px;font-weight:700;color:var(--ink-70);margin-bottom:8px;display:block}
+  .inp{width:100%;border:1px solid var(--line);border-radius:11px;padding:13px 14px;font-family:var(--body);font-size:15px;background:var(--card);font-weight:600;color:var(--ink)}
+  .inp:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft)}
+  select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2357514a' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+  .mrow{margin-bottom:16px}.mrow:last-child{margin-bottom:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .inpwrap{position:relative}
+  .inpwrap .unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:var(--ink-40);pointer-events:none}
+  .inpwrap .inp{padding-right:64px}
+
+  /* choice chips */
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--ink-70);padding:11px 16px;border-radius:10px;font-family:var(--body);font-weight:700;font-size:14px;cursor:pointer;transition:.12s}
+  .chip:hover{border-color:var(--orange)}
+  .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip .sub{display:block;font-size:11.5px;font-weight:600;opacity:.75;margin-top:2px}
+
+  /* prefilled summary rows */
+  .sumrow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .sumrow:last-child{border-bottom:0}
+  .sumrow .k{color:var(--ink-70);font-weight:600}
+  .sumrow .v{font-weight:800;font-family:var(--disp);text-align:right}
+  .prefill-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--good);background:var(--good-soft);border-radius:6px;padding:3px 8px;display:inline-block}
+
+  /* upload */
+  .dropzone{border:2px dashed var(--line);border-radius:14px;padding:32px 20px;text-align:center;cursor:pointer;background:var(--card);transition:.15s}
+  .dropzone:hover{border-color:var(--orange);background:var(--orange-soft)}
+  .dropzone.filled{border-style:solid;border-color:var(--good);background:var(--good-soft)}
+  .dropzone .dzi{width:46px;height:46px;border-radius:12px;background:var(--orange-soft);color:var(--warn);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:800;font-size:22px;margin:0 auto 12px}
+  .dropzone.filled .dzi{background:#fff;color:var(--good)}
+  .dropzone .dzt{font-family:var(--disp);font-weight:800;font-size:15px}
+  .dropzone .dzs{font-size:13px;color:var(--ink-70);margin-top:5px}
+  .secure{margin-top:12px;font-size:12.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);border-radius:9px;padding:10px 13px;display:flex;gap:8px;align-items:center}
+
+  /* live supply/usage split */
+  .split{margin-top:20px}
+  .splithead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;font-family:var(--disp);font-weight:800;font-size:15px}
+  .stack{display:flex;height:44px;border-radius:10px;overflow:hidden;border:1px solid var(--line);font-family:var(--disp);font-size:13px;font-weight:800;color:#fff;transition:.3s}
+  .stack .sup{background:var(--ink);display:flex;align-items:center;justify-content:center;min-width:40px;transition:width .4s cubic-bezier(.2,.7,.3,1)}
+  .stack .use{background:var(--orange);display:flex;align-items:center;justify-content:center;transition:width .4s cubic-bezier(.2,.7,.3,1)}
+  .legend{display:flex;gap:18px;margin-top:9px;font-size:12.5px;color:var(--ink-70);font-weight:600}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .legend i.ink{background:var(--ink)}.legend i.orange{background:var(--orange)}
+
+  /* offers */
+  .offerrow{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+  .offerrow .inp{flex:1}
+  .offerrow .del{background:none;border:1px solid var(--line);border-radius:9px;width:42px;height:44px;flex:none;cursor:pointer;color:var(--ink-40);font-size:18px;font-weight:700}
+  .offerrow .del:hover{border-color:var(--warn);color:var(--warn)}
+  .addoffer{background:none;border:1px dashed var(--line);border-radius:10px;padding:11px;width:100%;font-family:var(--body);font-weight:700;font-size:13.5px;color:var(--ink-70);cursor:pointer}
+  .addoffer:hover{border-color:var(--orange);color:var(--warn)}
+  .homerun-offer{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--orange-soft);border:1px solid var(--warn-soft);border-radius:11px;padding:14px 16px;margin-top:6px}
+  .homerun-offer .ho-t{font-weight:800;font-size:14px}
+  .homerun-offer .ho-s{font-size:12px;color:var(--ink-70);margin-top:2px}
+  .homerun-offer .ho-v{font-family:var(--disp);font-weight:800;color:var(--warn);font-size:16px}
+
+  /* live saving preview */
+  .savepreview{background:var(--ink);color:#fff;border-radius:16px;padding:22px;margin-top:20px;text-align:center}
+  .savepreview .spl{font-size:12.5px;color:#cfc7bd;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  .savepreview .spn{font-family:var(--disp);font-weight:800;font-size:40px;color:#fff;margin:4px 0;line-height:1}
+  .savepreview .spn.good{color:#7fd6a3}
+  .savepreview .sps{font-size:13px;color:#cfc7bd;margin-top:6px}
+
+  /* reminder */
+  .segbtns{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:4px}
+  .segbtns button{border:0;background:var(--card);padding:11px 20px;font-family:var(--body);font-weight:700;font-size:14px;cursor:pointer;color:var(--ink-70)}
+  .segbtns button.on{background:var(--ink);color:#fff}
+  .whycard{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--card);margin-top:14px}
+  .whycard .wt{font-family:var(--disp);font-weight:800;font-size:14px;display:flex;gap:8px;align-items:center}
+  .whycard ul{margin:10px 0 0 2px;list-style:none}
+  .whycard li{font-size:13.5px;color:var(--ink-70);padding-left:22px;position:relative;margin-bottom:8px}
+  .whycard li:before{content:"";position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:3px;background:var(--orange)}
+
+  /* nav */
+  .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(253,252,252,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:55}
+  .navin{max-width:640px;margin:0 auto;padding:14px 30px;display:flex;gap:12px;align-items:center}
+  @media(max-width:560px){.navin{padding:12px 22px}}
+  .btn{background:var(--orange);color:var(--ink);border:0;border-radius:9999px;padding:15px 30px;font-family:var(--body);font-weight:700;font-size:15px;letter-spacing:-.01em;cursor:pointer;transition:.12s}
+  .btn:hover{filter:brightness(.97)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn.block{display:block;width:100%;text-align:center}
+  .btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .btn.dark{background:var(--ink);color:#fff}
+  .backbtn{background:none;border:0;color:var(--ink-70);font-family:var(--body);font-weight:700;font-size:14px;cursor:pointer;padding:10px 4px}
+  .backbtn:hover{color:var(--orange)}
+  .navspace{flex:1}
+
+  /* email intro */
+  .email{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);margin-top:22px;box-shadow:0 6px 24px rgba(36,33,30,.06)}
+  .email .eh{background:var(--paper);border-bottom:1px solid var(--line);padding:15px 20px}
+  .email .efrom{font-weight:800;font-size:14px}
+  .email .esubj{font-size:13.5px;color:var(--ink);margin-top:3px;font-weight:700}
+  .email .emeta{font-size:12px;color:var(--ink-40);margin-top:2px}
+  .email .ebody{padding:26px 22px}
+  .email .ebody h3{font-size:22px;margin-bottom:10px}
+  .email .ebody p{font-size:14.5px;color:var(--ink-70);margin-bottom:14px}
+
+  /* dashboard (destination) */
+  .greet{background:linear-gradient(120deg,#24211e,#3b352f);color:#fff;border-radius:18px;padding:28px}
+  .greet h2{color:#fff;font-size:26px}.greet p{color:#cfc7bd;font-size:14.5px;margin-top:8px;max-width:32em}
+  .secblk{margin-bottom:26px}
+  .stat3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:560px){.stat3{grid-template-columns:1fr}}
+  .sbox{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--card)}
+  .sbox .sn{font-family:var(--disp);font-weight:800;font-size:26px}
+  .sbox.g .sn{color:var(--good)}.sbox.o .sn{color:var(--warn)}
+  .sbox .sl{font-size:12.5px;color:var(--ink-70);font-weight:600;margin-top:3px}
+  .sbox .stag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-40);margin-top:6px}
+  table.cmp{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+  table.cmp th,table.cmp td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--line)}
+  table.cmp th:first-child,table.cmp td:first-child{text-align:left;color:var(--ink-70);font-weight:600}
+  table.cmp thead th{font-family:var(--disp);font-weight:800;font-size:13px;color:var(--ink);border-bottom:2px solid var(--line)}
+  table.cmp thead th.newcol{color:var(--good)}
+  table.cmp td b{font-weight:800}
+  .fuelh{font-family:var(--disp);font-weight:800;font-size:16px;margin:18px 0 2px}
+  .barchart{display:flex;align-items:flex-end;gap:16px;height:130px;margin-top:12px}
+  .barchart .b{flex:1;position:relative;display:flex;justify-content:center}
+  .barchart .b i{position:absolute;bottom:0;left:8%;right:8%;border-radius:8px 8px 0 0}
+  .barchart .b .cap{position:absolute;bottom:100%;font-size:11px;font-weight:800;padding-bottom:4px}
+  .barchart .b .mo{position:absolute;top:100%;font-size:11px;color:var(--ink-40);padding-top:5px;white-space:nowrap}
+  .remind-d{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .benchpend{border:1px dashed var(--line);border-radius:12px;padding:16px;background:var(--paper);font-size:13.5px;color:var(--ink-70);display:flex;gap:12px;align-items:flex-start}
+  .benchpend .bi{width:30px;height:30px;border-radius:8px;background:var(--card);border:1px solid var(--line);flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink-40)}
+
+  .disc{font-size:11.5px;color:var(--ink-40);border-top:1px solid var(--line);margin-top:28px;padding-top:14px;line-height:1.6}
+
+  /* ===== Revolut-style desktop web app dashboard (Homerun design system) ===== */
+  #screen-dashboard{padding:0}
+  #screen-dashboard.active{display:block}
+  .app{--sb:236px;--dark:#1a1613;--dark2:#141110;--dcard:#242019;--dline:rgba(255,255,255,.08);
+    --dtext:#f4efe8;--dsub:#a49a8d;--dsub2:#7d7469;--dgood:#4bd089;--dgoodbg:rgba(75,191,127,.16);
+    font-family:'Hanken Grotesk',var(--body);display:flex;min-height:100vh;background:var(--dark);color:var(--dtext)}
+
+  /* sidebar */
+  .sb{width:var(--sb);flex:none;background:var(--dark2);border-right:1px solid var(--dline);display:flex;flex-direction:column;padding:20px 14px;position:sticky;top:0;height:100vh}
+  .sb-logo{display:flex;align-items:center;gap:9px;padding:6px 8px 22px}
+  .sb-logo svg{height:22px;width:auto}
+  .sb-logo b{font-family:'Hanken Grotesk';font-weight:800;font-size:16px;color:var(--dtext)}
+  .sb-nav{display:flex;flex-direction:column;gap:2px}
+  .nav-i{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:var(--dsub);font-weight:600;font-size:14px;cursor:pointer;transition:.12s}
+  .nav-i:hover{background:rgba(255,255,255,.05);color:var(--dtext)}
+  .nav-i.active{background:rgba(255,255,255,.08);color:var(--dtext)}
+  .nav-i svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9}
+  .nav-i.active svg{stroke:var(--orange)}
+  .sb-foot{margin-top:auto;padding:8px}
+  .sb-foot button{background:none;border:0;color:var(--dsub2);font-family:'Hanken Grotesk';font-size:12.5px;font-weight:600;cursor:pointer;padding:6px 4px}
+  .sb-foot button:hover{color:var(--dtext)}
+
+  /* main */
+  .mn{flex:1;min-width:0;display:flex;flex-direction:column}
+  .tb{display:flex;align-items:center;gap:16px;padding:18px 34px;border-bottom:1px solid var(--dline);position:sticky;top:0;background:rgba(26,22,19,.9);backdrop-filter:blur(10px);z-index:10}
+  .tb-title{font-family:'Hanken Grotesk';font-weight:800;font-size:22px;letter-spacing:-.01em}
+  .tb-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+  .tb-ico{width:34px;height:34px;border-radius:9px;border:1px solid var(--dline);display:flex;align-items:center;justify-content:center;color:var(--dsub);cursor:pointer}
+  .tb-ico svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
+  .tb-acct{display:flex;align-items:center;gap:9px;border:1px solid var(--dline);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
+  .tb-acct .av{width:24px;height:24px;border-radius:50%;background:var(--orange);color:#2b1704;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:none}
+
+  .cn{padding:26px 34px 34px;max-width:1120px;width:100%}
+  @media(max-width:900px){.cn{padding:22px 20px 40px}.sb{--sb:64px;width:64px;padding:20px 8px}.sb-logo b,.nav-i span,.sb-foot{display:none}.nav-i{justify-content:center;padding:11px}}
+
+  .dash2{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:start}
+  @media(max-width:820px){.dash2{grid-template-columns:1fr;gap:20px}}
+  .d-right>*+*{margin-top:14px}
+  .d-eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dsub2);margin-bottom:10px}
+  .d-save{font-family:'Hanken Grotesk';font-size:32px;line-height:1.08;letter-spacing:-.025em;color:var(--dtext);font-weight:800}
+  @media(max-width:560px){.d-save{font-size:27px}}
+  .d-save b{color:var(--orange)}
+  .d-sub{font-size:14.5px;color:var(--dsub);font-weight:500;margin-top:10px;max-width:34em;line-height:1.5}
+
+  /* primary action (not switched) */
+  .d-action{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#3a2b17,#2a2013);border:1px solid rgba(252,139,33,.4);border-radius:14px;padding:16px 18px;margin-top:18px}
+  .da-main{flex:1;min-width:0}
+  .da-t{font-family:'Hanken Grotesk';font-size:15.5px;font-weight:800;color:var(--dtext);letter-spacing:-.01em}
+  .da-s{font-size:13px;color:var(--dsub);margin-top:3px;line-height:1.45}
+  .da-btn{background:var(--orange);color:#2b1704;border:0;border-radius:9999px;padding:12px 20px;font-family:'Hanken Grotesk';font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;flex:none}
+  .da-btn:hover{filter:brightness(1.04)}
+
+  /* right-column visual card */
+  .visual{background:var(--dcard);border:1px solid var(--dline);border-radius:16px;padding:18px;box-shadow:0 16px 34px rgba(0,0,0,.26)}
+  .visual .v-lab{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dsub2);margin-bottom:10px}
+  .rrow{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--dline)}
+  .rrow:last-of-type{border-bottom:0}
+  .rrow.head{padding:0 0 9px}
+  .rrow.head span,.rrow.head .rk{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--dsub2);text-align:right;min-width:76px}
+  .rrow.head .rk{text-align:left}
+  .rrow.head span.cur{color:var(--orange)}
+  .rrow .rk{color:var(--dsub);font-weight:600;font-size:13.5px}
+  .rrow .rprev{color:var(--dsub2);text-align:right;min-width:76px;font-size:13.5px}
+  .rrow .rcur{color:var(--dtext);font-weight:800;text-align:right;min-width:76px;font-family:'Hanken Grotesk';font-size:13.5px}
+  .rrow .rcur.pend{color:var(--dsub2);font-weight:600}
+  .d-ratenote{font-size:11.5px;color:var(--dsub2);margin-top:10px;line-height:1.55}
+
+  /* section title */
+  .d-sectitle{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--dsub2);margin:0 0 2px;text-transform:uppercase}
+
+  /* status checklist (switched) — tight under the hero */
+  .d-list{margin:22px 0 0}
+  .drow{display:flex;align-items:center;gap:14px;padding:11px 0;border-bottom:1px solid var(--dline)}
+  .drow:last-child{border-bottom:0}
+  .dico{width:23px;height:23px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .dico.ok{background:var(--dgoodbg);color:var(--dgood)}
+  .dico.pend{background:rgba(255,255,255,.06);color:var(--dsub2)}
+  .dmain{flex:1;min-width:0}
+  .dmain .dt{font-size:14px;font-weight:700;color:var(--dtext);letter-spacing:-.01em}
+  .dmain .ds{font-size:12px;color:var(--dsub2);margin-top:1px}
+  .dval{font-family:'Hanken Grotesk';font-weight:800;font-size:16px;color:var(--dtext);white-space:nowrap}
+  .dval.good{color:var(--dgood)}
+  .dval.pend{color:var(--dsub2);font-size:13px;font-weight:700}
+
+  .d-ratecard{background:var(--dcard);border:1px solid var(--dline);border-radius:14px;padding:2px 18px}
+
+  /* next check (switched) */
+  .d-reminderblock{margin-bottom:0}
+  .d-checkrow{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px}
+  .d-checkrow .cr-t{font-size:14px;font-weight:700;color:var(--dtext)}
+  .d-checkrow .cr-s{font-size:12px;color:var(--dsub);margin-top:2px}
+  .d-checkrow .cr-v{font-family:'Hanken Grotesk';font-weight:800;color:var(--dgood);font-size:14px;white-space:nowrap;text-align:right}
+
+  /* soft upload (switched) */
+  .d-soft{background:var(--dcard);border:1px solid var(--dline);border-radius:14px;padding:14px 16px;margin:0;display:flex;gap:12px;align-items:center}
+  .d-soft .ds-i{width:36px;height:36px;border-radius:10px;background:rgba(252,139,33,.16);color:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
+  .d-soft .ds-t{font-family:'Hanken Grotesk';font-size:13.5px;font-weight:800;color:var(--dtext)}
+  .d-soft .ds-s{font-size:12px;color:var(--dsub);margin-top:2px;line-height:1.4}
+  .d-soft .ds-btn{background:rgba(255,255,255,.1);color:var(--dtext);border:0;border-radius:9999px;padding:9px 14px;font-family:'Hanken Grotesk';font-weight:700;font-size:12.5px;cursor:pointer;white-space:nowrap;flex:none}
+  .d-soft .ds-btn:hover{background:rgba(255,255,255,.16)}
+
+  .d-disc{font-size:10.5px;color:var(--dsub2);border-top:1px solid var(--dline);margin-top:20px;padding-top:12px;line-height:1.55;max-width:900px}
+
+  .hidden{display:none!important}
+  .noteline{font-size:12.5px;color:var(--ink-70);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<header><div class="bar">
+  <div class="logo"><svg viewBox="0 0 850 130" fill="none" role="img" aria-label="Homerun Switch">
+    <path d="M0 31.6221C0 14.1577 14.1577 0 31.6221 0H98.2794C115.744 0 129.902 14.1577 129.902 31.6221V98.2794C129.902 115.744 115.744 129.902 98.2794 129.902H31.6221C14.1577 129.902 0 115.744 0 98.2794V31.6221Z" fill="#FB8E28"/>
+    <path d="M87.7138 100.594C80.3554 102.963 71.6116 96.7989 66.8733 86.4741C66.4818 85.6158 65.2822 85.5606 64.8254 86.3888C59.2589 96.4376 51.6546 102.36 44.7228 100.875C34.3277 98.6461 29.3786 80.6014 33.6701 60.5741C37.9617 40.5417 49.8677 26.111 60.2628 28.3346C67.6764 29.9257 72.3194 39.5579 72.8163 52.2269C72.8615 53.3211 73.8101 54.1643 74.8993 54.0439C82.7346 53.1605 91.5285 61.0007 95.2981 72.7059C99.3989 85.4401 96.0058 97.9283 87.7188 100.599L87.7138 100.594Z" fill="#FFF1E3"/>
+    <path d="M166.502 56.2369C169.82 50.5349 175.316 47.2171 182.158 47.2171C194.601 47.2171 202.893 56.1365 202.893 70.5471V101.236H188.377V72.5147C188.377 65.2567 184.02 60.4883 177.595 60.4883C171.17 60.4883 166.502 65.9845 166.502 73.6541V101.236H151.986V28.2438H166.502V56.2369Z" fill="black"/>
+    <path d="M207.661 74.8993C207.661 59.1385 220.104 47.2175 236.277 47.2175C252.449 47.2175 264.892 59.1435 264.892 74.8993C264.892 90.6552 252.349 102.481 236.277 102.481C220.205 102.481 207.661 90.4544 207.661 74.8993ZM236.282 89.315C244.162 89.315 250.175 83.1964 250.175 74.9044C250.175 66.6123 244.162 60.3883 236.282 60.3883C228.401 60.3883 222.388 66.6073 222.388 74.9044C222.388 83.2014 228.401 89.315 236.282 89.315Z" fill="black"/>
+    <path d="M284.598 72.7258V101.241H270.082V48.4672H284.598V56.5534C287.605 50.5402 293.723 47.2224 299.114 47.2224C306.683 47.2224 311.974 50.3344 314.875 56.2422C319.021 50.3344 324.723 47.2224 332.086 47.2224C343.801 47.2224 350.748 55.5194 350.748 70.5524V101.241H336.232V71.7922C336.232 64.74 332.809 60.3882 327.418 60.3882C321.51 60.3882 317.671 65.1566 317.671 72.7258V101.241H303.155V71.7922C303.155 64.74 299.731 60.3882 294.446 60.3882C288.433 60.3882 284.598 65.1566 284.598 72.7258Z" fill="black"/>
+    <path d="M355.723 74.8989C355.723 59.4493 366.505 47.3174 382.371 47.3174C399.271 47.3174 408.497 60.8999 406.113 77.9056H368.578C370.028 85.5802 376.353 90.6598 386.306 90.6598C392.942 90.6598 399.372 88.0698 404.346 83.8184V96.156C400.095 99.8904 393.042 102.48 383.817 102.48C367.022 102.48 355.718 91.3876 355.718 74.8989H355.723ZM392.219 68.2633C391.802 62.4559 387.345 58.2045 381.232 58.2045C375.118 58.2045 370.656 61.6277 368.994 68.2633H392.219Z" fill="black"/>
+    <path d="M411.609 48.4623H426.125V59.2439C427.992 52.2971 433.694 47.2175 440.746 47.2175C443.336 47.2175 446.343 47.8399 448.832 49.1901V62.9783C445.931 61.2165 442.613 60.6995 439.918 60.6995C432.243 60.6995 426.23 67.2297 426.13 77.5998V101.241H411.614V48.4673L411.609 48.4623Z" fill="black"/>
+    <path d="M453.701 77.8049V48.4615H468.217V77.2878C468.217 84.5459 472.569 89.3143 479.205 89.3143C485.84 89.3143 490.197 84.5459 490.197 77.2878V48.4615H504.713V77.8049C504.713 92.7375 494.654 102.48 479.205 102.48C463.755 102.48 453.696 92.7325 453.696 77.8049H453.701Z" fill="black"/>
+    <path d="M524.931 56.2373C528.249 50.5353 533.745 47.2175 540.587 47.2175C553.03 47.2175 561.322 56.1369 561.322 70.5475V101.236H546.806V72.5151C546.806 65.2571 542.449 60.4887 536.024 60.4887C529.599 60.4887 524.931 65.9849 524.931 73.6545V101.236H510.415V48.4623H524.931V56.2373Z" fill="black"/>
+    <path d="M628.358 101.672C625.671 101.672 623.179 101.182 620.884 100.202C618.588 99.2223 616.615 97.9206 614.963 96.2969C613.339 94.6452 612.163 92.8535 611.436 90.9219L619.834 87.3105C620.45 88.8783 621.528 90.278 623.067 91.5098C624.635 92.7415 626.399 93.3574 628.358 93.3574C629.562 93.3574 630.668 93.1335 631.676 92.6855C632.684 92.2096 633.495 91.5798 634.111 90.7959C634.727 90.012 635.035 89.1442 635.035 88.1924C635.035 87.1286 634.671 86.2188 633.943 85.4629C633.243 84.679 632.348 84.0212 631.256 83.4893C630.192 82.9574 629.072 82.5094 627.896 82.1455C626.749 81.7816 625.741 81.4596 624.873 81.1797C622.969 80.5918 621.08 79.7799 619.204 78.7441C617.356 77.7083 615.817 76.3506 614.585 74.6709C613.353 72.9632 612.737 70.8216 612.737 68.2461C612.737 65.6426 613.409 63.389 614.753 61.4854C616.097 59.5537 617.888 58.084 620.128 57.0762C622.368 56.0404 624.845 55.5225 627.561 55.5225C631.312 55.5225 634.545 56.4323 637.261 58.252C639.976 60.0436 641.894 62.1992 643.014 64.7188L634.783 68.1621C634.223 67.1263 633.383 66.1185 632.264 65.1387C631.144 64.1589 629.66 63.6689 627.812 63.6689C626.217 63.6689 624.845 64.0889 623.697 64.9287C622.577 65.7406 622.018 66.8883 622.018 68.3721C622.018 69.6318 622.424 70.6536 623.235 71.4375C624.075 72.1934 625.181 72.8372 626.553 73.3691C627.924 73.873 629.408 74.391 631.004 74.9229C632.18 75.2868 633.509 75.7767 634.993 76.3926C636.505 76.9805 637.961 77.7643 639.36 78.7441C640.788 79.724 641.95 80.9697 642.846 82.4814C643.77 83.9652 644.231 85.7848 644.231 87.9404C644.231 90.6279 643.504 93.0075 642.048 95.0791C640.592 97.1507 638.66 98.7744 636.253 99.9502C633.845 101.098 631.214 101.672 628.358 101.672Z" fill="#4C3D2F"/>
+    <path d="M660.188 101L647.129 56.1943H657.123L662.876 78.7861L665.27 88.5283H665.563L668.503 80.8857L676.859 58.9238H681.395L689.751 80.8857L692.606 88.5283H692.942L695.42 78.7861L701.215 56.1943H711.125L698.023 101H689.457L685.132 90.124L679.295 75.5527H678.959L673.164 90.124L668.797 101H660.188Z" fill="#4C3D2F"/>
+    <path d="M717.928 101V56.1943H727.838V101H717.928ZM722.883 49.9375C721.007 49.9375 719.425 49.2936 718.138 48.0059C716.878 46.7181 716.248 45.1504 716.248 43.3027C716.248 41.4551 716.878 39.8874 718.138 38.5996C719.425 37.3118 721.007 36.668 722.883 36.668C724.73 36.668 726.298 37.3118 727.586 38.5996C728.874 39.8874 729.518 41.4551 729.518 43.3027C729.518 45.1504 728.874 46.7181 727.586 48.0059C726.298 49.2936 724.73 49.9375 722.883 49.9375Z" fill="#4C3D2F"/>
+    <path d="M756.771 101.672C752.011 101.672 748.414 100.328 745.979 97.6406C743.571 94.9531 742.367 91.5098 742.367 87.3105V42.4209H752.277V86.5967C752.277 88.7523 752.781 90.334 753.789 91.3418C754.797 92.3496 756.057 92.8535 757.568 92.8535C758.24 92.8535 758.87 92.7695 759.458 92.6016C760.046 92.4056 760.578 92.1816 761.054 91.9297L764.455 100.034C763.419 100.538 762.257 100.93 760.97 101.21C759.682 101.518 758.282 101.672 756.771 101.672ZM734.977 64.4668V56.1943H763.027V64.4668H734.977Z" fill="#4C3D2F"/>
+    <path d="M790.532 101.504C787.313 101.504 784.303 100.916 781.504 99.7402C778.704 98.5645 776.241 96.9408 774.113 94.8691C772.014 92.7695 770.362 90.32 769.158 87.5205C767.982 84.693 767.395 81.6416 767.395 78.3662C767.395 75.0628 767.996 72.0254 769.2 69.2539C770.404 66.4544 772.056 64.0329 774.155 61.9893C776.255 59.9176 778.676 58.3219 781.42 57.2021C784.191 56.0544 787.131 55.4805 790.238 55.4805C792.814 55.4805 795.319 55.8724 797.755 56.6562C800.19 57.4121 802.332 58.4479 804.18 59.7637L800.484 67.9102C799.673 67.1543 798.721 66.5104 797.629 65.9785C796.537 65.4466 795.375 65.0407 794.144 64.7607C792.912 64.4528 791.694 64.2988 790.49 64.2988C787.915 64.2988 785.619 64.9007 783.604 66.1045C781.616 67.3083 780.034 68.988 778.858 71.1436C777.711 73.2712 777.137 75.7067 777.137 78.4502C777.137 81.1377 777.711 83.5592 778.858 85.7148C780.006 87.8704 781.588 89.5781 783.604 90.8379C785.619 92.0697 787.929 92.6855 790.532 92.6855C792.604 92.6855 794.549 92.3356 796.369 91.6357C798.217 90.9079 799.645 90.068 800.652 89.1162L804.306 97.3887C802.682 98.5365 800.68 99.5163 798.301 100.328C795.921 101.112 793.332 101.504 790.532 101.504Z" fill="#4C3D2F"/>
+    <path d="M811.192 101V36.332H821.103V60.8975H823.118L819.297 64.7607C819.913 62.7731 820.963 61.0934 822.446 59.7217C823.958 58.3219 825.736 57.2721 827.779 56.5723C829.851 55.8724 832.049 55.5225 834.372 55.5225C837.983 55.5225 840.937 56.3063 843.232 57.874C845.556 59.4137 847.264 61.4294 848.355 63.9209C849.447 66.4124 849.993 69.0999 849.993 71.9834V101H840.083V74.083C840.083 70.7796 839.243 68.3021 837.563 66.6504C835.912 64.9707 833.714 64.1309 830.971 64.1309C829.123 64.1309 827.457 64.5088 825.974 65.2646C824.518 66.0205 823.342 67.1403 822.446 68.624C821.55 70.1077 821.103 71.9554 821.103 74.167V101H811.192Z" fill="#4C3D2F"/>
+    <path d="M590 95.5C590 96.8807 588.881 98 587.5 98C586.119 98 585 96.8807 585 95.5V40.5C585 39.1193 586.119 38 587.5 38C588.881 38 590 39.1193 590 40.5V95.5Z" fill="#E3E0DC"/>
+  </svg></div>
+  <span class="tag">Switch</span>
+  <span class="stepcount" id="stepcount"></span>
+</div></header>
+
+<main>
+<!-- ============ SCREEN: EMAIL ============ -->
+<section class="screen active" data-nostep>
+  <div class="wrap">
+    <span class="eyebrow">The account email</span>
+    <h1 class="hook">One calm home for your energy.</h1>
+    <p class="lead">We already know whether they've switched, so this email sends itself in the right version automatically, and the flow behind it adjusts too. Toggle to preview both:</p>
+    <div class="chips" data-single="emailState" data-onchange="toggleEmail" style="margin:0 0 6px">
+      <button class="chip on" data-val="switched">They've switched</button>
+      <button class="chip" data-val="notyet">Not switched yet</button>
+    </div>
+    <div class="email">
+      <div class="eh">
+        <div class="efrom">Homerun Switch</div>
+        <div class="esubj" id="em-subj">Your Homerun Switch account is ready</div>
+        <div class="emeta">to you · just now</div>
+      </div>
+      <div class="ebody">
+        <h3 id="em-h"></h3>
+        <div id="em-p"></div>
+        <button class="btn" onclick="go(1)" id="em-cta">Activate my account</button>
+        <div id="em-secondary" style="margin-top:14px"></div>
+      </div>
+    </div>
+    <p class="tiny" style="margin-top:16px">Prototype. This is the entry point. Toggle the two states above, then click the button to walk the onboarding flow.</p>
+  </div>
+</section>
+
+<!-- ============ SCREEN 1: ACTIVATE / CONFIRM ============ -->
+<section class="screen" data-step="1">
+  <div class="wrap">
+    <span class="eyebrow">Step 1 · Confirm it's you</span>
+    <h1 class="hook">Welcome to your Switch account.</h1>
+    <p class="lead">Here's what we already have from your comparison. Nothing to re-type, just check it's right.</p>
+    <div class="card">
+      <div class="sumrow"><span class="k">Name</span><span class="v">Jordan Avery</span></div>
+      <div class="sumrow"><span class="k">Email</span><span class="v">jordan.avery@email.com</span></div>
+      <div class="sumrow"><span class="k">Address</span><span class="v">14 Marrickville Rd, NSW 2204</span></div>
+      <div class="sumrow"><span class="k">Comparing</span><span class="v">Electricity + Gas</span></div>
+      <div class="sumrow"><span class="k">Rooftop solar</span><span class="v">No</span></div>
+      <div style="margin-top:14px"><span class="prefill-tag">Pre-filled from your switch</span></div>
+    </div>
+    <p class="noteline">One Homerun login carries into the app later, so you never set this up twice.</p>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: QUICK QUESTIONS ============ -->
+<section class="screen" data-step="2">
+  <div class="wrap">
+    <span class="eyebrow">Step 2 · A few quick questions</span>
+    <h1 class="hook">Tell us about the place.</h1>
+    <p class="lead">Three quick things. They let us tell you whether your usage is normal for a home like yours, not just what your rates are.</p>
+
+    <div class="card">
+      <div class="mrow">
+        <label class="field">Who lives here?</label>
+        <div class="chips" data-single="householdType">
+          <button class="chip" data-val="Sharehouse">Sharehouse</button>
+          <button class="chip" data-val="Renting (not shared)">Renting</button>
+          <button class="chip" data-val="Owner-occupier">I own it</button>
+        </div>
+      </div>
+      <div class="mrow">
+        <label class="field">How many people live here?</label>
+        <div class="chips" data-single="household">
+          <button class="chip" data-val="1">1</button>
+          <button class="chip" data-val="2">2</button>
+          <button class="chip" data-val="3">3</button>
+          <button class="chip" data-val="4">4</button>
+          <button class="chip" data-val="5+">5+</button>
+        </div>
+      </div>
+      <div class="mrow" style="margin-bottom:0">
+        <label class="field">Is someone usually home during the day?</label>
+        <div class="chips" data-single="daytime">
+          <button class="chip" data-val="Most days">Most days<span class="sub">home 9–5</span></button>
+          <button class="chip" data-val="Sometimes">Sometimes</button>
+          <button class="chip" data-val="Rarely">Rarely<span class="sub">out all day</span></button>
+        </div>
+      </div>
+    </div>
+    <p class="noteline">Whether the house is empty during the day decides if a time-of-use plan actually helps you or quietly costs you more.</p>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3: BILL ============ -->
+<section class="screen" data-step="3">
+  <div class="wrap">
+    <span class="eyebrow">Step 3 · Your old bill</span>
+    <h1 class="hook">Let's read your last bill together.</h1>
+    <p class="lead">Upload it so it's on file, then pop in the two numbers that actually decide your bill. We'll show you what they mean as you go.</p>
+
+    <div class="card">
+      <label class="field">Upload your most recent electricity bill</label>
+      <div class="dropzone" id="dz-bill" onclick="fakeUpload('dz-bill','Bill uploaded · energyaustralia-jul.pdf')">
+        <div class="dzi">↑</div>
+        <div class="dzt">Upload securely</div>
+        <div class="dzs">PDF or a photo. Stored encrypted, only you and your account can see it.</div>
+      </div>
+      <div class="secure">🔒 Bank-level encryption. We never share your bill with a retailer without you asking.</div>
+    </div>
+
+    <div class="card">
+      <div class="mrow">
+        <label class="field">What kind of usage rate are you on? <span class="tiny">(it says on the bill)</span></label>
+        <div class="chips" data-single="usageType" data-onchange="toggleUsageType">
+          <button class="chip" data-val="single">Single rate<span class="sub">one price all day</span></button>
+          <button class="chip" data-val="tou">Time of use<span class="sub">peak / off-peak</span></button>
+          <button class="chip" data-val="controlled">Controlled load<span class="sub">e.g. hot water</span></button>
+        </div>
+      </div>
+
+      <div class="mrow">
+        <label class="field">Daily supply charge</label>
+        <div class="inpwrap"><input class="inp" type="number" step="0.01" id="in-supplyOld" oninput="computeBill()" placeholder="e.g. 1.66"><span class="unit">$ / day</span></div>
+      </div>
+
+      <!-- single -->
+      <div class="mrow ut ut-single">
+        <label class="field">Usage rate</label>
+        <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-usageOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c / kWh</span></div>
+      </div>
+
+      <!-- tou -->
+      <div class="ut ut-tou hidden">
+        <div class="two">
+          <div class="mrow"><label class="field">Peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-peakOld" oninput="computeBill()" placeholder="e.g. 45"><span class="unit">c/kWh</span></div></div>
+          <div class="mrow"><label class="field">Shoulder rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-shoulderOld" oninput="computeBill()" placeholder="e.g. 30"><span class="unit">c/kWh</span></div></div>
+        </div>
+        <div class="mrow"><label class="field">Off-peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-offpeakOld" oninput="computeBill()" placeholder="e.g. 22"><span class="unit">c/kWh</span></div></div>
+      </div>
+
+      <!-- controlled -->
+      <div class="ut ut-controlled hidden">
+        <div class="mrow"><label class="field">General usage rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-genOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c/kWh</span></div></div>
+        <div class="mrow"><label class="field">Controlled load rate <span class="tiny">(hot water / slab heating)</span></label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-ctrlOld" oninput="computeBill()" placeholder="e.g. 20"><span class="unit">c/kWh</span></div></div>
+      </div>
+
+      <div class="mrow" style="margin-bottom:0">
+        <label class="field">Average daily usage <span class="tiny">(the total kWh/day on your bill)</span></label>
+        <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-kwh" oninput="computeBill()" placeholder="e.g. 11.5"><span class="unit">kWh / day</span></div>
+      </div>
+
+      <div class="split" id="splitViz" style="display:none">
+        <div class="splithead"><span>Where your bill goes</span><span id="split-total"></span></div>
+        <div class="stack">
+          <div class="use" id="split-use">Usage</div>
+          <div class="sup" id="split-sup">Supply</div>
+        </div>
+        <div class="legend"><span><i class="orange"></i><span id="split-use-lab">Usage</span></span><span><i class="ink"></i><span id="split-sup-lab">Supply</span></span></div>
+        <p class="tiny" style="margin-top:10px">Supply is the fixed daily charge you pay even at zero usage. Usage is what you actually burn. A cheap-looking usage rate with a high supply charge can still be the dearer plan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 4: NEW PLAN ============ -->
+<section class="screen" data-step="4">
+  <div class="wrap">
+    <span class="eyebrow">Step 4 · Your new plan</span>
+    <h1 class="hook">Tell us about your new plan.</h1>
+    <p class="lead">Pop in the plan you moved to and we'll line it up against your old one, honestly, for your next bill.</p>
+
+    <div id="branch-yes">
+      <div class="card">
+        <div class="two">
+          <div class="mrow"><label class="field">New retailer</label><input class="inp" id="in-newRetailer" value="" placeholder="e.g. ENGIE"></div>
+          <div class="mrow"><label class="field">Plan name</label><input class="inp" id="in-newPlan" value="" placeholder="e.g. Simply Energy"></div>
+        </div>
+        <label class="field">Upload a screenshot of your new plan <span class="tiny">(so it's on file for next time)</span></label>
+        <div class="dropzone" id="dz-plan" onclick="fakeUpload('dz-plan','Plan screenshot uploaded')">
+          <div class="dzi">↑</div>
+          <div class="dzt">Add your plan screenshot</div>
+          <div class="dzs">The welcome email or plan summary works fine.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label class="field" style="margin-bottom:12px">Your new rates <span class="tiny">(from your welcome pack)</span></label>
+        <div class="mrow"><div class="inpwrap"><input class="inp" type="number" step="0.01" id="in-supplyNew" oninput="computeSaving()" placeholder="Daily supply"><span class="unit">$ / day</span></div></div>
+        <div class="mrow" style="margin-bottom:0"><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-usageNew" oninput="computeSaving()" placeholder="Usage rate"><span class="unit">c / kWh</span></div></div>
+        <p class="tiny" style="margin-top:10px" id="newRateNote"></p>
+      </div>
+
+      <div class="card">
+        <label class="field" style="margin-bottom:6px">Welcome offers you got</label>
+        <p class="tiny" style="margin-bottom:14px">Sign-up credits are one-off. We keep them separate from your ongoing saving so the numbers stay honest.</p>
+        <div id="offerList"></div>
+        <button class="addoffer" onclick="addOffer()">+ Add a welcome offer</button>
+
+        <div class="homerun-offer" id="homerunOffer">
+          <div>
+            <div class="ho-t">Homerun $150 Prepaid Visa gift card</div>
+            <div class="ho-s">Added automatically because you switched before 30 September. This is our thank-you, kept separate from the plan comparison.</div>
+          </div>
+          <div class="ho-v">+$150</div>
+        </div>
+      </div>
+
+      <div class="savepreview">
+        <div class="spl">Your ongoing saving, based on your numbers</div>
+        <div class="spn" id="savePreviewNum">Enter your rates</div>
+        <div class="sps" id="savePreviewSub">This is the number that repeats every bill. One-off credits are counted separately.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5: REMINDER ============ -->
+<section class="screen" data-step="5">
+  <div class="wrap">
+    <span class="eyebrow">Step 5 · You're in control</span>
+    <h1 class="hook">Lock in your next check.</h1>
+    <p class="lead">You've done the smart thing. Now set when Homerun compares the market for you again, so you keep the good deal instead of drifting onto a loyalty price.</p>
+
+    <div class="card">
+      <label class="field">Compare the market again in</label>
+      <select class="inp" id="rem-select" onchange="updReminder()" style="max-width:240px">
+        <option value="1">1 month</option>
+        <option value="2">2 months</option>
+        <option value="3">3 months</option>
+        <option value="4">4 months</option>
+        <option value="5">5 months</option>
+        <option value="6" selected>6 months</option>
+        <option value="7">7 months</option>
+        <option value="8">8 months</option>
+        <option value="9">9 months</option>
+        <option value="10">10 months</option>
+        <option value="11">11 months</option>
+        <option value="12">12 months</option>
+      </select>
+
+      <div class="remind-date">
+        <div><div class="rd-l">Your next check will be</div><div class="rd-d" id="rem-date">—</div></div>
+      </div>
+
+      <button class="btn block" style="margin-top:16px" onclick="acceptReminder()">Set my reminder</button>
+
+      <div class="whycard" style="margin-top:18px">
+        <div class="wt">Why six months is the sweet spot</div>
+        <ul>
+          <li>Most sign-up discounts and credits fade after the first few bills.</li>
+          <li>Standing offers drift up. Checking twice a year catches it early.</li>
+          <li>Harvest the welcome offers, then settle on a genuinely low rate. We'll tell you when there's nothing better to move to.</li>
+        </ul>
+      </div>
+      <p class="noteline">We only email you when a real, better option exists for your usage. No noise, no fake urgency. Change or cancel anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN: DASHBOARD (Revolut-style desktop web app) ============ -->
+<section class="screen" data-nostep id="screen-dashboard">
+  <div class="app">
+    <!-- sidebar -->
+    <aside class="sb">
+      <div class="sb-logo">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M87.38 113.94C75.81 117.66 62.07 107.97 54.62 91.74c-0.61-1.35-2.5-1.44-3.22-0.13-8.75 15.79-20.7 25.1-31.6 22.77C3.46 110.88-4.32 82.51 2.43 51.03 9.18 19.54 27.89-3.14 44.23 0.36c11.65 2.5 18.95 17.64 19.73 37.55 0.07 1.72 1.56 3.05 3.27 2.86 12.32-1.39 26.14 10.94 32.07 29.34 6.45 20.02 1.11 39.65-11.92 43.84z" fill="#fb8e28" transform="scale(0.8) translate(6 4)"/></svg>
+        <b>Homerun</b>
+      </div>
+      <nav class="sb-nav">
+        <div class="nav-i active"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Energy</span></div>
+        <div class="nav-i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profile</span></div>
+      </nav>
+      <div class="sb-foot"><button onclick="go(0)">↻ Restart prototype</button></div>
+    </aside>
+
+    <!-- main -->
+    <div class="mn">
+      <div class="tb">
+        <div class="tb-title">Energy</div>
+        <div class="tb-right">
+          <div class="tb-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg></div>
+          <div class="tb-acct"><span class="av">JA</span>Jordan Avery <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+
+      <div class="cn">
+        <div class="dash2">
+          <!-- LEFT: hero + checklist as one tight module -->
+          <div class="d-left">
+            <div class="d-eyebrow" id="d-eyebrow">Homerun Switch</div>
+            <h1 class="d-save" id="d-hero">You're all set.</h1>
+            <p class="d-sub" id="d-herosub"></p>
+
+            <!-- INCOMPLETE SWITCH: primary action -->
+            <div class="d-action" id="d-action">
+              <div class="da-main"><div class="da-t" id="da-t"></div><div class="da-s" id="da-s"></div></div>
+              <button class="da-btn" id="da-btn" onclick="alert('Prototype: opens the comparison, pre-filled with your address and usage.')"></button>
+            </div>
+
+            <!-- COMPLETED SWITCH: saved & banked checklist, tight under hero -->
+            <div class="d-list" id="d-banked">
+              <div class="d-sectitle">Saved &amp; banked</div>
+              <div class="drow">
+                <div class="dico ok">✓</div>
+                <div class="dmain"><div class="dt">Ongoing saving</div><div class="ds">Repeats on every bill</div></div>
+                <div class="dval good" id="d-ongoing">—</div>
+              </div>
+              <div class="drow">
+                <div class="dico ok">✓</div>
+                <div class="dmain"><div class="dt">Welcome credits</div><div class="ds">One-off, from your new retailer</div></div>
+                <div class="dval" id="d-credits">—</div>
+              </div>
+              <div class="drow">
+                <div class="dico ok">✓</div>
+                <div class="dmain"><div class="dt">Homerun gift card</div><div class="ds">Our thank-you, separate from the comparison</div></div>
+                <div class="dval" id="d-homerun">$150</div>
+              </div>
+              <div class="drow">
+                <div class="dico pend">◷</div>
+                <div class="dmain"><div class="dt">Market benchmark</div><div class="ds">Activates after your first new bill</div></div>
+                <div class="dval pend">Pending</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: data cards stacked -->
+          <div class="d-right">
+            <div class="visual">
+              <div class="v-lab" id="d-ratetitle">Your rates · electricity</div>
+              <div class="rrow head"><span class="rk">Rate</span><span id="d-oldhead">Previous</span><span class="cur" id="d-newhead">Current</span></div>
+              <div class="rrow"><span class="rk">Supply</span><span class="rprev" id="d-supplyOld">—</span><span class="rcur" id="d-supplyNew">—</span></div>
+              <div class="rrow"><span class="rk" id="d-usageLabel">Usage</span><span class="rprev" id="d-usageOld">—</span><span class="rcur" id="d-usageNew">—</span></div>
+              <p class="d-ratenote" id="d-ratenote"></p>
+            </div>
+
+            <div class="d-reminderblock" id="d-reminderblock">
+              <div class="d-sectitle">Next check</div>
+              <div class="d-ratecard" style="padding:0">
+                <div class="d-checkrow">
+                  <div><div class="cr-t">Compare the market again</div><div class="cr-s" id="d-reminder-sub">You're in control. Change or cancel anytime.</div></div>
+                  <div class="cr-v" id="d-reminder-date">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-soft" id="d-upload">
+              <div class="ds-i">↑</div>
+              <div class="da-main"><div class="ds-t">Keep it effortless</div><div class="ds-s">Upload your next bill here and we'll track your usage and flag a better deal. No rush.</div></div>
+              <button class="ds-btn" onclick="alert('Prototype: securely upload your next bill.')">Upload</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="d-disc" id="d-disc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- NAV -->
+<div class="nav"><div class="navin">
+  <button class="backbtn" id="backBtn" onclick="back()" style="display:none">← Back</button>
+  <div class="navspace"></div>
+  <button class="btn" id="nextBtn" onclick="next()">Continue</button>
+</div></div>
+
+<script>
+/* ---------- state ---------- */
+const S = {
+  householdType:null, household:null, daytime:null,
+  usageType:'single', switched:null, reminder:'6',
+  offers:[], homerunOffer:150, emailState:'switched'
+};
+
+/* ---------- email copy (auto-adjusts to switch status; personally signed) ---------- */
+const SIG='<div style="border-top:1px solid var(--line);margin-top:20px;padding-top:16px">'
+  +'<p style="margin:0 0 2px;font-weight:800;color:var(--ink);font-size:14.5px">Scott McKeon</p>'
+  +'<p style="margin:0;color:var(--ink-40);font-size:13px">Founder, Homerun</p></div>';
+const EMAIL = {
+  switched:{
+    subj:'Your switch is done. Now let\'s keep it paying off.',
+    h:'Nice work. Now let\'s make the savings stick.',
+    p:'<p>Switching once is the easy win. Staying on a genuinely good deal is where the real money is, and it\'s the part almost nobody gets around to.</p>'
+      +'<p>That\'s what your Homerun Switch account is for. Your plan, rates and bills sit in one place, we keep checking your deal against the market, and we tell you the moment a better one appears. No spreadsheets, no comparison sites, no quietly sliding onto a loyalty price a year from now.</p>'
+      +'<p>We do the watching. You keep the savings. Setting it up takes about two minutes, and your details are already saved.</p>'
+      +'<p style="color:var(--ink)">I started Homerun because renters and sharehouses cop the worst energy deals and have the least time to fix them. Keeping you on a good one is on us, not you.</p>'
+      +SIG,
+    cta:'Set up my account',
+    secondary:''
+  },
+  notyet:{
+    subj:'Activate your Homerun account',
+    h:'Activate your account. We\'ll do the heavy lifting.',
+    p:'<p>You\'ve seen what you could save. The hard part is everything after: choosing the right plan, doing the paperwork, and making sure the deal stays good once the welcome offer fades.</p>'
+      +'<p>That\'s exactly what Homerun Switch does for you. Activate your account and we handle the heavy lifting: line up the best offers for your usage, turn switching into a few taps instead of an afternoon, and keep watching the market so you never drift onto an overpriced plan again.</p>'
+      +'<p>It takes about three minutes to set up, and your comparison is already saved, so you can pick up right where you left off.</p>'
+      +'<p style="color:var(--ink)">I built Homerun to make this the easy, obvious choice for renters and sharehouses. Activate your account and let us do the legwork.</p>'
+      +SIG,
+    cta:'Activate my account',
+    secondary:'<a href="javascript:void(0)" onclick="alert(\'Prototype: reopens the comparison, pre-filled.\')" style="color:var(--warn);font-weight:700;font-size:14px;text-decoration:none">Back to your comparison →</a>'
+  }
+};
+function toggleEmail(){
+  const e=EMAIL[S.emailState]||EMAIL.switched;
+  S.switched = (S.emailState==='switched') ? 'yes' : 'no'; // known switch status drives the whole flow
+  document.getElementById('em-subj').textContent=e.subj;
+  document.getElementById('em-h').textContent=e.h;
+  document.getElementById('em-p').innerHTML=e.p;
+  document.getElementById('em-cta').textContent=e.cta;
+  document.getElementById('em-secondary').innerHTML=e.secondary;
+}
+const HOMERUN_OFFER_ACTIVE = (new Date()) < (new Date('2026-09-30T23:59:59'));
+
+/* ---------- screen controller ---------- */
+const screens = [...document.querySelectorAll('.screen')];
+let idx = 0;
+const totalSteps = document.querySelectorAll('.screen[data-step]').length;
+
+const dashIdx = screens.indexOf(document.getElementById('screen-dashboard'));
+function stepIdx(s){ return screens.findIndex(x=>x.getAttribute('data-step')===s); }
+function goDash(){ buildDashboard(); idx=dashIdx; render(); }
+
+function render(){
+  screens.forEach((s,i)=>s.classList.toggle('active', i===idx));
+  window.scrollTo({top:0,behavior:'instant'});
+  const cur = screens[idx];
+  document.getElementById('backBtn').style.display = idx>0 ? 'block':'none';
+  const step = cur.getAttribute('data-step');
+  const sc = document.getElementById('stepcount');
+  const total = (S.switched==='no') ? 3 : 5; // not switched: no plan step, no reminder step
+  if(step){ sc.textContent = 'Step '+step+' of '+total; document.getElementById('prog').style.width = (step/total*100)+'%'; }
+  else if(cur.id==='screen-dashboard'){ sc.textContent='Done'; document.getElementById('prog').style.width='100%'; }
+  else { sc.textContent=''; document.getElementById('prog').style.width='0%'; }
+  const isDash = (cur.id==='screen-dashboard');
+  document.querySelector('.nav').style.display = isDash ? 'none' : 'flex'; // dashboard is a full desktop shell
+  document.querySelector('header').style.display = isDash ? 'none' : 'block';
+  document.getElementById('prog').style.display = isDash ? 'none' : 'block';
+  const nb = document.getElementById('nextBtn');
+  const isEmail = (cur.dataset.nostep!==undefined && !isDash);
+  nb.style.display = (isEmail || step==='5') ? 'none' : 'block'; // email + step5 have their own in-screen CTAs
+  nb.textContent = 'Continue';
+  if(step==='4'){
+    document.getElementById('homerunOffer').style.display = HOMERUN_OFFER_ACTIVE ? 'flex' : 'none';
+    if(S.offers.length===0) addOffer('Sign-up credit',200);
+  }
+  if(step==='5') updReminder();
+}
+function go(i){ idx=i; render(); }
+function next(){
+  const cur=screens[idx]; const step=cur.getAttribute('data-step');
+  if(cur.id==='screen-dashboard'){ go(0); return; }
+  if(step==='3'){
+    if(S.switched==='yes'){ idx=stepIdx('4'); render(); return; }
+    goDash(); return; // not switched: skip plan + reminder, go straight into the dashboard
+  }
+  if(step==='4'){ idx=stepIdx('5'); render(); return; }
+  if(idx<screens.length-1){ idx++; if(screens[idx].id==='screen-dashboard') idx++; render(); }
+}
+function back(){
+  const cur=screens[idx];
+  if(cur.id==='screen-dashboard'){ idx = (S.switched==='yes') ? stepIdx('5') : stepIdx('3'); render(); return; }
+  if(idx>0){ idx--; if(screens[idx].id==='screen-dashboard') idx--; render(); }
+}
+
+/* ---------- reminder (any month multiple + resolved date) ---------- */
+function fmtDate(d){ try{ return d.toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}); }catch(e){ return ''; } }
+function reminderMonths(){ return parseInt(S.reminder)||6; }
+function reminderLabel(){ const m=reminderMonths(); return m+(m===1?' month':' months'); }
+function reminderDate(){ const d=new Date(); d.setMonth(d.getMonth()+reminderMonths()); return d; }
+function updReminder(){ const sel=document.getElementById('rem-select'); if(sel) S.reminder=sel.value; const el=document.getElementById('rem-date'); if(el) el.textContent=fmtDate(reminderDate()); }
+function acceptReminder(){ goDash(); }
+
+/* ---------- chip / segmented pickers ---------- */
+document.querySelectorAll('[data-single]').forEach(group=>{
+  const key=group.getAttribute('data-single');
+  group.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      group.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      S[key]=btn.getAttribute('data-val');
+      const cb=group.getAttribute('data-onchange');
+      if(cb) window[cb]();
+    });
+  });
+});
+
+/* ---------- usage type toggle ---------- */
+function toggleUsageType(){
+  document.querySelectorAll('.ut').forEach(e=>e.classList.add('hidden'));
+  document.querySelector('.ut-'+S.usageType).classList.remove('hidden');
+  computeBill();
+}
+/* ---------- switched toggle ---------- */
+function toggleSwitched(){
+  document.getElementById('branch-yes').classList.toggle('hidden', S.switched!=='yes');
+  document.getElementById('branch-no').classList.toggle('hidden', S.switched!=='no');
+  if(S.switched==='yes' && S.offers.length===0){ addOffer('Sign-up credit', 200); }
+  document.getElementById('homerunOffer').style.display = HOMERUN_OFFER_ACTIVE ? 'flex':'none';
+}
+
+/* ---------- uploads (prototype) ---------- */
+function fakeUpload(id,label){
+  const dz=document.getElementById(id);
+  dz.classList.add('filled');
+  dz.querySelector('.dzt').textContent=label;
+  dz.querySelector('.dzs').textContent='Tap to replace';
+  dz.querySelector('.dzi').textContent='✓';
+}
+
+/* ---------- effective old usage rate ---------- */
+function effOldRate(){
+  const n=id=>parseFloat(document.getElementById(id).value)||0;
+  if(S.usageType==='single') return n('in-usageOld');
+  if(S.usageType==='tou'){ return 0.3*n('in-peakOld')+0.3*n('in-shoulderOld')+0.4*n('in-offpeakOld'); }
+  if(S.usageType==='controlled') return n('in-genOld'); // controlled load handled as note, general drives estimate
+  return 0;
+}
+
+/* ---------- bill split viz ---------- */
+function computeBill(){
+  const n=id=>parseFloat(document.getElementById(id).value)||0;
+  const supply=n('in-supplyOld'), kwh=n('in-kwh'), rate=effOldRate();
+  const viz=document.getElementById('splitViz');
+  if(supply>0 && kwh>0 && rate>0){
+    viz.style.display='block';
+    const usageDay=rate/100*kwh, total=supply+usageDay;
+    const uPct=Math.round(usageDay/total*100), sPct=100-uPct;
+    document.getElementById('split-use').style.width=uPct+'%';
+    document.getElementById('split-sup').style.width=sPct+'%';
+    document.getElementById('split-use').textContent=uPct>14?('Usage '+uPct+'%'):(uPct+'%');
+    document.getElementById('split-sup').textContent=sPct>14?('Supply '+sPct+'%'):(sPct+'%');
+    document.getElementById('split-total').textContent='~$'+Math.round(total*91)+' / quarter';
+    document.getElementById('split-use-lab').textContent='Usage ~$'+Math.round(usageDay*91)+'/qtr';
+    document.getElementById('split-sup-lab').textContent='Supply ~$'+Math.round(supply*91)+'/qtr';
+  } else viz.style.display='none';
+}
+
+/* ---------- offers ---------- */
+function addOffer(name='', val=''){
+  const i=S.offers.length;
+  S.offers.push({name:name,val:val});
+  const list=document.getElementById('offerList');
+  const row=document.createElement('div');
+  row.className='offerrow'; row.dataset.i=i;
+  row.innerHTML='<input class="inp" placeholder="e.g. First-bill credit" value="'+name+'" oninput="updOffer('+i+',\'name\',this.value)">'+
+    '<div class="inpwrap" style="max-width:120px"><input class="inp" type="number" placeholder="0" value="'+val+'" oninput="updOffer('+i+',\'val\',this.value)"><span class="unit">$</span></div>'+
+    '<button class="del" onclick="delOffer('+i+',this)">✕</button>';
+  list.appendChild(row);
+  computeSaving();
+}
+function updOffer(i,k,v){ S.offers[i][k]=v; computeSaving(); }
+function delOffer(i,el){ S.offers[i]=null; el.closest('.offerrow').remove(); computeSaving(); }
+
+/* ---------- ongoing saving ---------- */
+function annualCost(supply, rate, kwh){ return 365*(supply + rate/100*kwh); }
+function computeSaving(){
+  const n=id=>parseFloat(document.getElementById(id).value)||0;
+  const kwh=n('in-kwh'), supplyOld=n('in-supplyOld'), rateOld=effOldRate();
+  const supplyNew=n('in-supplyNew'), rateNew=n('in-usageNew');
+  const numEl=document.getElementById('savePreviewNum'), subEl=document.getElementById('savePreviewSub');
+  const note=document.getElementById('newRateNote');
+  if(S.usageType!=='single') note.textContent='Your old plan is '+({tou:'time of use',controlled:'controlled load'})[S.usageType]+'. Enter the single ongoing rate your new plan charges; we compare on a like-for-like blended basis.';
+  else note.textContent='';
+  if(kwh>0 && supplyOld>0 && rateOld>0 && supplyNew>0 && rateNew>0){
+    const saving=Math.round(annualCost(supplyOld,rateOld,kwh)-annualCost(supplyNew,rateNew,kwh));
+    numEl.classList.toggle('good', saving>=0);
+    if(saving>=0){ numEl.textContent='$'+saving+' / year'; subEl.textContent='This is the number that repeats every bill. Welcome credits are counted separately.'; }
+    else { numEl.textContent='−$'+Math.abs(saving)+' / year'; subEl.textContent='Your new ongoing rate looks higher. The welcome offers may still make it worth it for now, but we\'ll flag a better long-term plan at your next check.'; }
+  } else { numEl.textContent='Enter your rates'; numEl.classList.remove('good'); }
+}
+
+/* ---------- build dashboard (two versions: switch incomplete vs complete) ---------- */
+function buildDashboard(){
+  const n=id=>parseFloat(document.getElementById(id).value)||0;
+  const kwh=n('in-kwh')||11, supplyOld=n('in-supplyOld')||1.66, rateOld=effOldRate()||33.1;
+  const switched=S.switched==='yes';
+  const supplyNew=switched?(n('in-supplyNew')||1.45):0;
+  const rateNew=switched?(n('in-usageNew')||30.1):0;
+  const retailer=switched?(document.getElementById('in-newRetailer').value||'New plan'):'';
+
+  // section visibility — the two dashboards
+  document.getElementById('d-action').style.display     = switched ? 'none' : 'flex';   // switch CTA: incomplete only
+  document.getElementById('d-banked').style.display     = switched ? 'block': 'none';    // savings: complete only
+  document.getElementById('d-reminderblock').style.display = switched ? 'block':'none';  // next check: complete only
+  document.getElementById('d-upload').style.display     = switched ? 'flex' : 'none';    // soft upload: complete only
+
+  let saving=0;
+  if(switched && supplyNew>0 && rateNew>0) saving=Math.round(annualCost(supplyOld,rateOld,kwh)-annualCost(supplyNew,rateNew,kwh));
+
+  const hero=document.getElementById('d-hero'), herosub=document.getElementById('d-herosub');
+
+  if(!switched){
+    // ---- VERSION A: not switched yet — full dashboard, switch is a primary CTA inside it ----
+    hero.innerHTML='Welcome to Homerun.';
+    herosub.textContent='Your energy, all in one place. Compare offers, track your plan, and switch the moment it pays. We\'ll do the heavy lifting.';
+    document.getElementById('da-t').textContent='Compare offers and switch';
+    document.getElementById('da-s').textContent='Pre-filled with your address and usage. A few taps, not a form.';
+    document.getElementById('da-btn').textContent='Compare offers →';
+  } else if(saving>0){
+    // ---- VERSION B: complete — reinforce savings ----
+    hero.innerHTML='You\'re saving about <b>$'+saving+'</b> a year.';
+    herosub.textContent='That\'s the ongoing drop from your switch, on top of your one-off welcome credits. Nice work. We\'ll keep an eye on it for you.';
+  } else {
+    hero.innerHTML='Your switch is banked.';
+    herosub.textContent='Your welcome offers are locked in. Your ongoing rate isn\'t lower this time, so we\'ll flag a genuinely better plan at your next check.';
+  }
+
+  // banked values (complete only)
+  if(switched){
+    const ongEl=document.getElementById('d-ongoing');
+    ongEl.textContent = saving>=0 ? '~$'+saving+'/yr' : '−$'+Math.abs(saving)+'/yr';
+    ongEl.className = 'dval '+(saving>=0?'good':'');
+    const credits=S.offers.filter(Boolean).reduce((a,o)=>a+(parseFloat(o.val)||0),0);
+    document.getElementById('d-credits').textContent='$'+credits;
+    document.getElementById('d-homerun').textContent = HOMERUN_OFFER_ACTIVE? '$150':'$0';
+    document.getElementById('d-reminder-date').textContent=fmtDate(reminderDate());
+    document.getElementById('d-reminder-sub').textContent='In '+reminderLabel()+'. You\'re in control, change or cancel anytime.';
+  }
+
+  // rates (adaptive)
+  document.getElementById('d-supplyOld').textContent='$'+supplyOld.toFixed(2)+'/day';
+  let usageLabel='Usage';
+  if(S.usageType==='tou') usageLabel='Usage (blended)';
+  if(S.usageType==='controlled') usageLabel='Usage (general)';
+  document.getElementById('d-usageLabel').textContent=usageLabel;
+  document.getElementById('d-usageOld').textContent=rateOld.toFixed(1)+'c/kWh';
+  const supNew=document.getElementById('d-supplyNew'), useNew=document.getElementById('d-usageNew');
+  const oldHead=document.getElementById('d-oldhead'), newHead=document.getElementById('d-newhead');
+  const rateTitle=document.getElementById('d-ratetitle'), rateNote=document.getElementById('d-ratenote');
+  if(switched){
+    rateTitle.textContent='Your rates · electricity';
+    oldHead.textContent='Previous'; newHead.textContent=retailer;
+    supNew.textContent='$'+supplyNew.toFixed(2)+'/day'; supNew.className='rcur';
+    useNew.textContent=rateNew.toFixed(1)+'c/kWh'; useNew.className='rcur';
+    rateNote.innerHTML='Compared for your <b style="color:#a8a097">next bill</b> at your current usage. Real bills move with the seasons.';
+  } else {
+    rateTitle.textContent='Your plan today · electricity';
+    oldHead.textContent='Now'; newHead.textContent='After switch';
+    supNew.textContent='?'; supNew.className='rcur pend';
+    useNew.textContent='?'; useNew.className='rcur pend';
+    rateNote.innerHTML='This is what you\'re on today. Compare to see what a better plan looks like for your usage.';
+  }
+
+  document.getElementById('d-disc').textContent='Prototype for internal review. Figures are calculated live from the numbers you entered, not verified retailer rates, and this comparison is not CIMET approved. Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch.';
+}
+
+toggleEmail();
+render();
+</script>
+</body>
+</html>
