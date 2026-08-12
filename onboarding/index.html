@@ -7,13 +7,13 @@
 <title>Homerun Switch — Account Activation & Onboarding Prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900&family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --orange:#fc8b21; --orange-soft:#fff6ed; --ink:#24211e; --ink-70:#5c5451;
+    --orange:#fb8e28; --orange-soft:#fff6ed; --ink:#24211e; --ink-70:#5c5451;
     --ink-40:#938d8a; --paper:#fdfcfc; --card:#ffffff; --line:#e9e8e7;
     --good:#2f8f5b; --good-soft:#e7f4ec; --warn:#d66406; --warn-soft:#ffe5cc;
-    --disp:"DM Sans",Arial,sans-serif; --body:"DM Sans",Arial,sans-serif;
+    --disp:"Hanken Grotesk",Arial,sans-serif; --body:"Hanken Grotesk",Arial,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -173,8 +173,8 @@
   /* ===== Revolut-style desktop web app dashboard (Homerun design system) ===== */
   #screen-dashboard{padding:0}
   #screen-dashboard.active{display:block}
-  .app{--sb:236px;--dark:#1a1613;--dark2:#141110;--dcard:#242019;--dline:rgba(255,255,255,.08);
-    --dtext:#f4efe8;--dsub:#a49a8d;--dsub2:#7d7469;--dgood:#4bd089;--dgoodbg:rgba(75,191,127,.16);
+  .app{--sb:236px;--dark:#fdfcfc;--dark2:#f6f3ef;--dcard:#ffffff;--dline:var(--line);
+    --dtext:var(--ink);--dsub:var(--ink-70);--dsub2:var(--ink-40);--dgood:var(--good);--dgoodbg:var(--good-soft);
     font-family:'Hanken Grotesk',var(--body);display:flex;min-height:100vh;background:var(--dark);color:var(--dtext)}
 
   /* sidebar */
@@ -184,8 +184,8 @@
   .sb-logo b{font-family:'Hanken Grotesk';font-weight:800;font-size:16px;color:var(--dtext)}
   .sb-nav{display:flex;flex-direction:column;gap:2px}
   .nav-i{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;color:var(--dsub);font-weight:600;font-size:14px;cursor:pointer;transition:.12s}
-  .nav-i:hover{background:rgba(255,255,255,.05);color:var(--dtext)}
-  .nav-i.active{background:rgba(255,255,255,.08);color:var(--dtext)}
+  .nav-i:hover{background:rgba(36,33,30,.05);color:var(--dtext)}
+  .nav-i.active{background:var(--orange-soft);color:var(--ink)}
   .nav-i svg{width:19px;height:19px;flex:none;stroke:currentColor;fill:none;stroke-width:1.9}
   .nav-i.active svg{stroke:var(--orange)}
   .sb-foot{margin-top:auto;padding:8px}
@@ -194,12 +194,12 @@
 
   /* main */
   .mn{flex:1;min-width:0;display:flex;flex-direction:column}
-  .tb{display:flex;align-items:center;gap:16px;padding:18px 34px;border-bottom:1px solid var(--dline);position:sticky;top:0;background:rgba(26,22,19,.9);backdrop-filter:blur(10px);z-index:10}
+  .tb{display:flex;align-items:center;gap:16px;padding:18px 34px;border-bottom:1px solid var(--dline);position:sticky;top:0;background:rgba(253,252,252,.92);backdrop-filter:blur(10px);z-index:10}
   .tb-title{font-family:'Hanken Grotesk';font-weight:800;font-size:22px;letter-spacing:-.01em}
   .tb-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-  .tb-ico{width:34px;height:34px;border-radius:9px;border:1px solid var(--dline);display:flex;align-items:center;justify-content:center;color:var(--dsub);cursor:pointer}
+  .tb-ico{width:34px;height:34px;border-radius:9px;border:1px solid var(--dline);display:flex;align-items:center;justify-content:center;color:var(--dsub);cursor:pointer;background:var(--dcard)}
   .tb-ico svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2}
-  .tb-acct{display:flex;align-items:center;gap:9px;border:1px solid var(--dline);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer}
+  .tb-acct{display:flex;align-items:center;gap:9px;border:1px solid var(--dline);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;cursor:pointer;background:var(--dcard)}
   .tb-acct .av{width:24px;height:24px;border-radius:50%;background:var(--orange);color:#2b1704;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:none}
 
   .cn{padding:26px 34px 34px;max-width:1120px;width:100%}
@@ -211,11 +211,11 @@
   .d-eyebrow{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--dsub2);margin-bottom:10px}
   .d-save{font-family:'Hanken Grotesk';font-size:32px;line-height:1.08;letter-spacing:-.025em;color:var(--dtext);font-weight:800}
   @media(max-width:560px){.d-save{font-size:27px}}
-  .d-save b{color:var(--orange)}
+  .d-save b{color:var(--warn)}
   .d-sub{font-size:14.5px;color:var(--dsub);font-weight:500;margin-top:10px;max-width:34em;line-height:1.5}
 
   /* primary action (not switched) */
-  .d-action{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#3a2b17,#2a2013);border:1px solid rgba(252,139,33,.4);border-radius:14px;padding:16px 18px;margin-top:18px}
+  .d-action{display:flex;align-items:center;gap:14px;background:linear-gradient(150deg,#3a2b17,#2a2013);border:1px solid rgba(251,142,40,.4);border-radius:14px;padding:16px 18px;margin-top:18px}
   .da-main{flex:1;min-width:0}
   .da-t{font-family:'Hanken Grotesk';font-size:15.5px;font-weight:800;color:var(--dtext);letter-spacing:-.01em}
   .da-s{font-size:13px;color:var(--dsub);margin-top:3px;line-height:1.45}
@@ -230,7 +230,7 @@
   .rrow.head{padding:0 0 9px}
   .rrow.head span,.rrow.head .rk{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--dsub2);text-align:right;min-width:76px}
   .rrow.head .rk{text-align:left}
-  .rrow.head span.cur{color:var(--orange)}
+  .rrow.head span.cur{color:var(--warn)}
   .rrow .rk{color:var(--dsub);font-weight:600;font-size:13.5px}
   .rrow .rprev{color:var(--dsub2);text-align:right;min-width:76px;font-size:13.5px}
   .rrow .rcur{color:var(--dtext);font-weight:800;text-align:right;min-width:76px;font-family:'Hanken Grotesk';font-size:13.5px}
@@ -246,7 +246,7 @@
   .drow:last-child{border-bottom:0}
   .dico{width:23px;height:23px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
   .dico.ok{background:var(--dgoodbg);color:var(--dgood)}
-  .dico.pend{background:rgba(255,255,255,.06);color:var(--dsub2)}
+  .dico.pend{background:#f2efe9;color:var(--dsub2)}
   .dmain{flex:1;min-width:0}
   .dmain .dt{font-size:14px;font-weight:700;color:var(--dtext);letter-spacing:-.01em}
   .dmain .ds{font-size:12px;color:var(--dsub2);margin-top:1px}
@@ -265,16 +265,105 @@
 
   /* soft upload (switched) */
   .d-soft{background:var(--dcard);border:1px solid var(--dline);border-radius:14px;padding:14px 16px;margin:0;display:flex;gap:12px;align-items:center}
-  .d-soft .ds-i{width:36px;height:36px;border-radius:10px;background:rgba(252,139,33,.16);color:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
+  .d-soft .ds-i{width:36px;height:36px;border-radius:10px;background:rgba(251,142,40,.16);color:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
   .d-soft .ds-t{font-family:'Hanken Grotesk';font-size:13.5px;font-weight:800;color:var(--dtext)}
   .d-soft .ds-s{font-size:12px;color:var(--dsub);margin-top:2px;line-height:1.4}
-  .d-soft .ds-btn{background:rgba(255,255,255,.1);color:var(--dtext);border:0;border-radius:9999px;padding:9px 14px;font-family:'Hanken Grotesk';font-weight:700;font-size:12.5px;cursor:pointer;white-space:nowrap;flex:none}
-  .d-soft .ds-btn:hover{background:rgba(255,255,255,.16)}
+  .d-soft .ds-btn{background:#f2efe9;color:var(--ink);border:0;border-radius:9999px;padding:9px 14px;font-family:'Hanken Grotesk';font-weight:700;font-size:12.5px;cursor:pointer;white-space:nowrap;flex:none}
+  .d-soft .ds-btn:hover{background:#eae5dd}
+  .d-soft .ds-i{background:rgba(251,142,40,.16);color:var(--warn)}
 
   .d-disc{font-size:10.5px;color:var(--dsub2);border-top:1px solid var(--dline);margin-top:20px;padding-top:12px;line-height:1.55;max-width:900px}
 
   .hidden{display:none!important}
   .noteline{font-size:12.5px;color:var(--ink-70);background:var(--card);border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-top:12px}
+
+  /* ---- email CTA as a personal blue invitation link ---- */
+  .elink{display:inline-block;color:#1a6dff;font-weight:700;font-size:15.5px;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px;cursor:pointer;font-family:var(--body)}
+  .elink:hover{color:#0b56d0}
+
+  /* ---- distinct, numbered onboarding steps ---- */
+  .screen[data-step] .wrap{border:1px solid var(--line);border-radius:18px;background:#faf8f5;padding:30px 26px}
+  @media(max-width:560px){.screen[data-step] .wrap{padding:24px 18px}}
+  .screen[data-step] .card{background:#fff}
+  .stepbadge{display:inline-block;font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:6px 12px;margin-bottom:14px}
+
+  /* ---- account create + 2FA ---- */
+  .inp[readonly]{background:#f4f1ec;color:var(--ink-70);cursor:default}
+  .fieldrow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .verified{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--good);background:var(--good-soft);border-radius:6px;padding:3px 8px}
+  .otp{display:flex;gap:10px;margin-top:6px}
+  .otp input{width:52px;height:60px;text-align:center;font-family:var(--disp);font-weight:800;font-size:24px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+  .otp input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft)}
+  @media(max-width:560px){.otp input{width:44px;height:52px;font-size:20px}}
+  .codehint{margin-top:14px;font-size:12.5px;color:var(--ink-70);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:11px 13px}
+  .codehint b{font-family:var(--disp);letter-spacing:.16em;color:var(--ink)}
+
+  /* ---- "setting up your dashboard" splash ---- */
+  #screen-setup{padding:0}
+  #screen-setup.active{display:block}
+  .setup{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--paper);text-align:center;padding:40px}
+  .setup .spin{width:52px;height:52px;border-radius:50%;border:4px solid var(--orange-soft);border-top-color:var(--orange);animation:spin .9s linear infinite;margin-bottom:24px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .setup h2{font-size:24px;margin-bottom:8px}
+  .setup p{color:var(--ink-70);font-size:14.5px;min-height:1.4em;transition:opacity .3s}
+  .setup .setbar{width:220px;height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:22px}
+  .setup .setbar i{display:block;height:100%;width:0;background:var(--orange);animation:setgrow 3s cubic-bezier(.4,.1,.2,1) forwards}
+  @keyframes setgrow{to{width:100%}}
+
+  /* ---- bill method choices (optional) ---- */
+  .optnote{font-size:12px;font-weight:700;color:var(--good);background:var(--good-soft);border-radius:7px;padding:5px 10px;display:inline-block;margin:0 0 10px}
+  .billopts{display:grid;gap:10px;margin-top:16px}
+  .billopt{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:12px;padding:14px 15px;cursor:pointer;background:#fff;transition:.12s;text-align:left;width:100%;font-family:var(--body)}
+  .billopt:hover{border-color:var(--orange)}
+  .billopt.on{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft)}
+  .billopt .bo-i{width:40px;height:40px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--orange-soft);color:var(--warn);font-family:var(--disp);font-weight:800;font-size:18px}
+  .billopt .bo-main{flex:1;min-width:0}
+  .billopt .bo-t{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .billopt .bo-s{font-size:12.5px;color:var(--ink-70);margin-top:3px;line-height:1.4}
+  .best{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--good);background:var(--good-soft);border-radius:6px;padding:3px 7px}
+  .billpanel{margin-top:14px}
+  .skiprow{margin-top:16px;text-align:center}
+  .skipbtn{background:none;border:0;color:var(--ink-70);font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-family:var(--body)}
+  .skipbtn:hover{color:var(--warn)}
+
+  /* ---- dashboard modules (light) ---- */
+  .d-modtitle{font-family:'Hanken Grotesk';font-weight:800;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--dsub2);margin-bottom:12px}
+  .plancard,.savecard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 10px 30px rgba(36,33,30,.05)}
+  .planaction{display:flex;align-items:center;gap:14px;background:var(--orange-soft);border:1px solid rgba(251,142,40,.4);border-radius:12px;padding:15px 16px;margin-top:16px}
+  .planaction .pa-main{flex:1;min-width:0}
+  .planaction .pa-t{font-family:'Hanken Grotesk';font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+  .planaction .pa-s{font-size:12.5px;color:var(--ink-70);margin-top:3px;line-height:1.45}
+  .planaction .pa-btn{background:var(--orange);color:#2b1704;border:0;border-radius:9999px;padding:11px 18px;font-family:'Hanken Grotesk';font-weight:800;font-size:13.5px;cursor:pointer;white-space:nowrap;flex:none}
+  .planaction .pa-btn:hover{filter:brightness(1.04)}
+  .nextswitch{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+  .nextswitch .ns-t{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .nextswitch .ns-s{font-size:12px;color:var(--ink-40);margin-top:2px}
+  .nextswitch .ns-v{font-family:'Hanken Grotesk';font-weight:800;color:var(--warn);font-size:14px;white-space:nowrap;text-align:right}
+  .savetotal{font-family:'Hanken Grotesk';font-weight:800;font-size:34px;letter-spacing:-.02em;color:var(--good);line-height:1}
+  .savetotal.zero{color:var(--ink-40)}
+  .savetotal-s{font-size:12.5px;color:var(--ink-70);margin-top:8px;line-height:1.5}
+  .dtag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:5px;padding:2px 6px;margin-left:4px;vertical-align:middle}
+  .dtag.est{color:var(--warn);background:var(--warn-soft)}
+  .dtag.one{color:var(--ink-40);background:#f2efe9}
+  .rentcta{display:flex;align-items:center;gap:16px;background:linear-gradient(120deg,#24211e,#3b352f);color:#fff;border-radius:16px;padding:20px 22px;margin-top:22px}
+  .rentcta .rc-main{flex:1;min-width:0}
+  .rentcta .rc-t{font-family:'Hanken Grotesk';font-weight:800;font-size:18px}
+  .rentcta .rc-s{font-size:13.5px;color:#cfc7bd;margin-top:4px;line-height:1.45;max-width:46em}
+  .rentcta .rc-btn{display:inline-block;text-decoration:none;text-align:center;background:var(--orange);color:#2b1704;border:0;border-radius:9999px;padding:12px 20px;font-family:'Hanken Grotesk';font-weight:800;font-size:14px;cursor:pointer;white-space:nowrap;flex:none}
+  .rentcta .rc-btn:hover{filter:brightness(1.04)}
+  @media(max-width:560px){.rentcta{flex-direction:column;align-items:flex-start}}
+
+  /* ---- add-rates modal ---- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(36,33,30,.5);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px}
+  .modal-overlay.hidden{display:none}
+  .modal{background:#fff;border-radius:18px;padding:24px;max-width:440px;width:100%;box-shadow:0 30px 70px rgba(0,0,0,.3);max-height:90vh;overflow:auto;font-family:var(--body)}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .modal-t{font-family:var(--disp);font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}
+  .modal-x{background:none;border:0;font-size:18px;color:var(--ink-40);cursor:pointer;line-height:1;padding:4px}
+  .modal-x:hover{color:var(--ink)}
+  .modal-sub{font-size:13.5px;color:var(--ink-70);margin:6px 0 16px;line-height:1.45}
+  .modal .billopts{margin-top:0}
+  .modal .mrow{margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -304,7 +393,7 @@
 
 <main>
 <!-- ============ SCREEN: EMAIL ============ -->
-<section class="screen active" data-nostep>
+<section class="screen active" data-nostep data-selfcta>
   <div class="wrap">
     <span class="eyebrow">The account email</span>
     <h1 class="hook">One calm home for your energy.</h1>
@@ -322,18 +411,59 @@
       <div class="ebody">
         <h3 id="em-h"></h3>
         <div id="em-p"></div>
-        <button class="btn" onclick="go(1)" id="em-cta">Activate my account</button>
-        <div id="em-secondary" style="margin-top:14px"></div>
       </div>
     </div>
-    <p class="tiny" style="margin-top:16px">Prototype. This is the entry point. Toggle the two states above, then click the button to walk the onboarding flow.</p>
+    <p class="tiny" style="margin-top:16px">Prototype. This is the entry point. Toggle the two states above, then click the link to walk the onboarding flow.</p>
+  </div>
+</section>
+
+<!-- ============ SCREEN: CREATE ACCOUNT ============ -->
+<section class="screen" data-nostep id="screen-createacct">
+  <div class="wrap">
+    <span class="eyebrow">Account setup</span>
+    <h1 class="hook">Create your account.</h1>
+    <p class="lead">Your email's already in from your comparison. Just set a password, and this one login carries into the Homerun app later.</p>
+    <div class="card">
+      <div class="mrow">
+        <div class="fieldrow"><label class="field" style="margin:0">Email</label><span class="verified">✓ From your switch</span></div>
+        <input class="inp" id="ca-email" value="jordan.avery@email.com" readonly>
+      </div>
+      <div class="mrow" style="margin-bottom:0">
+        <label class="field">Create a password</label>
+        <input class="inp" type="password" id="ca-pass" placeholder="At least 8 characters" value="••••••••">
+        <p class="tiny" style="margin-top:8px">Use 8+ characters. You can switch on Face ID or fingerprint in the app.</p>
+      </div>
+    </div>
+    <p class="noteline">One Homerun login for Switch and the app. We never sell your data, and your bill is only ever shared with a retailer when you ask.</p>
+  </div>
+</section>
+
+<!-- ============ SCREEN: 2FA (mock) ============ -->
+<section class="screen" data-nostep id="screen-twofa">
+  <div class="wrap">
+    <span class="eyebrow">Account setup</span>
+    <h1 class="hook">Quick security check.</h1>
+    <p class="lead">We've emailed a 6-digit code to <b>jordan.avery@email.com</b>. Pop it in to confirm it's really you.</p>
+    <div class="card">
+      <label class="field">Enter your code</label>
+      <div class="otp" id="otp">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 1">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 2">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 3">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 4">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 5">
+        <input inputmode="numeric" maxlength="1" aria-label="Digit 6">
+      </div>
+      <div class="codehint">Prototype — for this demo your code is <b>481920</b>. <a href="javascript:void(0)" onclick="prefillCode()" style="color:var(--warn);font-weight:700;text-decoration:none">Fill it for me →</a></div>
+      <p class="tiny" style="margin-top:12px">Didn't get it? <a href="javascript:void(0)" onclick="alert('Prototype: a new code would be emailed to you.')" style="color:var(--warn);font-weight:700;text-decoration:none">Resend code</a></p>
+    </div>
   </div>
 </section>
 
 <!-- ============ SCREEN 1: ACTIVATE / CONFIRM ============ -->
 <section class="screen" data-step="1">
   <div class="wrap">
-    <span class="eyebrow">Step 1 · Confirm it's you</span>
+    <span class="stepbadge" data-label="Confirm it's you"></span>
     <h1 class="hook">Welcome to your Switch account.</h1>
     <p class="lead">Here's what we already have from your comparison. Nothing to re-type, just check it's right.</p>
     <div class="card">
@@ -351,7 +481,7 @@
 <!-- ============ SCREEN 2: QUICK QUESTIONS ============ -->
 <section class="screen" data-step="2">
   <div class="wrap">
-    <span class="eyebrow">Step 2 · A few quick questions</span>
+    <span class="stepbadge" data-label="A few quick questions"></span>
     <h1 class="hook">Tell us about the place.</h1>
     <p class="lead">Three quick things. They let us tell you whether your usage is normal for a home like yours, not just what your rates are.</p>
 
@@ -387,81 +517,118 @@
   </div>
 </section>
 
-<!-- ============ SCREEN 3: BILL ============ -->
+<!-- ============ SCREEN 3: BILL (optional, choose a method) ============ -->
 <section class="screen" data-step="3">
   <div class="wrap">
-    <span class="eyebrow">Step 3 · Your old bill</span>
-    <h1 class="hook">Let's read your last bill together.</h1>
-    <p class="lead">Upload it so it's on file, then pop in the two numbers that actually decide your bill. We'll show you what they mean as you go.</p>
+    <span class="stepbadge" data-label="Your current bill"></span>
+    <h1 class="hook">Add your current bill.</h1>
+    <span class="optnote">Optional — you can do this later</span>
+    <p class="lead">The more we have, the sharper we can be about your savings. Pick whatever's easiest, or skip and add it anytime.</p>
 
-    <div class="card">
-      <label class="field">Upload your most recent electricity bill</label>
-      <div class="dropzone" id="dz-bill" onclick="fakeUpload('dz-bill','Bill uploaded · energyaustralia-jul.pdf')">
-        <div class="dzi">↑</div>
-        <div class="dzt">Upload securely</div>
-        <div class="dzs">PDF or a photo. Stored encrypted, only you and your account can see it.</div>
-      </div>
-      <div class="secure">🔒 Bank-level encryption. We never share your bill with a retailer without you asking.</div>
+    <div class="billopts">
+      <button class="billopt" data-bill="upload" onclick="pickBill('upload')">
+        <span class="bo-i">↑</span>
+        <span class="bo-main"><span class="bo-t">Upload your bill <span class="best">Best · we scan it</span></span><span class="bo-s">Send the PDF and we read your rates and usage for you. Nothing to type.</span></span>
+      </button>
+      <button class="billopt" data-bill="screenshot" onclick="pickBill('screenshot')">
+        <span class="bo-i">▦</span>
+        <span class="bo-main"><span class="bo-t">Upload a screenshot</span><span class="bo-s">A photo or screenshot of your bill or plan summary works fine.</span></span>
+      </button>
+      <button class="billopt" data-bill="manual" onclick="pickBill('manual')">
+        <span class="bo-i">⌨</span>
+        <span class="bo-main"><span class="bo-t">Enter the numbers myself</span><span class="bo-s">Just the two rates that decide your bill. Takes a minute.</span></span>
+      </button>
     </div>
 
-    <div class="card">
-      <div class="mrow">
-        <label class="field">What kind of usage rate are you on? <span class="tiny">(it says on the bill)</span></label>
-        <div class="chips" data-single="usageType" data-onchange="toggleUsageType">
-          <button class="chip" data-val="single">Single rate<span class="sub">one price all day</span></button>
-          <button class="chip" data-val="tou">Time of use<span class="sub">peak / off-peak</span></button>
-          <button class="chip" data-val="controlled">Controlled load<span class="sub">e.g. hot water</span></button>
+    <!-- upload panel -->
+    <div class="billpanel bp bp-upload hidden">
+      <div class="card">
+        <label class="field">Upload your most recent electricity bill</label>
+        <div class="dropzone" id="dz-bill" onclick="fakeUpload('dz-bill','Bill uploaded · we\'ll scan it')">
+          <div class="dzi">↑</div>
+          <div class="dzt">Upload securely (PDF)</div>
+          <div class="dzs">We scan it and pull your rates automatically. Stored encrypted, only you can see it.</div>
         </div>
-      </div>
-
-      <div class="mrow">
-        <label class="field">Daily supply charge</label>
-        <div class="inpwrap"><input class="inp" type="number" step="0.01" id="in-supplyOld" oninput="computeBill()" placeholder="e.g. 1.66"><span class="unit">$ / day</span></div>
-      </div>
-
-      <!-- single -->
-      <div class="mrow ut ut-single">
-        <label class="field">Usage rate</label>
-        <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-usageOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c / kWh</span></div>
-      </div>
-
-      <!-- tou -->
-      <div class="ut ut-tou hidden">
-        <div class="two">
-          <div class="mrow"><label class="field">Peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-peakOld" oninput="computeBill()" placeholder="e.g. 45"><span class="unit">c/kWh</span></div></div>
-          <div class="mrow"><label class="field">Shoulder rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-shoulderOld" oninput="computeBill()" placeholder="e.g. 30"><span class="unit">c/kWh</span></div></div>
-        </div>
-        <div class="mrow"><label class="field">Off-peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-offpeakOld" oninput="computeBill()" placeholder="e.g. 22"><span class="unit">c/kWh</span></div></div>
-      </div>
-
-      <!-- controlled -->
-      <div class="ut ut-controlled hidden">
-        <div class="mrow"><label class="field">General usage rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-genOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c/kWh</span></div></div>
-        <div class="mrow"><label class="field">Controlled load rate <span class="tiny">(hot water / slab heating)</span></label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-ctrlOld" oninput="computeBill()" placeholder="e.g. 20"><span class="unit">c/kWh</span></div></div>
-      </div>
-
-      <div class="mrow" style="margin-bottom:0">
-        <label class="field">Average daily usage <span class="tiny">(the total kWh/day on your bill)</span></label>
-        <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-kwh" oninput="computeBill()" placeholder="e.g. 11.5"><span class="unit">kWh / day</span></div>
-      </div>
-
-      <div class="split" id="splitViz" style="display:none">
-        <div class="splithead"><span>Where your bill goes</span><span id="split-total"></span></div>
-        <div class="stack">
-          <div class="use" id="split-use">Usage</div>
-          <div class="sup" id="split-sup">Supply</div>
-        </div>
-        <div class="legend"><span><i class="orange"></i><span id="split-use-lab">Usage</span></span><span><i class="ink"></i><span id="split-sup-lab">Supply</span></span></div>
-        <p class="tiny" style="margin-top:10px">Supply is the fixed daily charge you pay even at zero usage. Usage is what you actually burn. A cheap-looking usage rate with a high supply charge can still be the dearer plan.</p>
+        <div class="secure">🔒 Bank-level encryption. We never share your bill with a retailer without you asking.</div>
       </div>
     </div>
+
+    <!-- screenshot panel -->
+    <div class="billpanel bp bp-screenshot hidden">
+      <div class="card">
+        <label class="field">Upload a screenshot of your bill</label>
+        <div class="dropzone" id="dz-shot" onclick="fakeUpload('dz-shot','Screenshot uploaded')">
+          <div class="dzi">▦</div>
+          <div class="dzt">Add a screenshot or photo</div>
+          <div class="dzs">The rates page of your bill, or your welcome email, is perfect.</div>
+        </div>
+        <div class="secure">🔒 Stored encrypted. Only you and your account can see it.</div>
+      </div>
+    </div>
+
+    <!-- manual panel -->
+    <div class="billpanel bp bp-manual hidden">
+      <div class="card">
+        <div class="mrow">
+          <label class="field">What kind of usage rate are you on? <span class="tiny">(it says on the bill)</span></label>
+          <div class="chips" data-single="usageType" data-onchange="toggleUsageType">
+            <button class="chip" data-val="single">Single rate<span class="sub">one price all day</span></button>
+            <button class="chip" data-val="tou">Time of use<span class="sub">peak / off-peak</span></button>
+            <button class="chip" data-val="controlled">Controlled load<span class="sub">e.g. hot water</span></button>
+          </div>
+        </div>
+
+        <div class="mrow">
+          <label class="field">Daily supply charge</label>
+          <div class="inpwrap"><input class="inp" type="number" step="0.01" id="in-supplyOld" oninput="computeBill()" placeholder="e.g. 1.66"><span class="unit">$ / day</span></div>
+        </div>
+
+        <!-- single -->
+        <div class="mrow ut ut-single">
+          <label class="field">Usage rate</label>
+          <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-usageOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c / kWh</span></div>
+        </div>
+
+        <!-- tou -->
+        <div class="ut ut-tou hidden">
+          <div class="two">
+            <div class="mrow"><label class="field">Peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-peakOld" oninput="computeBill()" placeholder="e.g. 45"><span class="unit">c/kWh</span></div></div>
+            <div class="mrow"><label class="field">Shoulder rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-shoulderOld" oninput="computeBill()" placeholder="e.g. 30"><span class="unit">c/kWh</span></div></div>
+          </div>
+          <div class="mrow"><label class="field">Off-peak rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-offpeakOld" oninput="computeBill()" placeholder="e.g. 22"><span class="unit">c/kWh</span></div></div>
+        </div>
+
+        <!-- controlled -->
+        <div class="ut ut-controlled hidden">
+          <div class="mrow"><label class="field">General usage rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-genOld" oninput="computeBill()" placeholder="e.g. 33.1"><span class="unit">c/kWh</span></div></div>
+          <div class="mrow"><label class="field">Controlled load rate <span class="tiny">(hot water / slab heating)</span></label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-ctrlOld" oninput="computeBill()" placeholder="e.g. 20"><span class="unit">c/kWh</span></div></div>
+        </div>
+
+        <div class="mrow" style="margin-bottom:0">
+          <label class="field">Average daily usage <span class="tiny">(the total kWh/day on your bill)</span></label>
+          <div class="inpwrap"><input class="inp" type="number" step="0.1" id="in-kwh" oninput="computeBill()" placeholder="e.g. 11.5"><span class="unit">kWh / day</span></div>
+        </div>
+
+        <div class="split" id="splitViz" style="display:none">
+          <div class="splithead"><span>Where your bill goes</span><span id="split-total"></span></div>
+          <div class="stack">
+            <div class="use" id="split-use">Usage</div>
+            <div class="sup" id="split-sup">Supply</div>
+          </div>
+          <div class="legend"><span><i class="orange"></i><span id="split-use-lab">Usage</span></span><span><i class="ink"></i><span id="split-sup-lab">Supply</span></span></div>
+          <p class="tiny" style="margin-top:10px">Supply is the fixed daily charge you pay even at zero usage. Usage is what you actually burn. A cheap-looking usage rate with a high supply charge can still be the dearer plan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="skiprow"><button class="skipbtn" onclick="skipBill()">Do it later →</button></div>
   </div>
 </section>
 
 <!-- ============ SCREEN 4: NEW PLAN ============ -->
 <section class="screen" data-step="4">
   <div class="wrap">
-    <span class="eyebrow">Step 4 · Your new plan</span>
+    <span class="stepbadge" data-label="Your new plan"></span>
     <h1 class="hook">Tell us about your new plan.</h1>
     <p class="lead">Pop in the plan you moved to and we'll line it up against your old one, honestly, for your next bill.</p>
 
@@ -513,9 +680,9 @@
 <!-- ============ SCREEN 5: REMINDER ============ -->
 <section class="screen" data-step="5">
   <div class="wrap">
-    <span class="eyebrow">Step 5 · You're in control</span>
+    <span class="stepbadge" data-label="You're in control"></span>
     <h1 class="hook">Lock in your next check.</h1>
-    <p class="lead">You've done the smart thing. Now set when Homerun compares the market for you again, so you keep the good deal instead of drifting onto a loyalty price.</p>
+    <p class="lead">You've done the smart thing. Now set a regular reminder to check your rates and compare the market, so a good deal stays a good deal instead of drifting onto a loyalty price.</p>
 
     <div class="card">
       <label class="field">Compare the market again in</label>
@@ -545,16 +712,26 @@
         <ul>
           <li>Most sign-up discounts and credits fade after the first few bills.</li>
           <li>Standing offers drift up. Checking twice a year catches it early.</li>
-          <li>Harvest the welcome offers, then settle on a genuinely low rate. We'll tell you when there's nothing better to move to.</li>
+          <li>Welcome offers fade after the first few bills, so it pays to know your rates and compare again once they do.</li>
         </ul>
       </div>
-      <p class="noteline">We only email you when a real, better option exists for your usage. No noise, no fake urgency. Change or cancel anytime.</p>
+      <p class="noteline">We'll remind you to check your rates and compare the market on your schedule. It's a habit that keeps you on a good deal. No noise, no fake urgency, change or cancel anytime.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ SCREEN: DASHBOARD (Revolut-style desktop web app) ============ -->
-<section class="screen" data-nostep id="screen-dashboard">
+<!-- ============ SCREEN: SETTING UP (3s splash) ============ -->
+<section class="screen" data-nostep data-selfcta id="screen-setup">
+  <div class="setup">
+    <div class="spin"></div>
+    <h2>Setting up your dashboard</h2>
+    <p id="setup-msg">Saving your details…</p>
+    <div class="setbar"><i></i></div>
+  </div>
+</section>
+
+<!-- ============ SCREEN: DASHBOARD (light desktop web app) ============ -->
+<section class="screen" data-nostep data-selfcta id="screen-dashboard">
   <div class="app">
     <!-- sidebar -->
     <aside class="sb">
@@ -563,8 +740,8 @@
         <b>Homerun</b>
       </div>
       <nav class="sb-nav">
-        <div class="nav-i active"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Energy</span></div>
-        <div class="nav-i"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profile</span></div>
+        <div class="nav-i active" data-view="energy" onclick="switchView('energy')"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Energy</span></div>
+        <div class="nav-i" data-view="profile" onclick="switchView('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profile</span></div>
       </nav>
       <div class="sb-foot"><button onclick="go(0)">↻ Restart prototype</button></div>
     </aside>
@@ -573,86 +750,167 @@
     <div class="mn">
       <div class="tb">
         <div class="tb-title">Energy</div>
-        <div class="tb-right">
-          <div class="tb-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg></div>
-          <div class="tb-acct"><span class="av">JA</span>Jordan Avery <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></div>
-        </div>
       </div>
 
-      <div class="cn">
+      <div class="cn" id="view-energy">
+        <div class="d-eyebrow" id="d-eyebrow">Homerun Switch</div>
+        <h1 class="d-save" id="d-hero">Your plan</h1>
+        <p class="d-sub" id="d-herosub" style="margin-bottom:22px"></p>
+
         <div class="dash2">
-          <!-- LEFT: hero + checklist as one tight module -->
+          <!-- LEFT (front & centre): YOUR PLAN -->
           <div class="d-left">
-            <div class="d-eyebrow" id="d-eyebrow">Homerun Switch</div>
-            <h1 class="d-save" id="d-hero">You're all set.</h1>
-            <p class="d-sub" id="d-herosub"></p>
-
-            <!-- INCOMPLETE SWITCH: primary action -->
-            <div class="d-action" id="d-action">
-              <div class="da-main"><div class="da-t" id="da-t"></div><div class="da-s" id="da-s"></div></div>
-              <button class="da-btn" id="da-btn" onclick="alert('Prototype: opens the comparison, pre-filled with your address and usage.')"></button>
-            </div>
-
-            <!-- COMPLETED SWITCH: saved & banked checklist, tight under hero -->
-            <div class="d-list" id="d-banked">
-              <div class="d-sectitle">Saved &amp; banked</div>
-              <div class="drow">
-                <div class="dico ok">✓</div>
-                <div class="dmain"><div class="dt">Ongoing saving</div><div class="ds">Repeats on every bill</div></div>
-                <div class="dval good" id="d-ongoing">—</div>
-              </div>
-              <div class="drow">
-                <div class="dico ok">✓</div>
-                <div class="dmain"><div class="dt">Welcome credits</div><div class="ds">One-off, from your new retailer</div></div>
-                <div class="dval" id="d-credits">—</div>
-              </div>
-              <div class="drow">
-                <div class="dico ok">✓</div>
-                <div class="dmain"><div class="dt">Homerun gift card</div><div class="ds">Our thank-you, separate from the comparison</div></div>
-                <div class="dval" id="d-homerun">$150</div>
-              </div>
-              <div class="drow">
-                <div class="dico pend">◷</div>
-                <div class="dmain"><div class="dt">Market benchmark</div><div class="ds">Activates after your first new bill</div></div>
-                <div class="dval pend">Pending</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: data cards stacked -->
-          <div class="d-right">
-            <div class="visual">
-              <div class="v-lab" id="d-ratetitle">Your rates · electricity</div>
+            <div class="plancard">
+              <div class="d-modtitle" id="d-ratetitle">Your plan · electricity</div>
               <div class="rrow head"><span class="rk">Rate</span><span id="d-oldhead">Previous</span><span class="cur" id="d-newhead">Current</span></div>
               <div class="rrow"><span class="rk">Supply</span><span class="rprev" id="d-supplyOld">—</span><span class="rcur" id="d-supplyNew">—</span></div>
               <div class="rrow"><span class="rk" id="d-usageLabel">Usage</span><span class="rprev" id="d-usageOld">—</span><span class="rcur" id="d-usageNew">—</span></div>
               <p class="d-ratenote" id="d-ratenote"></p>
-            </div>
 
-            <div class="d-reminderblock" id="d-reminderblock">
-              <div class="d-sectitle">Next check</div>
-              <div class="d-ratecard" style="padding:0">
-                <div class="d-checkrow">
-                  <div><div class="cr-t">Compare the market again</div><div class="cr-s" id="d-reminder-sub">You're in control. Change or cancel anytime.</div></div>
-                  <div class="cr-v" id="d-reminder-date">—</div>
-                </div>
+              <!-- incomplete: add details / switch -->
+              <div class="planaction" id="d-planaction" style="display:none">
+                <div class="pa-main"><div class="pa-t" id="pa-t"></div><div class="pa-s" id="pa-s"></div></div>
+                <button class="pa-btn" id="pa-btn" onclick="handlePlanAction()"></button>
+              </div>
+
+              <!-- next switch, inside the plan module -->
+              <div class="nextswitch">
+                <div><div class="ns-t">Next switch</div><div class="ns-s" id="d-reminder-sub">We compare the market for you again</div></div>
+                <div class="ns-v" id="d-reminder-date">—</div>
               </div>
             </div>
 
-            <div class="d-soft" id="d-upload">
+            <!-- keep-it-effortless upload, below current rates -->
+            <div class="d-soft" id="d-upload" style="margin-top:14px">
               <div class="ds-i">↑</div>
-              <div class="da-main"><div class="ds-t">Keep it effortless</div><div class="ds-s">Upload your next bill here and we'll track your usage and flag a better deal. No rush.</div></div>
+              <div class="pa-main"><div class="ds-t">Keep it effortless</div><div class="ds-s">Upload your next bill here so your details stay current, ready for your next compare. No rush.</div></div>
               <button class="ds-btn" onclick="alert('Prototype: securely upload your next bill.')">Upload</button>
+            </div>
+          </div>
+
+          <!-- RIGHT: TOTAL SAVINGS ACCUMULATED -->
+          <div class="d-right">
+            <div class="savecard">
+              <div class="d-modtitle">Total savings accumulated</div>
+              <div class="savetotal" id="d-savetotal">$0</div>
+              <div class="savetotal-s" id="d-savetotal-s"></div>
+              <div class="d-list" id="d-savelist">
+                <div class="drow">
+                  <div class="dico ok" id="ic-ong">✓</div>
+                  <div class="dmain"><div class="dt">Ongoing saving <span class="dtag est">Estimate</span></div><div class="ds">Estimated from your figures, repeats each bill</div></div>
+                  <div class="dval good" id="d-ongoing">—</div>
+                </div>
+                <div class="drow">
+                  <div class="dico ok" id="ic-cr">✓</div>
+                  <div class="dmain"><div class="dt">Welcome credits <span class="dtag one">One-off</span></div><div class="ds">From your new retailer</div></div>
+                  <div class="dval" id="d-credits">—</div>
+                </div>
+                <div class="drow">
+                  <div class="dico ok" id="ic-hr">✓</div>
+                  <div class="dmain"><div class="dt">Homerun gift card <span class="dtag one">One-off</span></div><div class="ds">Our thank-you, separate from the comparison</div></div>
+                  <div class="dval" id="d-homerun">$150</div>
+                </div>
+                <div class="drow">
+                  <div class="dico pend">◷</div>
+                  <div class="dmain"><div class="dt">Market benchmark</div><div class="ds">Activates after your first new bill</div></div>
+                  <div class="dval pend">Pending</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- cross-sell CTA -->
+        <div class="rentcta">
+          <div class="rc-main"><div class="rc-t">Do you rent?</div><div class="rc-s">Homerun helps your whole sharehouse split bills, share the chores and manage the place, not just your energy.</div></div>
+          <a class="rc-btn" href="https://homerun.app/go" target="_blank" rel="noopener">Sign up to Homerun →</a>
+        </div>
+
         <p class="d-disc" id="d-disc"></p>
+      </div>
+
+      <!-- PROFILE VIEW -->
+      <div class="cn hidden" id="view-profile">
+        <div class="d-eyebrow">Account</div>
+        <h1 class="d-save">Your profile</h1>
+        <p class="d-sub" style="margin-bottom:22px">Everything about your account and your home, in one place.</p>
+        <div class="dash2">
+          <div class="d-left">
+            <div class="plancard">
+              <div class="d-modtitle">Account</div>
+              <div class="sumrow"><span class="k">Name</span><span class="v">Jordan Avery</span></div>
+              <div class="sumrow"><span class="k">Email</span><span class="v">jordan.avery@email.com</span></div>
+              <div class="sumrow"><span class="k">Password</span><span class="v">••••••••</span></div>
+              <div style="margin-top:16px"><button class="pa-btn" onclick="alert('Prototype: edit your account details.')">Edit details</button></div>
+            </div>
+            <div class="plancard" style="margin-top:14px">
+              <div class="d-modtitle">Your home</div>
+              <div class="sumrow"><span class="k">Address</span><span class="v">14 Marrickville Rd, NSW 2204</span></div>
+              <div class="sumrow"><span class="k">Household</span><span class="v" id="pf-household">—</span></div>
+              <div class="sumrow"><span class="k">People</span><span class="v" id="pf-people">—</span></div>
+              <div class="sumrow"><span class="k">Home in the day</span><span class="v" id="pf-daytime">—</span></div>
+            </div>
+          </div>
+          <div class="d-right">
+            <div class="savecard">
+              <div class="d-modtitle">Preferences</div>
+              <div class="sumrow"><span class="k">Compare the market</span><span class="v" id="pf-reminder">Every 6 months</span></div>
+              <div class="sumrow"><span class="k">Email reminders</span><span class="v">On</span></div>
+              <div class="sumrow"><span class="k">Bill on file</span><span class="v" id="pf-bill">Not yet</span></div>
+            </div>
+            <div class="d-soft" style="margin-top:14px">
+              <div class="ds-i">⎋</div>
+              <div class="pa-main"><div class="ds-t">Sign out</div><div class="ds-s">You'll stay subscribed to your reminders.</div></div>
+              <button class="ds-btn" onclick="go(0)">Sign out</button>
+            </div>
+          </div>
+        </div>
+        <p class="d-disc">Prototype for internal review — not CIMET approved.</p>
       </div>
     </div>
   </div>
 </section>
 </main>
+
+<!-- ADD RATES MODAL -->
+<div class="modal-overlay hidden" id="rateModal" onclick="if(event.target===this)closeRateModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-t" id="rm-title">Add your plan details</div>
+      <button class="modal-x" onclick="closeRateModal()" aria-label="Close">✕</button>
+    </div>
+    <p class="modal-sub" id="rm-sub">Choose how you'd like to add them.</p>
+
+    <div class="billopts" id="rm-choice">
+      <button class="billopt" onclick="rmPick('screenshot')">
+        <span class="bo-i">▦</span>
+        <span class="bo-main"><span class="bo-t">Upload a screenshot <span class="best">We read it</span></span><span class="bo-s">A photo of your plan summary or welcome email.</span></span>
+      </button>
+      <button class="billopt" onclick="rmPick('manual')">
+        <span class="bo-i">⌨</span>
+        <span class="bo-main"><span class="bo-t">Enter the numbers myself</span><span class="bo-s">Just the supply and usage rate.</span></span>
+      </button>
+    </div>
+
+    <div id="rm-screenshot" class="hidden">
+      <div class="dropzone" id="rm-dz" onclick="rmScan()">
+        <div class="dzi">▦</div>
+        <div class="dzt">Add a screenshot</div>
+        <div class="dzs">We'll read your supply and usage rate from it.</div>
+      </div>
+      <div class="secure">🔒 Stored encrypted. Only you and your account can see it.</div>
+      <button class="backbtn" onclick="rmBack()" style="margin-top:10px">← Choose another way</button>
+    </div>
+
+    <div id="rm-manual" class="hidden">
+      <div class="mrow"><label class="field">Daily supply charge</label><div class="inpwrap"><input class="inp" type="number" step="0.01" id="rm-supply" placeholder="e.g. 1.45"><span class="unit">$ / day</span></div></div>
+      <div class="mrow" id="rm-kwh-row" style="display:none"><label class="field">Average daily usage <span class="tiny">(kWh/day on your bill)</span></label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="rm-kwh" placeholder="e.g. 11.5"><span class="unit">kWh / day</span></div></div>
+      <div class="mrow" style="margin-bottom:0"><label class="field">Usage rate</label><div class="inpwrap"><input class="inp" type="number" step="0.1" id="rm-usage" placeholder="e.g. 30.1"><span class="unit">c / kWh</span></div></div>
+      <button class="btn dark block" style="margin-top:16px" onclick="rmSave()">Save details</button>
+      <button class="backbtn" onclick="rmBack()" style="margin-top:6px">← Choose another way</button>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <div class="nav"><div class="navin">
@@ -666,35 +924,34 @@
 const S = {
   householdType:null, household:null, daytime:null,
   usageType:'single', switched:null, reminder:'6',
-  offers:[], homerunOffer:150, emailState:'switched'
+  offers:[], homerunOffer:150, emailState:'switched', billMethod:null, planActionMode:'addNew'
 };
 
 /* ---------- email copy (auto-adjusts to switch status; personally signed) ---------- */
 const SIG='<div style="border-top:1px solid var(--line);margin-top:20px;padding-top:16px">'
   +'<p style="margin:0 0 2px;font-weight:800;color:var(--ink);font-size:14.5px">Scott McKeon</p>'
   +'<p style="margin:0;color:var(--ink-40);font-size:13px">Founder, Homerun</p></div>';
+const CTA=(label)=>'<p style="margin:20px 0"><a class="elink" onclick="startFlow()">'+label+' &rarr;</a></p>';
 const EMAIL = {
   switched:{
     subj:'Your switch is done. Now let\'s keep it paying off.',
     h:'Nice work. Now let\'s make the savings stick.',
     p:'<p>Switching once is the easy win. Staying on a genuinely good deal is where the real money is, and it\'s the part almost nobody gets around to.</p>'
-      +'<p>That\'s what your Homerun Switch account is for. Your plan, rates and bills sit in one place, we keep checking your deal against the market, and we tell you the moment a better one appears. No spreadsheets, no comparison sites, no quietly sliding onto a loyalty price a year from now.</p>'
-      +'<p>We do the watching. You keep the savings. Setting it up takes about two minutes, and your details are already saved.</p>'
-      +'<p style="color:var(--ink)">I started Homerun because renters and sharehouses cop the worst energy deals and have the least time to fix them. Keeping you on a good one is on us, not you.</p>'
-      +SIG,
-    cta:'Set up my account',
-    secondary:''
+      +'<p>That\'s what your Homerun Switch account is for: one place to understand your bill and plan, regular reminders to compare the market, and an easy way to switch when you find a better deal. No spreadsheets, no comparison sites, no quietly sliding onto a loyalty price a year from now.</p>'
+      +CTA('Set up my account')
+      +'<p>Activate your account and we\'ll help you make sense of your plan, remind you when it\'s worth comparing again, and make switching a few taps instead of an afternoon. Your details are already saved, so it takes about two minutes.</p>'
+      +'<p style="color:var(--ink)">I started Homerun because renters and sharehouses cop the worst energy deals and have the least time to fix them. Making your energy simple to understand, and easy to stay on top of, is the whole point.</p>'
+      +SIG
   },
   notyet:{
     subj:'Activate your Homerun account',
-    h:'Activate your account. We\'ll do the heavy lifting.',
-    p:'<p>You\'ve seen what you could save. The hard part is everything after: choosing the right plan, doing the paperwork, and making sure the deal stays good once the welcome offer fades.</p>'
-      +'<p>That\'s exactly what Homerun Switch does for you. Activate your account and we handle the heavy lifting: line up the best offers for your usage, turn switching into a few taps instead of an afternoon, and keep watching the market so you never drift onto an overpriced plan again.</p>'
-      +'<p>It takes about three minutes to set up, and your comparison is already saved, so you can pick up right where you left off.</p>'
-      +'<p style="color:var(--ink)">I built Homerun to make this the easy, obvious choice for renters and sharehouses. Activate your account and let us do the legwork.</p>'
-      +SIG,
-    cta:'Activate my account',
-    secondary:'<a href="javascript:void(0)" onclick="alert(\'Prototype: reopens the comparison, pre-filled.\')" style="color:var(--warn);font-weight:700;font-size:14px;text-decoration:none">Back to your comparison →</a>'
+    h:'Activate your account. We\'ll make energy make sense.',
+    p:'<p>You\'ve seen what you could save. The hard part is everything after: understanding your plan, knowing when it\'s actually worth switching, and doing the paperwork when it is.</p>'
+      +'<p>That\'s what Homerun Switch is for: one place to understand your bill and plan, regular reminders to compare the market, and an easy way to switch when you find a better deal. No spreadsheets, no comparison sites, no guesswork.</p>'
+      +CTA('Activate my account')
+      +'<p>Activate your account and we\'ll line up offers for your usage, remind you when it\'s worth comparing again, and turn switching into a few taps instead of an afternoon. Your comparison is already saved, so you can pick up right where you left off.</p>'
+      +'<p style="color:var(--ink)">I built Homerun to make this the easy, obvious choice for renters and sharehouses. Understanding your energy shouldn\'t take an afternoon.</p>'
+      +SIG
   }
 };
 function toggleEmail(){
@@ -703,8 +960,6 @@ function toggleEmail(){
   document.getElementById('em-subj').textContent=e.subj;
   document.getElementById('em-h').textContent=e.h;
   document.getElementById('em-p').innerHTML=e.p;
-  document.getElementById('em-cta').textContent=e.cta;
-  document.getElementById('em-secondary').innerHTML=e.secondary;
 }
 const HOMERUN_OFFER_ACTIVE = (new Date()) < (new Date('2026-09-30T23:59:59'));
 
@@ -715,26 +970,122 @@ const totalSteps = document.querySelectorAll('.screen[data-step]').length;
 
 const dashIdx = screens.indexOf(document.getElementById('screen-dashboard'));
 function stepIdx(s){ return screens.findIndex(x=>x.getAttribute('data-step')===s); }
-function goDash(){ buildDashboard(); idx=dashIdx; render(); }
+const setupIdx = screens.indexOf(document.getElementById('screen-setup'));
+function goId(id){ const i=screens.indexOf(document.getElementById(id)); if(i>=0){ idx=i; render(); } }
+function startFlow(){ goId('screen-createacct'); }
+function goDash(){ showSetup(); }
+function showSetup(){
+  idx=setupIdx; render();
+  const msgs=['Saving your details…','Lining up your plan…','Checking the market for you…'];
+  let mi=0; const msgEl=document.getElementById('setup-msg');
+  const t=setInterval(()=>{ mi++; if(mi<msgs.length && msgEl){ msgEl.style.opacity=0; setTimeout(()=>{ msgEl.textContent=msgs[mi]; msgEl.style.opacity=1; },250); } }, 1000);
+  setTimeout(()=>{ clearInterval(t); buildDashboard(); idx=dashIdx; render(); }, 3000);
+}
+/* bill method choice (step 3, optional) */
+function pickBill(m){
+  S.billMethod=m;
+  document.querySelectorAll('.billopt').forEach(b=>b.classList.toggle('on', b.dataset.bill===m));
+  document.querySelectorAll('.bp').forEach(p=>p.classList.add('hidden'));
+  const panel=document.querySelector('.bp-'+m); if(panel) panel.classList.remove('hidden');
+}
+function skipBill(){ next(); }
+/* 2FA mock */
+function prefillCode(){ const ins=document.querySelectorAll('#otp input'); const c='481920'; ins.forEach((el,i)=>{ el.value=c[i]||''; }); }
+/* plan action: add rates (screenshot or manual) or open comparison */
+function handlePlanAction(){
+  if(S.planActionMode==='compare'){ alert('Prototype: opens the comparison, pre-filled with your address and usage.'); return; }
+  openRateModal(S.planActionMode); // 'addNew' or 'addCurrent'
+}
+function openRateModal(mode){
+  S.rmMode = mode || 'addNew';
+  const t=document.getElementById('rm-title'), sub=document.getElementById('rm-sub');
+  if(S.rmMode==='addCurrent'){ t.textContent='Add your current rates'; sub.textContent='So we can benchmark your usage. Choose how to add them.'; }
+  else { t.textContent='Add your new plan'; sub.textContent='So we can show your ongoing difference. Choose how to add them.'; }
+  document.getElementById('rm-choice').classList.remove('hidden');
+  document.getElementById('rm-screenshot').classList.add('hidden');
+  document.getElementById('rm-manual').classList.add('hidden');
+  document.getElementById('rm-kwh-row').style.display = (S.rmMode==='addCurrent') ? 'block' : 'none';
+  ['rm-supply','rm-usage','rm-kwh'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('rateModal').classList.remove('hidden');
+}
+function closeRateModal(){ document.getElementById('rateModal').classList.add('hidden'); }
+function rmPick(m){
+  document.getElementById('rm-choice').classList.add('hidden');
+  document.getElementById('rm-screenshot').classList.toggle('hidden', m!=='screenshot');
+  document.getElementById('rm-manual').classList.toggle('hidden', m!=='manual');
+}
+function rmBack(){
+  document.getElementById('rm-choice').classList.remove('hidden');
+  document.getElementById('rm-screenshot').classList.add('hidden');
+  document.getElementById('rm-manual').classList.add('hidden');
+}
+function rmScan(){ // mock: "read" plausible rates from the screenshot
+  if(S.rmMode==='addCurrent') applyRates(1.66,33.1,11);
+  else applyRates(1.45,30.1,null);
+  closeRateModal();
+}
+function rmSave(){
+  const s=parseFloat(document.getElementById('rm-supply').value)||0;
+  const u=parseFloat(document.getElementById('rm-usage').value)||0;
+  const k=parseFloat(document.getElementById('rm-kwh').value)||0;
+  if(s<=0||u<=0){ alert('Pop in both a supply and a usage rate.'); return; }
+  if(S.rmMode==='addCurrent' && k<=0){ alert('Add your average daily usage too.'); return; }
+  applyRates(s,u,(S.rmMode==='addCurrent')?k:null);
+  closeRateModal();
+}
+function applyRates(supply,usage,kwh){
+  const setVal=(id,v)=>{ const el=document.getElementById(id); if(el) el.value=v; };
+  if(S.rmMode==='addCurrent'){
+    S.usageType='single';
+    setVal('in-supplyOld',supply); setVal('in-usageOld',usage); if(kwh) setVal('in-kwh',kwh);
+  } else {
+    setVal('in-supplyNew',supply); setVal('in-usageNew',usage);
+  }
+  buildDashboard();
+}
+/* dashboard views: Energy <-> Profile */
+function switchView(v){
+  document.getElementById('view-energy').classList.toggle('hidden', v!=='energy');
+  document.getElementById('view-profile').classList.toggle('hidden', v!=='profile');
+  document.querySelectorAll('.sb-nav .nav-i').forEach(n=>n.classList.toggle('active', n.dataset.view===v));
+  document.querySelector('.tb-title').textContent = (v==='profile') ? 'Profile' : 'Energy';
+  if(v==='profile') fillProfile();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function fillProfile(){
+  const set=(id,val)=>{ const el=document.getElementById(id); if(el) el.textContent=val; };
+  set('pf-household', S.householdType || 'Not set');
+  set('pf-people', S.household ? (S.household+(S.household==='5+'?'':' people')) : 'Not set');
+  set('pf-daytime', S.daytime || 'Not set');
+  set('pf-reminder', 'Every '+reminderLabel());
+  set('pf-bill', S.billMethod ? ({upload:'Uploaded',screenshot:'Screenshot on file',manual:'Entered manually'}[S.billMethod]) : 'Not yet');
+}
 
 function render(){
   screens.forEach((s,i)=>s.classList.toggle('active', i===idx));
   window.scrollTo({top:0,behavior:'instant'});
   const cur = screens[idx];
-  document.getElementById('backBtn').style.display = idx>0 ? 'block':'none';
   const step = cur.getAttribute('data-step');
+  const isDash = (cur.id==='screen-dashboard');
+  const isSetup = (cur.id==='screen-setup');
+  const isFull = isDash || isSetup; // full-screen shells with no header/nav
   const sc = document.getElementById('stepcount');
   const total = (S.switched==='no') ? 3 : 5; // not switched: no plan step, no reminder step
-  if(step){ sc.textContent = 'Step '+step+' of '+total; document.getElementById('prog').style.width = (step/total*100)+'%'; }
-  else if(cur.id==='screen-dashboard'){ sc.textContent='Done'; document.getElementById('prog').style.width='100%'; }
+  document.getElementById('backBtn').style.display = (idx>0 && !isFull) ? 'block':'none';
+  if(step){
+    sc.textContent = 'Step '+step+' of '+total;
+    document.getElementById('prog').style.width = (step/total*100)+'%';
+    const b=cur.querySelector('.stepbadge'); if(b) b.textContent = 'Step '+step+' / '+total+(b.dataset.label?(' · '+b.dataset.label):'');
+  }
+  else if(isDash){ sc.textContent='Done'; document.getElementById('prog').style.width='100%'; }
+  else if(cur.id==='screen-createacct' || cur.id==='screen-twofa'){ sc.textContent='Account setup'; document.getElementById('prog').style.width='0%'; }
   else { sc.textContent=''; document.getElementById('prog').style.width='0%'; }
-  const isDash = (cur.id==='screen-dashboard');
-  document.querySelector('.nav').style.display = isDash ? 'none' : 'flex'; // dashboard is a full desktop shell
-  document.querySelector('header').style.display = isDash ? 'none' : 'block';
-  document.getElementById('prog').style.display = isDash ? 'none' : 'block';
+  document.querySelector('.nav').style.display = isFull ? 'none' : 'flex';
+  document.querySelector('header').style.display = isFull ? 'none' : 'block';
+  document.getElementById('prog').style.display = isFull ? 'none' : 'block';
   const nb = document.getElementById('nextBtn');
-  const isEmail = (cur.dataset.nostep!==undefined && !isDash);
-  nb.style.display = (isEmail || step==='5') ? 'none' : 'block'; // email + step5 have their own in-screen CTAs
+  const selfcta = cur.hasAttribute('data-selfcta'); // email + setup + dashboard drive their own CTA
+  nb.style.display = (selfcta || step==='5') ? 'none' : 'block'; // step5 has its own in-screen CTA
   nb.textContent = 'Continue';
   if(step==='4'){
     document.getElementById('homerunOffer').style.display = HOMERUN_OFFER_ACTIVE ? 'flex' : 'none';
@@ -751,12 +1102,12 @@ function next(){
     goDash(); return; // not switched: skip plan + reminder, go straight into the dashboard
   }
   if(step==='4'){ idx=stepIdx('5'); render(); return; }
-  if(idx<screens.length-1){ idx++; if(screens[idx].id==='screen-dashboard') idx++; render(); }
+  if(idx<screens.length-1){ idx++; while(idx<screens.length-1 && (screens[idx].id==='screen-dashboard'||screens[idx].id==='screen-setup')) idx++; render(); }
 }
 function back(){
   const cur=screens[idx];
   if(cur.id==='screen-dashboard'){ idx = (S.switched==='yes') ? stepIdx('5') : stepIdx('3'); render(); return; }
-  if(idx>0){ idx--; if(screens[idx].id==='screen-dashboard') idx--; render(); }
+  if(idx>0){ idx--; while(idx>0 && (screens[idx].id==='screen-dashboard'||screens[idx].id==='screen-setup')) idx--; render(); }
 }
 
 /* ---------- reminder (any month multiple + resolved date) ---------- */
@@ -788,12 +1139,6 @@ function toggleUsageType(){
   computeBill();
 }
 /* ---------- switched toggle ---------- */
-function toggleSwitched(){
-  document.getElementById('branch-yes').classList.toggle('hidden', S.switched!=='yes');
-  document.getElementById('branch-no').classList.toggle('hidden', S.switched!=='no');
-  if(S.switched==='yes' && S.offers.length===0){ addOffer('Sign-up credit', 200); }
-  document.getElementById('homerunOffer').style.display = HOMERUN_OFFER_ACTIVE ? 'flex':'none';
-}
 
 /* ---------- uploads (prototype) ---------- */
 function fakeUpload(id,label){
@@ -866,80 +1211,128 @@ function computeSaving(){
   } else { numEl.textContent='Enter your rates'; numEl.classList.remove('good'); }
 }
 
-/* ---------- build dashboard (two versions: switch incomplete vs complete) ---------- */
+/* ---------- build dashboard — Your Plan (left) + Total Savings Accumulated (right) ---------- */
 function buildDashboard(){
-  const n=id=>parseFloat(document.getElementById(id).value)||0;
-  const kwh=n('in-kwh')||11, supplyOld=n('in-supplyOld')||1.66, rateOld=effOldRate()||33.1;
+  const n=id=>{ const el=document.getElementById(id); return el?(parseFloat(el.value)||0):0; };
   const switched=S.switched==='yes';
-  const supplyNew=switched?(n('in-supplyNew')||1.45):0;
-  const rateNew=switched?(n('in-usageNew')||30.1):0;
-  const retailer=switched?(document.getElementById('in-newRetailer').value||'New plan'):'';
+  const supplyOld=n('in-supplyOld'), rateOld=effOldRate(), kwh=n('in-kwh');
+  const hasOld = supplyOld>0 && rateOld>0 && kwh>0;              // did they give us current details?
+  const supplyNew=n('in-supplyNew'), rateNew=n('in-usageNew');
+  const hasNew = switched && supplyNew>0 && rateNew>0;
+  const retailer = switched ? (document.getElementById('in-newRetailer').value || 'Your new plan') : '';
 
-  // section visibility — the two dashboards
-  document.getElementById('d-action').style.display     = switched ? 'none' : 'flex';   // switch CTA: incomplete only
-  document.getElementById('d-banked').style.display     = switched ? 'block': 'none';    // savings: complete only
-  document.getElementById('d-reminderblock').style.display = switched ? 'block':'none';  // next check: complete only
-  document.getElementById('d-upload').style.display     = switched ? 'flex' : 'none';    // soft upload: complete only
-
-  let saving=0;
-  if(switched && supplyNew>0 && rateNew>0) saving=Math.round(annualCost(supplyOld,rateOld,kwh)-annualCost(supplyNew,rateNew,kwh));
+  // ongoing saving estimate (only when we have both sides)
+  let saving=0, canSave=false;
+  if(switched && hasOld && hasNew){ saving=Math.round(annualCost(supplyOld,rateOld,kwh)-annualCost(supplyNew,rateNew,kwh)); canSave=true; }
 
   const hero=document.getElementById('d-hero'), herosub=document.getElementById('d-herosub');
+  const title=document.getElementById('d-ratetitle'), note=document.getElementById('d-ratenote');
+  const oldHead=document.getElementById('d-oldhead'), newHead=document.getElementById('d-newhead');
+  const supOldEl=document.getElementById('d-supplyOld'), useOldEl=document.getElementById('d-usageOld');
+  const supNewEl=document.getElementById('d-supplyNew'), useNewEl=document.getElementById('d-usageNew');
+  const action=document.getElementById('d-planaction');
+  const paT=document.getElementById('pa-t'), paS=document.getElementById('pa-s'), paBtn=document.getElementById('pa-btn');
 
-  if(!switched){
-    // ---- VERSION A: not switched yet — full dashboard, switch is a primary CTA inside it ----
-    hero.innerHTML='Welcome to Homerun.';
-    herosub.textContent='Your energy, all in one place. Compare offers, track your plan, and switch the moment it pays. We\'ll do the heavy lifting.';
-    document.getElementById('da-t').textContent='Compare offers and switch';
-    document.getElementById('da-s').textContent='Pre-filled with your address and usage. A few taps, not a form.';
-    document.getElementById('da-btn').textContent='Compare offers →';
-  } else if(saving>0){
-    // ---- VERSION B: complete — reinforce savings ----
-    hero.innerHTML='You\'re saving about <b>$'+saving+'</b> a year.';
-    herosub.textContent='That\'s the ongoing drop from your switch, on top of your one-off welcome credits. Nice work. We\'ll keep an eye on it for you.';
-  } else {
-    hero.innerHTML='Your switch is banked.';
-    herosub.textContent='Your welcome offers are locked in. Your ongoing rate isn\'t lower this time, so we\'ll flag a genuinely better plan at your next check.';
-  }
-
-  // banked values (complete only)
-  if(switched){
-    const ongEl=document.getElementById('d-ongoing');
-    ongEl.textContent = saving>=0 ? '~$'+saving+'/yr' : '−$'+Math.abs(saving)+'/yr';
-    ongEl.className = 'dval '+(saving>=0?'good':'');
-    const credits=S.offers.filter(Boolean).reduce((a,o)=>a+(parseFloat(o.val)||0),0);
-    document.getElementById('d-credits').textContent='$'+credits;
-    document.getElementById('d-homerun').textContent = HOMERUN_OFFER_ACTIVE? '$150':'$0';
-    document.getElementById('d-reminder-date').textContent=fmtDate(reminderDate());
-    document.getElementById('d-reminder-sub').textContent='In '+reminderLabel()+'. You\'re in control, change or cancel anytime.';
-  }
-
-  // rates (adaptive)
-  document.getElementById('d-supplyOld').textContent='$'+supplyOld.toFixed(2)+'/day';
+  // usage label + old side
   let usageLabel='Usage';
   if(S.usageType==='tou') usageLabel='Usage (blended)';
   if(S.usageType==='controlled') usageLabel='Usage (general)';
   document.getElementById('d-usageLabel').textContent=usageLabel;
-  document.getElementById('d-usageOld').textContent=rateOld.toFixed(1)+'c/kWh';
-  const supNew=document.getElementById('d-supplyNew'), useNew=document.getElementById('d-usageNew');
-  const oldHead=document.getElementById('d-oldhead'), newHead=document.getElementById('d-newhead');
-  const rateTitle=document.getElementById('d-ratetitle'), rateNote=document.getElementById('d-ratenote');
+  supOldEl.textContent = hasOld ? '$'+supplyOld.toFixed(2)+'/day' : '—';
+  useOldEl.textContent = hasOld ? rateOld.toFixed(1)+'c/kWh' : '—';
+
+  // ===== YOUR PLAN (left) =====
   if(switched){
-    rateTitle.textContent='Your rates · electricity';
+    title.textContent='Your plan · electricity';
     oldHead.textContent='Previous'; newHead.textContent=retailer;
-    supNew.textContent='$'+supplyNew.toFixed(2)+'/day'; supNew.className='rcur';
-    useNew.textContent=rateNew.toFixed(1)+'c/kWh'; useNew.className='rcur';
-    rateNote.innerHTML='Compared for your <b style="color:#a8a097">next bill</b> at your current usage. Real bills move with the seasons.';
+    hero.innerHTML = (canSave && saving>0) ? 'You\'re saving about <b>$'+saving+'</b> a year' : 'Your plan';
+    herosub.textContent = (canSave && saving>0)
+      ? 'That\'s the estimated ongoing drop from your switch, on top of your one-off welcome credits. We\'ll remind you when it\'s worth comparing again.'
+      : 'Here\'s your plan and everything you\'ve banked so far. We\'ll remind you when it\'s worth comparing again.';
+    if(hasNew){
+      supNewEl.textContent='$'+supplyNew.toFixed(2)+'/day'; supNewEl.className='rcur';
+      useNewEl.textContent=rateNew.toFixed(1)+'c/kWh'; useNewEl.className='rcur';
+      note.innerHTML='Compared for your <b>next bill</b> at your current usage. Estimates only — not verified against retailer records, and real bills move with the seasons.';
+      action.style.display='none';
+    } else {
+      supNewEl.textContent='?'; supNewEl.className='rcur pend';
+      useNewEl.textContent='?'; useNewEl.className='rcur pend';
+      note.innerHTML='We\'ve saved your switch. Add your new plan\'s rates so we can show the ongoing difference.';
+      paT.textContent='Add in current details'; paS.textContent='Pop in your new plan\'s supply and usage rate to complete your savings picture.'; paBtn.textContent='Add details →';
+      S.planActionMode='addNew';
+      action.style.display='flex';
+    }
   } else {
-    rateTitle.textContent='Your plan today · electricity';
-    oldHead.textContent='Now'; newHead.textContent='After switch';
-    supNew.textContent='?'; supNew.className='rcur pend';
-    useNew.textContent='?'; useNew.className='rcur pend';
-    rateNote.innerHTML='This is what you\'re on today. Compare to see what a better plan looks like for your usage.';
+    title.textContent='Your plan today · electricity';
+    oldHead.textContent='Now'; newHead.textContent='Best offer';
+    supNewEl.textContent='?'; supNewEl.className='rcur pend';
+    useNewEl.textContent='?'; useNewEl.className='rcur pend';
+    hero.innerHTML='Welcome to Homerun';
+    herosub.textContent='Your energy in one place. Understand your plan, get a nudge when it\'s worth comparing again, and switch easily when you find a better deal.';
+    if(hasOld){
+      note.innerHTML='This is what you\'re on today. Compare to see what a better plan looks like for your usage.';
+      paT.textContent='Compare offers & switch'; paS.textContent='Pre-filled with your address and usage. A few taps, not a form.'; paBtn.textContent='Compare offers →';
+      S.planActionMode='compare';
+    } else {
+      note.innerHTML='We don\'t have your current rates yet. Add them so we can benchmark your usage and find a better deal.';
+      paT.textContent='Add in current details'; paS.textContent='Add your current supply and usage rate, or upload a screenshot and we\'ll read it for you.'; paBtn.textContent='Add details →';
+      S.planActionMode='addCurrent';
+    }
+    action.style.display='flex';
   }
 
-  document.getElementById('d-disc').textContent='Prototype for internal review. Figures are calculated live from the numbers you entered, not verified retailer rates, and this comparison is not CIMET approved. Homerun compares a panel of retailers, not the whole market, and may earn a commission when you switch.';
+  // next switch — default 6 months, shown for both states
+  document.getElementById('d-reminder-date').textContent=fmtDate(reminderDate());
+  document.getElementById('d-reminder-sub').textContent='We compare the market for you again in '+reminderLabel();
+
+  // ===== TOTAL SAVINGS ACCUMULATED (right) =====
+  const credits = switched ? S.offers.filter(Boolean).reduce((a,o)=>a+(parseFloat(o.val)||0),0) : 0;
+  const giftcard = (switched && HOMERUN_OFFER_ACTIVE) ? 150 : 0;
+  const banked = credits + giftcard; // one-off, realised — the honest headline
+  const totalEl=document.getElementById('d-savetotal'), totalSub=document.getElementById('d-savetotal-s');
+  totalEl.textContent='$'+banked;
+  totalEl.className = 'savetotal'+(banked>0?'':' zero');
+  totalSub.textContent = banked>0
+    ? 'Banked so far from welcome offers and your Homerun reward. Your estimated ongoing saving is listed separately below — it builds up bill by bill.'
+    : 'Nothing banked yet. Switch to a better plan and your welcome offers and Homerun reward land here.';
+
+  // ongoing saving line
+  const ong=document.getElementById('d-ongoing'), icOng=document.getElementById('ic-ong');
+  if(canSave && saving>0){ ong.textContent='~$'+saving+'/yr'; ong.className='dval good'; icOng.className='dico ok'; icOng.textContent='✓'; }
+  else if(canSave && saving<=0){ ong.textContent='No drop'; ong.className='dval pend'; icOng.className='dico pend'; icOng.textContent='◷'; }
+  else { ong.textContent='Pending'; ong.className='dval pend'; icOng.className='dico pend'; icOng.textContent='◷'; }
+
+  // welcome credits line
+  const crEl=document.getElementById('d-credits'), icCr=document.getElementById('ic-cr');
+  crEl.textContent = (switched && credits>0) ? '$'+credits : (switched ? '$0' : 'Pending');
+  crEl.className = 'dval'+((switched && credits>0)?'':' pend');
+  icCr.className = 'dico '+((switched && credits>0)?'ok':'pend'); icCr.textContent = (switched && credits>0)?'✓':'◷';
+
+  // Homerun gift card line
+  const hrEl=document.getElementById('d-homerun'), icHr=document.getElementById('ic-hr');
+  const hrSub=hrEl.closest('.drow').querySelector('.ds');
+  if(switched && HOMERUN_OFFER_ACTIVE){ hrEl.textContent='$150'; hrEl.className='dval'; icHr.className='dico ok'; icHr.textContent='✓'; hrSub.textContent='Our thank-you, separate from the comparison'; }
+  else if(!switched && HOMERUN_OFFER_ACTIVE){ hrEl.textContent='$150'; hrEl.className='dval pend'; icHr.className='dico pend'; icHr.textContent='◷'; hrSub.textContent='Yours if you switch before 30 September'; }
+  else { hrEl.textContent='$0'; hrEl.className='dval pend'; icHr.className='dico pend'; icHr.textContent='◷'; hrSub.textContent='Offer window closed'; }
+
+  // soft upload prompt only meaningful once switched
+  document.getElementById('d-upload').style.display = switched ? 'flex':'none';
+
+  // always open the dashboard on the Energy view
+  switchView('energy');
+  fillProfile();
+
+  document.getElementById('d-disc').textContent='Prototype for internal review — not CIMET approved. Figures are indicative estimates calculated live from the details you entered, not verified against retailer records, and exclude usage changes and seasonal variation. Homerun compares a panel of retailers, not the whole market, and may receive a commission when you switch. One-off credits and the Homerun gift card are shown separately from ongoing savings and are not guaranteed beyond their stated terms.';
 }
+
+/* ---------- 2FA code inputs: auto-advance + backspace (mock) ---------- */
+(function(){
+  const ins=[...document.querySelectorAll('#otp input')];
+  ins.forEach((el,i)=>{
+    el.addEventListener('input',()=>{ el.value=el.value.replace(/\D/g,'').slice(0,1); if(el.value && ins[i+1]) ins[i+1].focus(); });
+    el.addEventListener('keydown',e=>{ if(e.key==='Backspace' && !el.value && ins[i-1]) ins[i-1].focus(); });
+  });
+})();
 
 toggleEmail();
 render();
